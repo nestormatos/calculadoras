@@ -1,0 +1,30 @@
+HERRAMIENTAS DE HIDRATACION - 3 herramientas HTML
+==================================================
+
+Archivos:
+  sweat-rate-calculator.html               Calculadora de tasa de sudoracion
+  emergency-water-storage-calculator.html  Calculadora de agua para emergencias
+  bottle-time-marker-labels.html           Generador de etiquetas horarias para botella
+
+Como subirlas:
+  1. Sube los 3 archivos .html a la misma carpeta de tu servidor
+     (por ejemplo, la raiz de hydration.simplepdftools.in).
+  2. No necesitan base de datos, PHP ni librerias externas. Cada archivo
+     trae su CSS y JavaScript incluidos y funciona sin conexion.
+  3. Los enlaces entre las 3 herramientas son relativos, asi que deben
+     quedar en la misma carpeta. Si les cambias el nombre, actualiza los
+     enlaces del pie de pagina (busca "footer" en cada archivo).
+
+Idioma:
+  - Ingles y espanol con el boton EN / ES arriba a la derecha.
+  - Se elige solo segun el idioma del navegador y recuerda la eleccion.
+  - Puedes forzar el idioma con ?lang=es o ?lang=en en la URL
+    (util para enlazar desde una version en espanol del sitio).
+
+Privacidad:
+  - Todo se calcula en el navegador. Las sesiones guardadas y los ajustes
+    se guardan solo en el dispositivo del usuario (localStorage).
+
+Para agregarlas a tu pagina principal:
+  - Anade tarjetas/enlaces en tu seccion #all-tools apuntando a los
+    3 archivos. Si usas un sitemap.xml, agrega las 3 URLs.
