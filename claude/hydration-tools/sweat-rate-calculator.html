@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A7389">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z' fill='%230A7389'/%3E%3C/svg%3E">
+<title>Sweat Rate Calculator: How Much Fluid You Lose Per Hour | Hydration Tools</title>
+<meta name="description" content="Free sweat rate calculator. Weigh yourself before and after exercise to see how much fluid you lose per hour and how much to drink next time.">
+<style>
+:root{
+  --ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;
+  --current:#0A7389;--current-ink:#FFFFFF;
+  --ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA;
+  --radius-lg:18px;--radius:10px;
+  --font-display:ui-rounded,"SF Pro Rounded","Nunito","Varela Round","Segoe UI",system-ui,sans-serif;
+  --font-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;
+    --current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--font-body);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:20px;padding-right:20px}
+a{color:var(--current)}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center}
+.brand svg{color:var(--current)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{border:0;background:none;color:var(--ink-2);font:600 13px var(--font-body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.hero{padding:24px 0 28px;max-width:700px}
+.hero h1{font-family:var(--font-display);font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.06;margin:0 0 14px;letter-spacing:-.015em;font-weight:800}
+.hero p{font-size:1.12rem;color:var(--ink-2);margin:0;max-width:60ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start;padding-bottom:28px}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:24px}
+@media (max-width:520px){.panel{padding:18px}}
+.result{position:sticky;top:16px}
+@media (max-width:880px){.result{position:static}}
+fieldset{border:0;padding:0;margin:0 0 26px;min-width:0}
+fieldset:last-child{margin-bottom:0}
+legend,.panel h2{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin:0 0 14px;padding:0}
+.panel h3{font-family:var(--font-display);font-size:1.02rem;margin:22px 0 8px}
+label,.label{display:block;font-weight:600;font-size:.94rem;margin:0 0 6px}
+.hint{font-size:.86rem;color:var(--ink-2);margin:6px 0 0;max-width:62ch}
+.muted{color:var(--ink-2)}
+.field{margin-bottom:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row .field{margin-bottom:0}
+.row + .hint,.row + .field{margin-top:12px}
+@media (max-width:420px){.row{grid-template-columns:1fr}}
+input[type=number],input[type=time],select{width:100%;font:inherit;font-size:1rem;padding:11px 12px;border:1px solid var(--line);
+  border-radius:var(--radius);background:var(--paper);color:var(--ink);font-variant-numeric:tabular-nums;min-height:46px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--current);outline-offset:2px}
+.with-unit{position:relative}
+.with-unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--ink-2);font-size:.9rem;pointer-events:none}
+.with-unit input{padding-right:52px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:var(--surface);color:var(--ink-2);font:600 14px var(--font-body);padding:10px 14px;cursor:pointer;min-height:42px}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--current);color:var(--current-ink)}
+.stepper{display:flex}
+.stepper input{text-align:center;border-radius:0;border-left:0;border-right:0;-moz-appearance:textfield}
+.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
+.stepper button{width:46px;flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 20px var(--font-body);cursor:pointer}
+.stepper button:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.stepper button:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--current);margin:2px 0 0;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:var(--radius);padding:12px 18px;
+  font:600 15px var(--font-body);cursor:pointer;background:var(--current);color:var(--current-ink);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.k{font-weight:600;color:var(--ink-2);margin:0 0 4px}
+.big{font-family:var(--font-display);font-size:clamp(2.8rem,8vw,4rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.big small{font-size:.38em;font-weight:700;margin-left:8px;color:var(--ink-2);letter-spacing:0}
+.note{border-radius:var(--radius);padding:12px 14px;font-size:.94rem;margin-top:14px}
+.note.ok{background:var(--ok-soft)}.note.warn{background:var(--warn-soft)}.note.bad{background:var(--bad-soft)}.note.info{background:var(--mist)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;margin-top:20px}
+.stat{border-top:2px solid var(--line);padding-top:8px}
+.stat span{display:block;font-size:.86rem;color:var(--ink-2)}
+.stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums;margin-top:2px}
+.scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th,.tbl td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl th{font-weight:600;color:var(--ink-2)}
+.tbl .n{text-align:right;font-variant-numeric:tabular-nums}
+.prose{max-width:70ch}
+.prose p{margin:0 0 12px}
+.section{margin-bottom:24px}
+.more{border-top:1px solid var(--line);padding-top:26px;padding-bottom:44px;font-size:.92rem;color:var(--ink-2)}
+.more nav{display:flex;gap:10px 22px;flex-wrap:wrap;margin-bottom:14px}
+.more p{margin:0 0 8px;max-width:75ch}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:600}
+.toast.show{opacity:1}
+.print-only{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  header.top,.more,.no-print,.lang{display:none!important}
+  .print-only{display:block}
+  body{background:#fff;color:#000}
+  .panel{border:0;padding:0;background:none}
+  .result{position:static}
+}
+.prose h2{font-family:var(--font-display);font-size:1.3rem;margin:0 0 10px}
+@media (max-width:420px){.seg button{padding:10px 10px;font-size:13px}}
+
+.replace{display:flex;gap:18px;align-items:center;margin:22px 0 4px}
+.replace p{margin:0 0 6px}
+.bottle{width:84px;height:auto;flex:none}
+.b-cap{fill:var(--ink-2)}.b-glass{fill:var(--mist)}.b-water{fill:var(--current)}
+.b-outline{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round}
+.strong{font-weight:700}
+#histBody .btn{margin-top:14px}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="https://hydration.simplepdftools.in/">
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
+    <span data-i18n="brand">Hydration Tools</span>
+  </a>
+  <div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+    <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <h1 data-i18n="h1">Sweat rate calculator</h1>
+    <p data-i18n="lead"></p>
+  </section>
+
+  <div class="grid">
+    <form class="panel" id="form" novalidate onsubmit="return false">
+      <div class="field">
+        <span class="label" data-i18n="units">Units</span>
+        <div class="seg" id="units" role="group">
+          <button type="button" data-v="imperial">lb / oz</button>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend data-i18n="weighIn">Weigh-in</legend>
+        <div class="row">
+          <div class="field">
+            <label for="pre" data-i18n="pre">Weight before</label>
+            <div class="with-unit"><input id="pre" type="number" inputmode="decimal" step="0.1" min="20" max="400"><span class="u-w">lb</span></div>
+          </div>
+          <div class="field">
+            <label for="post" data-i18n="post">Weight after</label>
+            <div class="with-unit"><input id="post" type="number" inputmode="decimal" step="0.1" min="20" max="400"><span class="u-w">lb</span></div>
+          </div>
+        </div>
+        <p class="hint" data-i18n="weighHint"></p>
+      </fieldset>
+
+      <fieldset>
+        <legend data-i18n="during">During the session</legend>
+        <div class="row">
+          <div class="field">
+            <label for="drank" data-i18n="drank">Fluid you drank</label>
+            <div class="with-unit"><input id="drank" type="number" inputmode="decimal" step="1" min="0" placeholder="0"><span class="u-v">oz</span></div>
+          </div>
+          <div class="field">
+            <label for="urine" data-i18n="urine">Urine passed</label>
+            <div class="with-unit"><input id="urine" type="number" inputmode="decimal" step="1" min="0" placeholder="0"><span class="u-v">oz</span></div>
+          </div>
+        </div>
+        <p class="hint" data-i18n="urineHint"></p>
+        <div class="field" style="margin-top:16px">
+          <label for="mins" data-i18n="duration">Session length</label>
+          <div class="with-unit"><input id="mins" type="number" inputmode="numeric" step="5" min="1" max="1440"><span>min</span></div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="sport" data-i18n="sport">Activity</label>
+            <select id="sport">
+              <option value="run" data-i18n="run">Running</option>
+              <option value="bike" data-i18n="bike">Cycling</option>
+              <option value="gym" data-i18n="gym">Gym</option>
+              <option value="team" data-i18n="team">Team sport</option>
+              <option value="other" data-i18n="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cond" data-i18n="cond">Conditions</label>
+            <select id="cond">
+              <option value="cool" data-i18n="cool">Cool</option>
+              <option value="mild" data-i18n="mild" selected>Mild</option>
+              <option value="hot" data-i18n="hot">Hot</option>
+              <option value="humid" data-i18n="humid">Hot and humid</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <section class="panel result" id="result" aria-live="polite"></section>
+  </div>
+
+  <section class="panel section">
+    <h2 data-i18n="histTitle">Your saved sessions</h2>
+    <div id="histBody"></div>
+  </section>
+
+  <section class="section prose">
+    <h2 class="h2" data-i18n="howTitle">How it works</h2>
+    <p data-i18n="how1"></p>
+    <p data-i18n="how2"></p>
+  </section>
+</main>
+<footer class="more wrap">
+  <nav data-i18n-aria="moreNav" aria-label="More hydration tools">
+    <a href="sweat-rate-calculator.html" data-i18n="toolSweat">Sweat rate calculator</a>
+    <a href="emergency-water-storage-calculator.html" data-i18n="toolEmergency">Emergency water storage calculator</a>
+    <a href="bottle-time-marker-labels.html" data-i18n="toolLabels">Bottle time-marker labels</a>
+    <a href="https://hydration.simplepdftools.in/" data-i18n="toolAll">All hydration tools</a>
+  </nav>
+  <p data-i18n="disclaimer"></p>
+  <p data-i18n="privacy">Everything runs in your browser. Nothing you enter is sent anywhere.</p>
+</footer>
+<script>
+const Common = (() => {
+  const BASE = {
+    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator',
+      toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language',
+      privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.', dec: 'Decrease', inc: 'Increase' },
+    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias',
+      toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma',
+      privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.', dec: 'Restar', inc: 'Sumar' }
+  };
+  let dict = BASE, lang = 'en', onChange = () => {};
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  function t(k, vars) {
+    const src = dict[lang] || {};
+    let s = src[k] != null ? src[k] : (dict.en[k] != null ? dict.en[k] : k);
+    if (vars) for (const v in vars) s = s.split('{' + v + '}').join(vars[v]);
+    return s;
+  }
+  function apply() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    document.title = t('title');
+    const md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', t('metaDesc'));
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    onChange();
+  }
+  function init(pageDict, cb) {
+    dict = { en: Object.assign({}, BASE.en, pageDict.en), es: Object.assign({}, BASE.es, pageDict.es) };
+    onChange = cb || onChange;
+    const q = new URLSearchParams(location.search).get('lang');
+    const saved = store.get('ht-lang');
+    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    lang = (q === 'es' || q === 'en') ? q : (saved === 'es' || saved === 'en' ? saved : (nav === 'es' ? 'es' : 'en'));
+    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+      lang = b.dataset.lang; store.set('ht-lang', lang); apply();
+    }));
+    document.addEventListener('click', e => {
+      const b = e.target.closest('[data-step]');
+      if (!b) return;
+      const inp = b.parentElement.querySelector('input');
+      const min = inp.min !== '' ? +inp.min : -Infinity, max = inp.max !== '' ? +inp.max : Infinity;
+      let v = parseFloat(inp.value); if (!isFinite(v)) v = 0;
+      inp.value = Math.min(max, Math.max(min, v + (+b.dataset.step)));
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    apply();
+  }
+  const locale = () => (lang === 'es' ? 'es-DO' : 'en-US');
+  function num(n, d = 0) {
+    return new Intl.NumberFormat(locale(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
+  }
+  function seg(el, cur, cb) {
+    const bs = el.querySelectorAll('button');
+    const set = v => bs.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(v))));
+    set(cur);
+    bs.forEach(b => b.addEventListener('click', () => {
+      if (b.getAttribute('aria-pressed') === 'true') return;
+      set(b.dataset.v); cb(b.dataset.v);
+    }));
+    return set;
+  }
+  function val(id) { const v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : NaN; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  let tt;
+  function toast(m) {
+    let el = document.getElementById('toast');
+    if (!el) { el = document.createElement('div'); el.id = 'toast'; el.className = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+    el.textContent = m; el.classList.add('show');
+    clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+  return { t, init, num, seg, val, esc, toast, store, locale, get lang() { return lang; } };
+})();
+
+(() => {
+const D = {
+en: {
+  title: 'Sweat Rate Calculator: How Much Fluid You Lose Per Hour | Hydration Tools',
+  metaDesc: 'Free sweat rate calculator. Weigh yourself before and after exercise to see how much fluid you lose per hour and how much to drink next time.',
+  h1: 'Sweat rate calculator',
+  lead: 'Weigh yourself before and after a workout to find out how much fluid you lose each hour, and how much to drink next time.',
+  units: 'Units', weighIn: 'Weigh-in', pre: 'Weight before', post: 'Weight after',
+  weighHint: 'Use the same scale and minimal clothing both times. Go to the toilet before the first weigh-in and towel off sweat before the second.',
+  during: 'During the session', drank: 'Fluid you drank', urine: 'Urine passed',
+  urineHint: 'Only if you went to the toilet during the session. Most people leave this at 0.',
+  duration: 'Session length', sport: 'Activity', run: 'Running', bike: 'Cycling', gym: 'Gym or strength', team: 'Team sport', other: 'Other',
+  cond: 'Conditions', cool: 'Cool', mild: 'Mild', hot: 'Hot', humid: 'Hot and humid',
+  emptyTitle: 'Your sweat rate will appear here',
+  emptyBody: 'Enter both weights and the session length. Add what you drank for an accurate result.',
+  rateLabel: 'Your sweat rate',
+  replaced: 'You drank {a} and lost about {b} in sweat.',
+  replacedPct: 'That replaced {p}% of your sweat loss.',
+  stLoss: 'Total sweat loss', stMass: 'Body mass change', stDrink: 'Drink per hour next time', stRehyd: 'Drink after this session',
+  drinkRange: '{a} to {b}', drinkThirst: 'To thirst, up to {b}', rehydNone: 'Nothing extra needed',
+  nOk: 'You lost less than 1% of your body mass, so your drinking kept up well.',
+  nWarn: 'You lost {p}% of your body mass. That is manageable, but for longer or hotter sessions try drinking a little more.',
+  nBad: 'You lost {p}% of your body mass. Losses above 2% can hurt performance and make heat harder to handle, so drink more during similar sessions.',
+  nGain: 'You weighed more after than before, which means you drank more than you sweated. Overdrinking during long exercise can dilute your blood sodium (hyponatremia), which is dangerous. Drink less next time and let thirst guide you.',
+  nCheck: 'This result is outside the range we can verify (5 to 118 fl oz per hour). Check your weights and units.',
+  nBadInput: 'Sweat loss came out at zero or less. Check the weight after, the fluid you drank and the urine value.',
+  save: 'Save this session', saved: 'Session saved',
+  histTitle: 'Your saved sessions',
+  histEmpty: 'Save sessions to compare your sweat rate across activities and weather. They stay on this device.',
+  avg: 'Average sweat rate: {r}', clear: 'Delete all sessions', confirmClear: 'Delete all saved sessions from this device?',
+  colDate: 'Date', colAct: 'Activity', colCond: 'Conditions', colTime: 'Length', colRate: 'Sweat rate', colLoss: 'Mass change',
+  howTitle: 'How it works',
+  how1: 'Sweat loss equals your weight before, minus your weight after, plus what you drank, minus any urine. Each kilogram lost is about one litre of fluid. Dividing by the session length gives your hourly rate.',
+  how2: 'Sweat rate changes with heat, humidity, intensity and fitness, so repeat the test in different conditions. After exercise, drinking 1.25 to 1.5 times the weight you lost helps you fully rehydrate.',
+  disclaimer: 'General guidance for healthy adults, not medical advice. If you have a heart or kidney condition or take medicine that affects fluids, ask your doctor about your fluid needs.'
+},
+es: {
+  title: 'Calculadora de tasa de sudoración: cuánto líquido pierdes por hora',
+  metaDesc: 'Calculadora gratis de tasa de sudoración. Pésate antes y después de entrenar para saber cuánto líquido pierdes por hora y cuánto beber la próxima vez.',
+  h1: 'Calculadora de tasa de sudoración',
+  lead: 'Pésate antes y después de entrenar para saber cuánto líquido pierdes cada hora y cuánto beber la próxima vez.',
+  units: 'Unidades', weighIn: 'Pesaje', pre: 'Peso antes', post: 'Peso después',
+  weighHint: 'Usa la misma báscula y poca ropa las dos veces. Ve al baño antes del primer pesaje y sécate el sudor antes del segundo.',
+  during: 'Durante la sesión', drank: 'Líquido que bebiste', urine: 'Orina expulsada',
+  urineHint: 'Solo si fuiste al baño durante la sesión. La mayoría lo deja en 0.',
+  duration: 'Duración de la sesión', sport: 'Actividad', run: 'Correr', bike: 'Ciclismo', gym: 'Gimnasio o pesas', team: 'Deporte de equipo', other: 'Otra',
+  cond: 'Condiciones', cool: 'Fresco', mild: 'Templado', hot: 'Caluroso', humid: 'Caluroso y húmedo',
+  emptyTitle: 'Aquí aparecerá tu tasa de sudoración',
+  emptyBody: 'Escribe ambos pesos y la duración de la sesión. Añade lo que bebiste para un resultado preciso.',
+  rateLabel: 'Tu tasa de sudoración',
+  replaced: 'Bebiste {a} y perdiste cerca de {b} en sudor.',
+  replacedPct: 'Eso repuso el {p}% de lo que sudaste.',
+  stLoss: 'Sudor total perdido', stMass: 'Cambio de peso corporal', stDrink: 'Bebe por hora la próxima vez', stRehyd: 'Bebe después de esta sesión',
+  drinkRange: '{a} a {b}', drinkThirst: 'Según la sed, hasta {b}', rehydNone: 'No necesitas beber de más',
+  nOk: 'Perdiste menos del 1% de tu peso corporal, así que bebiste lo suficiente.',
+  nWarn: 'Perdiste el {p}% de tu peso corporal. Es manejable, pero en sesiones más largas o calurosas intenta beber un poco más.',
+  nBad: 'Perdiste el {p}% de tu peso corporal. Pérdidas mayores al 2% pueden bajar el rendimiento y hacer más difícil tolerar el calor, así que bebe más en sesiones parecidas.',
+  nGain: 'Pesaste más después que antes, o sea que bebiste más de lo que sudaste. Beber en exceso durante ejercicios largos puede diluir el sodio en la sangre (hiponatremia), lo cual es peligroso. Bebe menos la próxima vez y guíate por la sed.',
+  nCheck: 'Este resultado está fuera del rango que podemos verificar (5 a 118 fl oz por hora). Revisa los pesos y las unidades.',
+  nBadInput: 'La pérdida de sudor dio cero o menos. Revisa el peso después, el líquido que bebiste y la orina.',
+  save: 'Guardar esta sesión', saved: 'Sesión guardada',
+  histTitle: 'Tus sesiones guardadas',
+  histEmpty: 'Guarda sesiones para comparar tu tasa de sudoración según la actividad y el clima. Se quedan en este dispositivo.',
+  avg: 'Tasa de sudoración promedio: {r}', clear: 'Borrar todas las sesiones', confirmClear: '¿Borrar todas las sesiones guardadas en este dispositivo?',
+  colDate: 'Fecha', colAct: 'Actividad', colCond: 'Condiciones', colTime: 'Duración', colRate: 'Tasa', colLoss: 'Cambio de peso',
+  howTitle: 'Cómo funciona',
+  how1: 'El sudor perdido es tu peso antes, menos tu peso después, más lo que bebiste, menos la orina. Cada kilo perdido equivale a cerca de un litro de líquido. Al dividirlo entre la duración obtienes tu tasa por hora.',
+  how2: 'La tasa de sudoración cambia con el calor, la humedad, la intensidad y tu condición física, así que repite la prueba en distintas condiciones. Después del ejercicio, beber entre 1.25 y 1.5 veces el peso perdido te ayuda a rehidratarte por completo.',
+  disclaimer: 'Orientación general para adultos sanos, no es consejo médico. Si tienes una condición cardíaca o renal, o tomas medicamentos que afectan los líquidos, consulta a tu médico.'
+}};
+
+const LB = 0.45359237, L_TO_OZ = 33.8140, KEY = 'ht-sweat-sessions';
+const $ = id => document.getElementById(id);
+const t = (k, v) => Common.t(k, v), num = Common.num, esc = Common.esc;
+let units = 'imperial';
+let last = null;
+const BODY = 'M40 26 H80 V38 C98 46 102 58 102 74 V198 C102 206 96 212 88 212 H32 C24 212 18 206 18 198 V74 C18 58 22 46 40 38 Z';
+
+const toKg = v => v * LB;
+function volOz(oz) {
+  return num(oz, 0) + ' oz';
+}
+function rateTxt(rateOz) { return num(rateOz, 0) + ' oz/h'; }
+function massTxt(kg) { return num(Math.abs(kg) / LB, 1) + ' lb'; }
+
+function setUnitLabels() {
+  document.querySelectorAll('.u-w').forEach(s => s.textContent = 'lb');
+  document.querySelectorAll('.u-v').forEach(s => s.textContent = 'oz');
+  ['drank', 'urine'].forEach(id => $(id).step = '1');
+}
+function switchUnits(u) {
+  units = u; Common.store.set('ht-units-sweat', u);
+  setUnitLabels(); render(); renderHist();
+}
+
+function compute() {
+  const pre = Common.val('pre'), post = Common.val('post'), mins = Common.val('mins');
+  let drank = Common.val('drank'), urine = Common.val('urine');
+  if (!isFinite(drank) || drank < 0) drank = 0;
+  if (!isFinite(urine) || urine < 0) urine = 0;
+  if (!(pre > 0 && post > 0 && mins > 0)) return null;
+  const preKg = toKg(pre), postKg = toKg(post), h = mins / 60;
+  const massLossKg = preKg - postKg;
+  const sweatOz = massLossKg * L_TO_OZ + drank - urine;
+  if (sweatOz <= 0) return { invalid: true };
+  const rate = sweatOz / h;
+  return {
+    preKg, massLossKg, drankOz: drank, sweatOz, rate, mins,
+    lossPct: massLossKg / preKg * 100,
+    replacedPct: Math.min(100, drank / sweatOz * 100),
+    minPerH: massLossKg < 0 ? 0 : Math.max(0, (sweatOz - 0.02 * preKg * L_TO_OZ) / h)
+  };
+}
+
+function bottleSVG(p) {
+  const top = 40, bottom = 212;
+  const y = bottom - (bottom - top) * Math.max(0, Math.min(100, p)) / 100;
+  return `<svg class="bottle" viewBox="0 0 120 220" aria-hidden="true">
+    <defs><clipPath id="bclip"><path d="${BODY}"/></clipPath></defs>
+    <rect x="44" y="6" width="32" height="18" rx="4" class="b-cap"/>
+    <path d="${BODY}" class="b-glass"/>
+    <rect x="0" y="${y.toFixed(1)}" width="120" height="${(220 - y).toFixed(1)}" clip-path="url(#bclip)" class="b-water"/>
+    <path d="${BODY}" class="b-outline"/></svg>`;
+}
+
+function render() {
+  const r = compute(); last = r;
+  const box = $('result');
+  if (!r) {
+    box.innerHTML = `<div class="replace">${bottleSVG(0)}<div><h2>${t('emptyTitle')}</h2><p class="muted">${t('emptyBody')}</p></div></div>`;
+    return;
+  }
+  if (r.invalid) {
+    box.innerHTML = `<h2>${t('emptyTitle')}</h2><div class="note bad">${t('nBadInput')}</div>`;
+    return;
+  }
+  const pct = Math.abs(r.lossPct);
+  let cls, msg;
+  if (r.massLossKg < 0) { cls = 'bad'; msg = t('nGain'); }
+  else if (pct < 1) { cls = 'ok'; msg = t('nOk'); }
+  else if (pct <= 2) { cls = 'warn'; msg = t('nWarn', { p: num(pct, 1) }); }
+  else { cls = 'bad'; msg = t('nBad', { p: num(pct, 1) }); }
+  const unusual = r.rate > 3.5 * L_TO_OZ || r.rate < 0.15 * L_TO_OZ;
+  const drink = r.minPerH <= 0 ? t('drinkThirst', { b: volOz(r.rate) }) : t('drinkRange', { a: volOz(r.minPerH), b: volOz(r.rate) });
+  const rehyd = r.massLossKg > 0 ? t('drinkRange', { a: volOz(r.massLossKg * 1.25 * L_TO_OZ), b: volOz(r.massLossKg * 1.5 * L_TO_OZ) }) : t('rehydNone');
+  const big = `${num(r.rate, 0)}<small>oz/h</small>`;
+  const sign = r.massLossKg > 0 ? '−' : (r.massLossKg < 0 ? '+' : '');
+  box.innerHTML = `
+    <p class="k">${t('rateLabel')}</p>
+    <div class="big">${big}</div>
+    <div class="replace">${bottleSVG(r.replacedPct)}
+      <div><p>${t('replaced', { a: volOz(r.drankOz), b: volOz(r.sweatOz) })}</p>
+      <p class="strong">${t('replacedPct', { p: num(r.replacedPct, 0) })}</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>${t('stLoss')}</span><b>${volOz(r.sweatOz)}</b></div>
+      <div class="stat"><span>${t('stMass')}</span><b>${sign}${num(pct, 1)}% (${massTxt(r.massLossKg)})</b></div>
+      <div class="stat"><span>${t('stDrink')}</span><b>${drink}</b></div>
+      <div class="stat"><span>${t('stRehyd')}</span><b>${rehyd}</b></div>
+    </div>
+    <div class="note ${cls}">${msg}</div>
+    ${unusual ? `<div class="note warn">${t('nCheck')}</div>` : ''}
+    <div class="actions"><button type="button" class="btn" id="save">${t('save')}</button></div>`;
+}
+
+function loadS() {
+  try {
+    const a = JSON.parse(Common.store.get(KEY) || '[]');
+    if (!Array.isArray(a)) return [];
+    /* one-time migration: legacy metric rates (millilitres per hour) -> oz */
+    a.forEach(x => { if (x && !x.oz) { x.rate = (+x.rate || 0) / 1000 * L_TO_OZ; x.oz = 1; } });
+    return a;
+  } catch (e) { return []; }
+}
+function save() {
+  if (!last || last.invalid) return;
+  const s = loadS();
+  s.unshift({ d: new Date().toISOString(), oz: 1, sport: $('sport').value, cond: $('cond').value, mins: last.mins, rate: last.rate, loss: last.lossPct });
+  Common.store.set(KEY, JSON.stringify(s.slice(0, 50)));
+  renderHist(); Common.toast(t('saved'));
+}
+function renderHist() {
+  const s = loadS(), el = $('histBody');
+  if (!s.length) { el.innerHTML = `<p class="muted">${t('histEmpty')}</p>`; return; }
+  const avg = s.reduce((a, x) => a + (+x.rate || 0), 0) / s.length;
+  const rows = s.map(x => `<tr>
+      <td>${esc(new Date(x.d).toLocaleDateString(Common.locale(), { month: 'short', day: 'numeric' }))}</td>
+      <td>${esc(t(x.sport))}</td><td>${esc(t(x.cond))}</td>
+      <td class="n">${num(+x.mins || 0, 0)} min</td><td class="n">${rateTxt(+x.rate || 0)}</td>
+      <td class="n">${num(-(+x.loss || 0), 1)}%</td></tr>`).join('');
+  el.innerHTML = `<p class="strong">${t('avg', { r: rateTxt(avg) })}</p>
+    <div class="scroll"><table class="tbl"><thead><tr>
+      <th>${t('colDate')}</th><th>${t('colAct')}</th><th>${t('colCond')}</th>
+      <th class="n">${t('colTime')}</th><th class="n">${t('colRate')}</th><th class="n">${t('colLoss')}</th>
+    </tr></thead><tbody>${rows}</tbody></table></div>
+    <button type="button" class="btn ghost" id="clear">${t('clear')}</button>`;
+}
+
+$('result').addEventListener('click', e => { if (e.target.closest('#save')) save(); });
+$('histBody').addEventListener('click', e => {
+  if (e.target.closest('#clear') && confirm(t('confirmClear'))) { Common.store.set(KEY, '[]'); renderHist(); }
+});
+$('form').addEventListener('input', render);
+Common.seg($('units'), units, switchUnits);
+Common.init(D, () => { setUnitLabels(); render(); renderHist(); });
+})();
+</script>
+</body>
+</html>
