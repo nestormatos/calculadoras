@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7-Day Hydration Challenge — Ramp Up Your Water Intake | Hydration Tools</title>
+<meta name="description" content="A one-week challenge that ramps your daily water goal from 60% to 100%. Check off each day, track overall progress, and turn a stretch target into a lasting habit.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Challenge</span>
+    <h1>7-Day Hydration Challenge</h1>
+    <p class="lead">Seven days from 60% to 100% of your daily goal — a gentle ramp that turns a stretch target into an everyday habit.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Your 7-day ramp</h2>
+      <p class="card-sub">The target climbs from 60% to 100% of your goal — one checkmark per day, saved on this device.</p>
+      <div id="setupPanel">
+        <div class="field-grid cols-2">
+          <div>
+            <label class="field-label" for="goal">Daily goal (your day-7 target)</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="goal" inputmode="numeric" min="8" max="203" step="1" value="68">
+              <span class="input-suffix">fl oz</span>
+            </div>
+            <p class="hint">Find your number with the <a href="../water-intake-calculator/">Water Intake Calculator</a>.</p>
+          </div>
+        </div>
+        <p class="form-error" id="chError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="chErrorText"></span></p>
+        <button class="btn btn-primary btn-block" type="button" id="startBtn">Start the challenge</button>
+        <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Saved only in this browser — nothing leaves your device.</p>
+      </div>
+      <div id="challengePanel" hidden>
+        <p class="hint" id="chMeta" style="margin:0 0 14px"></p>
+        <div class="day-grid" id="dayGrid"></div>
+        <div style="margin-top:20px">
+          <div class="progress-bar" id="chBar" role="progressbar" aria-label="Challenge progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill" id="chFill"></div>
+          </div>
+          <p class="hint" id="chProgressText"></p>
+        </div>
+        <div class="results-actions" style="margin-top:16px">
+          <button class="btn btn-ghost" type="button" id="restartBtn">Restart challenge</button>
+        </div>
+      </div>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Challenge complete</h3><span class="results-tag">7 / 7</span></div>
+        <div class="primary-result">
+          <span class="primary-value">7 days</span>
+          <span class="primary-unit">completed</span>
+          <p class="primary-sub" id="celebSub"></p>
+        </div>
+        <p class="results-note">Keep the momentum going with the <a href="../water-tracker/">Daily Water Tracker</a> or put the week on paper with the <a href="../printable-water-tracker/">Printable Water Tracker</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the ramp works</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Ramp schedule</h3>
+          <p class="formula">Daily target = goal × ramp<br>60% · 65% · 70% · 75% · 85% · 90% · 100%</p>
+        </div>
+        <div class="formula-box">
+          <h3>Why ramp up?</h3>
+          <p class="formula">Habit research favors gradual increases:<br>small early wins keep adherence high.</p>
+        </div>
+      </div>
+      <p class="section-intro">Targets are rounded to the nearest 1 fl oz. Not sure of your goal? Calculate it with the <a href="../water-intake-calculator/">Water Intake Calculator</a> or the <a href="../water-intake-by-weight/">weight-based tool</a>, then log each day in the <a href="../water-tracker/">Daily Water Tracker</a> and review the week on the <a href="../progress-chart/">Progress Chart</a>.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This challenge is a motivational aid, not medical advice. Increase fluids gradually and comfortably; if you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional before changing your intake.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'ph-challenge-7day';
+  var RAMP = [60, 65, 70, 75, 85, 90, 100];
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function fmtOz(n) { return Math.round(n).toLocaleString('en-US') + ' fl oz'; }
+  var state = null;
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) { return null; }
+      var s = JSON.parse(raw);
+      if (!s || typeof s.startDate !== 'string' || !s.done || s.done.length !== 7) { return null; }
+      /* one-time migration: legacy metric goal (millilitres) -> oz */
+      if (typeof s.goal === 'number' && s.goal >= 250 && s.goal <= 6000) { s.goal = Math.round(s.goal / 29.5735); }
+      if (!(s.goal >= 8 && s.goal <= 203)) { s.goal = 68; }
+      return s;
+    } catch (e) { return null; }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  state = load();
+  if (state) {
+    var parts = state.startDate.split('-');
+    var start = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+    var now = new Date();
+    var ageDays = Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() - start.getTime()) / 86400000);
+    if (ageDays > 10) {
+      if (window.confirm('This challenge started more than 10 days ago. Start a fresh 7-day challenge?')) {
+        state = null;
+        try { localStorage.removeItem(KEY); } catch (e) {}
+      }
+    }
+  }
+  var goalInput = $('goal'), errBox = $('chError'), errText = $('chErrorText');
+  function showErr(m) { errText.textContent = m; errBox.hidden = false; }
+  function hideErr() { errBox.hidden = true; }
+  function target(i) { return Math.round(state.goal * RAMP[i] / 100); }
+  function doneCount() {
+    var c = 0, i;
+    for (i = 0; i < 7; i++) { if (state.done[i]) { c++; } }
+    return c;
+  }
+  function render() {
+    var has = !!state;
+    $('setupPanel').hidden = has;
+    $('challengePanel').hidden = !has;
+    if (!has) { $('results').hidden = true; return; }
+    var grid = $('dayGrid');
+    grid.innerHTML = '';
+    var i, card;
+    for (i = 0; i < 7; i++) {
+      card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'day-card' + (state.done[i] ? ' done' : '');
+      card.setAttribute('data-day', String(i));
+      card.setAttribute('aria-pressed', state.done[i] ? 'true' : 'false');
+      card.innerHTML = '<span class="d-num">Day ' + (i + 1) + ' — ' + RAMP[i] + '%</span>' +
+        '<span class="d-goal">' + fmtOz(target(i)) + '</span>' +
+        '<span class="d-check">' + (state.done[i] ? '✓ Done — tap to undo' : 'Mark done') + '</span>';
+      grid.appendChild(card);
+    }
+    var c = doneCount();
+    var pct = Math.round(c / 7 * 100);
+    $('chFill').style.width = pct + '%';
+    if (c === 7) { $('chFill').classList.add('complete'); } else { $('chFill').classList.remove('complete'); }
+    $('chBar').setAttribute('aria-valuenow', String(pct));
+    $('chMeta').textContent = 'Started ' + state.startDate + ' · Final goal ' + fmtOz(state.goal) + ' per day.';
+    $('chProgressText').textContent = c + ' of 7 days completed (' + pct + '%).';
+    if (c === 7) {
+      $('celebSub').textContent = 'Seven days, seven checkmarks — you worked up to ' + fmtOz(state.goal) + ' per day. That is a habit worth keeping.';
+      $('results').hidden = false;
+    } else {
+      $('results').hidden = true;
+    }
+  }
+  $('startBtn').addEventListener('click', function () {
+    var v = parseInt(goalInput.value, 10);
+    if (isNaN(v) || v < 8 || v > 203) { showErr('Enter a daily goal between 8 and 203 fl oz.'); return; }
+    hideErr();
+    state = { startDate: dateKey(new Date()), goal: v, done: [false, false, false, false, false, false, false] };
+    save();
+    render();
+  });
+  goalInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); $('startBtn').click(); } });
+  $('dayGrid').addEventListener('click', function (e) {
+    var b = e.target;
+    while (b && b !== this && !b.getAttribute('data-day')) { b = b.parentNode; }
+    var i = b && b.getAttribute ? parseInt(b.getAttribute('data-day'), 10) : NaN;
+    if (!isNaN(i)) { state.done[i] = !state.done[i]; save(); render(); }
+  });
+  $('restartBtn').addEventListener('click', function () {
+    if (window.confirm('Restart the challenge? Your current progress will be cleared.')) {
+      state = null;
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      render();
+      goalInput.focus();
+    }
+  });
+  render();
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
