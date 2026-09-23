@@ -156,7 +156,7 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
       <div class="field">
         <span class="label" data-i18n="units">Units</span>
         <div class="seg" id="units" role="group">
-          <button type="button" data-v="L" data-i18n="unitsL">Liters</button><button type="button" data-v="G" data-i18n="unitsG">Gallons</button>
+          <button type="button" data-v="L" data-i18n="unitsL">Liters</button><button type="button" data-v="G" data-i18n="unitsG">Gallons</button><button type="button" data-v="O" data-i18n="unitsO">fl oz</button>
         </div>
       </div>
 
@@ -318,7 +318,7 @@ en: {
   metaDesc: 'Work out how much drinking water to store for your household and pets during hurricanes, storms and outages, and how many jugs or bottles you need.',
   h1: 'Emergency water storage calculator',
   lead: 'Find out how much water to keep at home for hurricanes, storms and outages, and how many jugs or bottles that takes.',
-  units: 'Units', unitsL: 'Liters', unitsG: 'Gallons',
+  units: 'Units', unitsL: 'Liters', unitsG: 'Gallons', unitsO: 'fl oz',
   household: 'Your household', adults: 'Adults', kids: 'Children', extra: 'People who need more',
   extraHint: 'Pregnant or nursing, sick, or older adults. Count them above too; we add half a gallon (1.9 L) more for each per day.',
   pets: "Pets' total weight", petsHint: 'Add up the weight of your dogs and cats. Leave at 0 if you have none.',
@@ -349,7 +349,7 @@ es: {
   metaDesc: 'Calcula cuánta agua potable guardar para tu familia y mascotas ante huracanes, tormentas y apagones, y cuántos botellones o botellas necesitas.',
   h1: 'Calculadora de agua para emergencias',
   lead: 'Descubre cuánta agua guardar en casa para huracanes, tormentas y apagones, y cuántos botellones o botellas necesitas.',
-  units: 'Unidades', unitsL: 'Litros', unitsG: 'Galones',
+  units: 'Unidades', unitsL: 'Litros', unitsG: 'Galones', unitsO: 'fl oz',
   household: 'Tu hogar', adults: 'Adultos', kids: 'Niños', extra: 'Personas que necesitan más',
   extraHint: 'Embarazadas o lactando, enfermos o adultos mayores. Cuéntalos también arriba; sumamos medio galón (1.9 L) más por persona al día.',
   pets: 'Peso total de tus mascotas', petsHint: 'Suma el peso de tus perros y gatos. Déjalo en 0 si no tienes.',
@@ -376,7 +376,7 @@ es: {
   disclaimer: 'Orientación general de planificación. Sigue las instrucciones de las autoridades locales, como el COE en República Dominicana o FEMA en Estados Unidos.'
 }};
 
-const GAL = 3.78541, LB = 0.45359237;
+const GAL = 3.78541, LB = 0.45359237, L_TO_OZ = 33.8140;
 const CONT = [
   { k: 'c5', l: 5 * GAL }, { k: 'c1', l: GAL }, { k: 'c15', l: 1.5 }, { k: 'c05', l: 0.5 }
 ];
@@ -385,7 +385,7 @@ const $ = id => document.getElementById(id);
 const t = (k, v) => Common.t(k, v), num = Common.num;
 let S = {};
 try { S = JSON.parse(Common.store.get('ht-emerg') || '{}') || {}; } catch (e) { S = {}; }
-let units = S.units === 'G' ? 'G' : 'L';
+let units = ['G', 'O'].includes(S.units) ? S.units : 'L';
 let daysSel = ['3', '7', '14', 'custom'].includes(S.days) ? S.days : '14';
 ['adults', 'kids', 'extra', 'pets', 'daysN'].forEach(id => { if (S[id] != null && S[id] !== '') $(id).value = S[id]; });
 if (S.hot) $('hot').checked = true;
@@ -396,7 +396,11 @@ function persist() {
   ['adults', 'kids', 'extra', 'pets', 'daysN'].forEach(id => o[id] = $(id).value);
   Common.store.set('ht-emerg', JSON.stringify(o));
 }
-function volTxt(l) { return units === 'G' ? num(l / GAL, l / GAL < 10 ? 1 : 0) + ' gal' : num(l, l < 10 ? 1 : 0) + ' L'; }
+function volTxt(l) {
+  if (units === 'G') return num(l / GAL, l / GAL < 10 ? 1 : 0) + ' gal';
+  if (units === 'O') return num(l * L_TO_OZ, l * L_TO_OZ < 100 ? 1 : 0) + ' fl oz';
+  return num(l, l < 10 ? 1 : 0) + ' L';
+}
 function people(n) { return num(n, 0) + ' ' + (Common.lang === 'es' ? (n === 1 ? 'persona' : 'personas') : (n === 1 ? 'person' : 'people')); }
 function int(id) { const v = Math.round(Common.val(id)); return v > 0 ? v : 0; }
 
@@ -422,6 +426,7 @@ function render() {
   const icons = Array.from({ length: shown }, () => `<svg class="j-${sel.k}" viewBox="0 0 20 36"><path d="${BOTTLE}"/></svg>`).join('')
     + (count > shown ? `<span class="more-n">+${num(count - shown)}</span>` : '');
   const big = units === 'G' ? `${num(r.total / GAL, r.total / GAL < 10 ? 1 : 0)}<small>${t('unitsG').toLowerCase()}</small>`
+            : units === 'O' ? `${num(r.total * L_TO_OZ, r.total * L_TO_OZ < 100 ? 1 : 0)}<small>${t('unitsO')}</small>`
                             : `${num(r.total, 0)}<small>${t('unitsL').toLowerCase()}</small>`;
   const rot = new Date(); rot.setMonth(rot.getMonth() + 6);
   const rotTxt = rot.toLocaleDateString(Common.locale(), { day: 'numeric', month: 'long', year: 'numeric' });

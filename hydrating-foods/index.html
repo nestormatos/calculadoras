@@ -108,14 +108,12 @@
   ];
   var body = $('rowsBody'), goal = $('goal');
   var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
-      try { var g = localStorage.getItem('ph-tracker-goal'); if (g && parseFloat(g) > 0) { goal.value = Math.round(parseFloat(g)); } } catch (e) {}
   var goalHint = $('goalHint');
   try {
-    var units = localStorage.getItem('ph-units');
-    if (units !== 'oz' && goal.value) {
-      var oz = Math.round(parseFloat(goal.value) / 29.5735);
-      if (!isNaN(oz) && oz >= 1 && oz <= 338) { goal.value = oz; }
-    }
+    var gv = parseFloat(localStorage.getItem('ph-tracker-goal'));
+    /* one-time migration: legacy metric goal (millilitres) -> oz */
+    if (gv >= 250 && gv <= 6000) { gv = Math.round(gv / 29.5735); }
+    if (gv >= 8 && gv <= 338) { goal.value = Math.round(gv); }
     if (goalHint) { goalHint.textContent = goal.value ? 'Pre-filled from your Water Tracker goal (US fl oz).' : ''; }
   } catch (e) {}
   function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }

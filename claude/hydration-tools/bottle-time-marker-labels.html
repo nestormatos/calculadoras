@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z' fill='%230A7389'/%3E%3C/svg%3E">
 <title>Water Bottle Time-Marker Label Generator (Printable) | Hydration Tools</title>
 <meta name="description" content="Make printable time-marker labels for your own water bottle. Enter your bottle size, daily goal and hours to get a strip showing how far down to drink by each hour.">
+<script>(function(){try{var t=localStorage.getItem("ph-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
 <style>
 :root{
   --ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;
@@ -129,18 +130,22 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
   .calib{justify-content:flex-start;color:#000;margin-top:4mm}
   .printTip{font-size:9pt;color:#000;margin:0 0 4mm}
 }
+html[data-theme="light"]{--ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;--current:#0A7389;--current-ink:#FFFFFF;--ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA}
+html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;--current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;width:38px;height:38px;font-size:16px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
 <body>
 <header class="top wrap">
-  <a class="brand" href="https://hydration.simplepdftools.in/">
+  <a class="brand" href="../../index.html">
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
     <span data-i18n="brand">Hydration Tools</span>
   </a>
-  <div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
     <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
   </div>
-</header>
+</div></header>
 <main class="wrap">
   <section class="hero">
     <h1 data-i18n="h1">Bottle time-marker labels</h1>
@@ -168,7 +173,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
             <div class="with-unit"><input id="goal" type="number" inputmode="decimal" min="1" step="1" value="85"><span class="u-v">oz</span></div>
           </div>
         </div>
-        <p class="hint"><span data-i18n="goalHint">Not sure of your goal?</span> <a href="https://hydration.simplepdftools.in/" data-i18n="goalLink">Work it out with the daily water intake calculator.</a></p>
+        <p class="hint"><span data-i18n="goalHint">Not sure of your goal?</span> <a href="../../water-intake-calculator/" data-i18n="goalLink">Work it out with the daily water intake calculator.</a></p>
       </fieldset>
 
       <fieldset>
@@ -236,7 +241,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
     <a href="sweat-rate-calculator.html" data-i18n="toolSweat">Sweat rate calculator</a>
     <a href="emergency-water-storage-calculator.html" data-i18n="toolEmergency">Emergency water storage calculator</a>
     <a href="bottle-time-marker-labels.html" data-i18n="toolLabels">Bottle time-marker labels</a>
-    <a href="https://hydration.simplepdftools.in/" data-i18n="toolAll">All hydration tools</a>
+    <a href="../../index.html#all-tools" data-i18n="toolAll">All hydration tools</a>
   </nav>
   <p data-i18n="disclaimer"></p>
   <p data-i18n="privacy">Everything runs in your browser. Nothing you enter is sent anywhere.</p>
@@ -379,13 +384,20 @@ es: {
   disclaimer: 'Orientación general para adultos sanos, no es consejo médico. Algunas condiciones de salud requieren limitar los líquidos; si es tu caso, sigue las indicaciones de tu médico.'
 }};
 
-const IN = 2.54;
+const L_TO_OZ = 33.8140, IN = 2.54;
 const COLORS = [['#0A7389', 'cTeal'], ['#2F5DA8', 'cBlue'], ['#2E7D4F', 'cGreen'], ['#B8407A', 'cPink'], ['#C06A0A', 'cOrange']];
 const $ = id => document.getElementById(id);
 const t = (k, v) => Common.t(k, v), num = Common.num, esc = Common.esc;
 let S = {};
 try { S = JSON.parse(Common.store.get('ht-labels') || '{}') || {}; } catch (e) { S = {}; }
 let units = 'imperial';
+/* one-time migration: legacy metric values (litres-equivalent / cm) -> oz / in */
+if (S.units !== 'imperial') {
+  const mig = (id, f) => { const v = parseFloat(S[id]); if (isFinite(v) && v > 0) S[id] = f(v); };
+  mig('size', v => +(v / 1000 * L_TO_OZ).toFixed(1));
+  mig('goal', v => +(v / 1000 * L_TO_OZ).toFixed(0));
+  mig('len', v => +(v / IN).toFixed(1));
+}
 let fmt = S.fmt === '24' ? '24' : '12';
 let width = S.width === '25' ? '25' : '35';
 let color = COLORS.some(c => c[0] === S.color) ? S.color : COLORS[0][0];
@@ -505,5 +517,6 @@ Common.init(D, () => {
 });
 })();
 </script>
+<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});paint();})();</script>
 </body>
 </html>

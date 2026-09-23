@@ -8,7 +8,7 @@ Archivos:
 
 Como subirlas:
   1. Sube los 3 archivos .html a la misma carpeta de tu servidor
-     (por ejemplo, la raiz de hydration.simplepdftools.in).
+     (por ejemplo, la raiz del sitio donde publiques estas herramientas).
   2. No necesitan base de datos, PHP ni librerias externas. Cada archivo
      trae su CSS y JavaScript incluidos y funciona sin conexion.
   3. Los enlaces entre las 3 herramientas son relativos, asi que deben

@@ -286,7 +286,7 @@
   function addAlcRow() {
     var row = makeRow(ALC_DRINKS, function (r) {
       if (alcRows.children.length > 1) { alcRows.removeChild(r); }
-    }, '      <input class="input row-vol" type="number" min="1" max="68" step="any" placeholder="fl oz" aria-label="Volume in fl oz" style="width:80px" hidden><input class="input row-abv" type="number" min="0" max="100" step="any" placeholder="% ABV" aria-label="Alcohol by volume percent" style="width:86px" hidden>');
+    }, '      <input class="input row-vol" type="number" min="0.5" max="68" step="any" placeholder="fl oz" aria-label="Volume in fl oz" style="width:80px" hidden><input class="input row-abv" type="number" min="0" max="100" step="any" placeholder="% ABV" aria-label="Alcohol by volume percent" style="width:86px" hidden>');
     var sel = row.querySelector('.row-drink');
     sel.addEventListener('change', function () {
       var custom = ALC_DRINKS[parseInt(sel.value, 10)].vol === -1;
@@ -308,7 +308,7 @@
       if (vol === -1) {
         vol = parseFloat(row.querySelector('.row-vol').value);
         abv = parseFloat(row.querySelector('.row-abv').value);
-        if (isNaN(vol) || vol <= 0 || vol > 68) { showErr('alcError', 'alcErrorText', 'Enter a volume greater than 0 and up to 68 fl oz for each custom drink.', 'alcResults'); return; }
+        if (isNaN(vol) || vol < 0.5 || vol > 68) { showErr('alcError', 'alcErrorText', 'Enter a volume between 0.5 and 68 fl oz for each custom drink.', 'alcResults'); return; }
         if (isNaN(abv) || abv <= 0 || abv > 100) { showErr('alcError', 'alcErrorText', 'Enter an ABV between 0 and 100% for each custom drink.', 'alcResults'); return; }
       }
       any = true;

@@ -133,7 +133,6 @@
     var g = parseInt(localStorage.getItem(GOAL_KEY), 10);
     if (g >= 17 && g <= 200) { goal = g; }
     else if (g >= 250 && g <= 6000) { goal = Math.round(g / 29.5735); }
-    if (!localStorage.getItem('ph-units')) { try { localStorage.setItem('ph-units', 'oz'); } catch (e2) {} }
   } catch (e) {}
   var goalInput = $('goal'), customInput = $('customOz');
   var errBox = $('trackError'), errText = $('trackErrorText');

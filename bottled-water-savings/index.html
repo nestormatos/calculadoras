@@ -32,8 +32,8 @@
         <div>
           <label class="field-label" for="daily">Water you drink</label>
           <div class="input-wrap">
-            <input class="input" type="number" id="daily" inputmode="decimal" value="2" min="0" step="any">
-            <span class="input-suffix">L / day</span>
+            <input class="input" type="number" id="daily" inputmode="decimal" value="68" min="0" step="any">
+            <span class="input-suffix">fl oz / day</span>
           </div>
         </div>
         <div>
@@ -46,16 +46,16 @@
         <div>
           <label class="field-label" for="bottleSize">Bottle size</label>
           <select class="select" id="bottleSize">
-            <option value="0.5" selected>0.5 L — standard single-serve</option>
-            <option value="1.5">1.5 L — large bottle</option>
+            <option value="16.9" selected>16.9 fl oz — standard single-serve</option>
+            <option value="50.7">50.7 fl oz — large bottle</option>
             <option value="custom">Custom size…</option>
           </select>
         </div>
         <div id="customSizeWrap" hidden>
           <label class="field-label" for="customSize">Custom bottle size</label>
           <div class="input-wrap">
-            <input class="input" type="number" id="customSize" inputmode="decimal" placeholder="e.g. 0.75" min="0" step="any">
-            <span class="input-suffix">L</span>
+            <input class="input" type="number" id="customSize" inputmode="decimal" placeholder="e.g. 25.4" min="0" step="any">
+            <span class="input-suffix">fl oz</span>
           </div>
         </div>
         <div>
@@ -81,10 +81,10 @@
         <div>
           <label class="field-label" for="jugSize">Jug size</label>
           <div class="input-wrap">
-            <input class="input" type="number" id="jugSize" inputmode="decimal" value="18.9" min="0" step="any">
-            <span class="input-suffix">L</span>
+            <input class="input" type="number" id="jugSize" inputmode="decimal" value="640" min="0" step="any">
+            <span class="input-suffix">fl oz</span>
           </div>
-          <p class="hint">18.9 L (5 gal) is the common returnable size.</p>
+          <p class="hint">5 gal (640 fl oz) is the common returnable size.</p>
         </div>
         <div>
           <label class="field-label" for="refillPrice">Price per refill</label>
@@ -113,7 +113,7 @@
             <input class="input" type="number" id="bottleMass" inputmode="decimal" value="10" min="0" step="any">
             <span class="input-suffix">g</span>
           </div>
-          <p class="hint">Editable — the industry average for a 0.5 L bottle is about 9.3–9.9 g, while an NIH-cited range runs 13–26 g.</p>
+          <p class="hint">Editable — the industry average for a 16.9 fl oz bottle is about 9.3–9.9 g, while an NIH-cited range runs 13–26 g.</p>
         </div>
       </div>
       <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
@@ -145,14 +145,14 @@
       <div class="formula-grid">
         <div class="formula-box">
           <h3>Consumption &amp; cost</h3>
-          <p class="formula">Liters/year = daily L × days<br>Bottles/year = liters ÷ bottle size (rounded up)<br>Bottled cost = bottles × price<br>Jug cost = (liters ÷ jug size) × refill price<br>Filter cost = upfront + cartridges × price</p>
+          <p class="formula">Fluid ounces/year = daily fl oz × days<br>Bottles/year = fl oz ÷ bottle size (rounded up)<br>Bottled cost = bottles × price<br>Jug cost = (fl oz ÷ jug size) × refill price<br>Filter cost = upfront + cartridges × price</p>
         </div>
         <div class="formula-box">
           <h3>Footprint avoided</h3>
-          <p class="formula">Plastic (kg) = bottles × grams per bottle ÷ 1000<br>CO₂ (kg) = liters × (166–222 g per liter) ÷ 1000<br>Savings = bottled cost − alternative cost</p>
+          <p class="formula">Plastic (kg) = bottles × grams per bottle ÷ 1000<br>CO₂ (kg) = fl oz × (4.91–6.57 g per fl oz) ÷ 1000<br>Savings = bottled cost − alternative cost</p>
         </div>
       </div>
-      <p class="section-intro">The CO₂ figure uses a study-based estimate of 83–111 g of CO₂ per 0.5 L single-use bottle (roughly 166–222 g per liter, covering production and transport). A returnable jug is refilled, so it adds no new plastic per refill. Tap-water CO₂ is treated as zero — it is small and depends on your city's water system. Bottle mass is editable because published figures vary: about 9.3–9.9 g for a modern 0.5 L bottle by industry averages, with an NIH-cited range of 13–26 g across markets. No default prices are presented as facts — everything money-related comes from what you type.</p>
+      <p class="section-intro">The CO₂ figure uses a study-based estimate of 83–111 g of CO₂ per 16.9 fl oz single-use bottle (roughly 4.91–6.57 g per fl oz, covering production and transport). A returnable jug is refilled, so it adds no new plastic per refill. Tap-water CO₂ is treated as zero — it is small and depends on your city's water system. Bottle mass is editable because published figures vary: about 9.3–9.9 g for a modern 16.9 fl oz bottle by industry averages, with an NIH-cited range of 13–26 g across markets. No default prices are presented as facts — everything money-related comes from what you type.</p>
     </section>
     <section class="disclaimer" aria-label="Disclaimer">
       <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
@@ -174,8 +174,8 @@
   function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
   bottleSize.addEventListener('change', function () {
     $('customSizeWrap').hidden = bottleSize.value !== 'custom';
-    if (bottleSize.value === '0.5') { bottleMass.value = '10'; }
-    else if (bottleSize.value === '1.5') { bottleMass.value = '30'; }
+    if (bottleSize.value === '16.9') { bottleMass.value = '10'; }
+    else if (bottleSize.value === '50.7') { bottleMass.value = '30'; }
     if (!results.hidden) render();
   });
   alt.addEventListener('change', function () {
@@ -185,18 +185,18 @@
   });
   function calc(quiet) {
     var d = parseFloat(daily.value);
-    if (isNaN(d) || d <= 0 || d > 50) { if (!quiet) { showErr('Enter a daily amount between 0 and 50 liters.'); } return null; }
+    if (isNaN(d) || d <= 0 || d > 1700) { if (!quiet) { showErr('Enter a daily amount between 0 and 1,700 fl oz.'); } return null; }
     var dy = parseFloat(days.value);
     if (isNaN(dy) || dy < 1 || dy > 366) { if (!quiet) { showErr('Days per year must be between 1 and 366.'); } return null; }
     var size = bottleSize.value === 'custom' ? parseFloat(customSize.value) : parseFloat(bottleSize.value);
-    if (isNaN(size) || size <= 0 || size > 20) { if (!quiet) { showErr('Enter a bottle size between 0 and 20 liters.'); } return null; }
+    if (isNaN(size) || size <= 0 || size > 676) { if (!quiet) { showErr('Enter a bottle size between 0 and 676 fl oz.'); } return null; }
     var mass = parseFloat(bottleMass.value);
     if (isNaN(mass) || mass <= 0 || mass > 500) { if (!quiet) { showErr('Plastic per bottle must be between 0 and 500 grams.'); } return null; }
-    var litersYear = d * dy;
-    var bottles = litersYear / size;
+    var ozYear = d * dy;
+    var bottles = ozYear / size;
     var plastic = bottles * mass / 1000;
-    var co2low = litersYear * 166 / 1000;
-    var co2high = litersYear * 222 / 1000;
+    var co2low = ozYear * 4.91 / 1000;
+    var co2high = ozYear * 6.57 / 1000;
     var cur = currency.value.replace(/^\s+|\s+$/g, '') || '$';
     var priceRaw = bottlePrice.value.replace(/^\s+|\s+$/g, '');
     var money = null;
@@ -206,12 +206,12 @@
       var altCost = 0, detail = '';
       if (alt.value === 'jug') {
         var js = parseFloat(jugSize.value);
-        if (isNaN(js) || js <= 0 || js > 100) { if (!quiet) { showErr('Enter a jug size between 0 and 100 liters.'); } return null; }
+        if (isNaN(js) || js <= 0 || js > 3400) { if (!quiet) { showErr('Enter a jug size between 0 and 3,400 fl oz.'); } return null; }
         var rp = parseFloat(refillPrice.value);
         if (refillPrice.value === '' || isNaN(rp) || rp < 0) { if (!quiet) { showErr('Enter the refill price to compare costs — or clear the bottle price to see only bottles, plastic and CO₂.'); } return null; }
-        var refills = litersYear / js;
+        var refills = ozYear / js;
         altCost = refills * rp;
-        detail = refills.toFixed(1) + ' refills of ' + js + ' L';
+        detail = refills.toFixed(1) + ' refills of ' + js + ' fl oz';
       } else if (alt.value === 'filter') {
         var up = parseFloat(upfrontCost.value);
         if (upfrontCost.value === '' || isNaN(up) || up < 0) { if (!quiet) { showErr('Enter the pitcher upfront cost — or clear the bottle price to see only bottles, plastic and CO₂.'); } return null; }
@@ -225,7 +225,7 @@
       money = { price: price, costBottled: bottles * price, altCost: altCost, savings: bottles * price - altCost, detail: detail };
     }
     errBox.hidden = true;
-    return { litersYear: litersYear, bottles: bottles, plastic: plastic, co2low: co2low, co2high: co2high, cur: cur, money: money };
+    return { ozYear: ozYear, bottles: bottles, plastic: plastic, co2low: co2low, co2high: co2high, cur: cur, money: money };
   }
 
   function render() {
@@ -243,7 +243,7 @@
     } else {
       $('resPrimary').textContent = Math.ceil(r.bottles).toLocaleString('en-US');
       $('resPrimaryUnit').textContent = 'bottles per year';
-      $('resSub').textContent = 'That is ' + r.litersYear.toLocaleString('en-US') + ' L of water per year. Add a bottle price above to compare costs against an alternative.';
+      $('resSub').textContent = 'That is ' + r.ozYear.toLocaleString('en-US') + ' fl oz of water per year. Add a bottle price above to compare costs against an alternative.';
       $('resAltCost').textContent = '—';
     }
     $('resAltLabel').textContent = r.money ? ('Cost per year: ' + ALT_LABEL[alt.value]) : 'Alternative cost per year';
@@ -261,9 +261,9 @@
     else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
   });
   $('resetBtn').addEventListener('click', function () {
-    daily.value = '2'; days.value = '365'; bottleSize.selectedIndex = 0; customSize.value = '';
+    daily.value = '68'; days.value = '365'; bottleSize.selectedIndex = 0; customSize.value = '';
     $('customSizeWrap').hidden = true; currency.value = '$'; bottlePrice.value = '';
-    alt.selectedIndex = 0; jugSize.value = '18.9'; refillPrice.value = '';
+    alt.selectedIndex = 0; jugSize.value = '640'; refillPrice.value = '';
     upfrontCost.value = ''; cartsPerYear.value = '4'; cartPrice.value = ''; bottleMass.value = '10';
     $('jugFields').hidden = false; $('filterFields').hidden = true;
     results.hidden = true; errBox.hidden = true; bottlePrice.focus();

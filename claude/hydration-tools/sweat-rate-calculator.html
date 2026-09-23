@@ -122,7 +122,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
 </head>
 <body>
 <header class="top wrap">
-  <a class="brand" href="https://hydration.simplepdftools.in/">
+  <a class="brand" href="../../index.html">
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
     <span data-i18n="brand">Hydration Tools</span>
   </a>
@@ -150,11 +150,11 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
         <div class="row">
           <div class="field">
             <label for="pre" data-i18n="pre">Weight before</label>
-            <div class="with-unit"><input id="pre" type="number" inputmode="decimal" step="0.1" min="20" max="400"><span class="u-w">lb</span></div>
+            <div class="with-unit"><input id="pre" type="number" inputmode="decimal" step="0.1" min="44" max="882"><span class="u-w">lb</span></div>
           </div>
           <div class="field">
             <label for="post" data-i18n="post">Weight after</label>
-            <div class="with-unit"><input id="post" type="number" inputmode="decimal" step="0.1" min="20" max="400"><span class="u-w">lb</span></div>
+            <div class="with-unit"><input id="post" type="number" inputmode="decimal" step="0.1" min="44" max="882"><span class="u-w">lb</span></div>
           </div>
         </div>
         <p class="hint" data-i18n="weighHint"></p>
@@ -220,7 +220,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
     <a href="sweat-rate-calculator.html" data-i18n="toolSweat">Sweat rate calculator</a>
     <a href="emergency-water-storage-calculator.html" data-i18n="toolEmergency">Emergency water storage calculator</a>
     <a href="bottle-time-marker-labels.html" data-i18n="toolLabels">Bottle time-marker labels</a>
-    <a href="https://hydration.simplepdftools.in/" data-i18n="toolAll">All hydration tools</a>
+    <a href="../../index.html#all-tools" data-i18n="toolAll">All hydration tools</a>
   </nav>
   <p data-i18n="disclaimer"></p>
   <p data-i18n="privacy">Everything runs in your browser. Nothing you enter is sent anywhere.</p>
@@ -336,7 +336,7 @@ en: {
   avg: 'Average sweat rate: {r}', clear: 'Delete all sessions', confirmClear: 'Delete all saved sessions from this device?',
   colDate: 'Date', colAct: 'Activity', colCond: 'Conditions', colTime: 'Length', colRate: 'Sweat rate', colLoss: 'Mass change',
   howTitle: 'How it works',
-  how1: 'Sweat loss equals your weight before, minus your weight after, plus what you drank, minus any urine. Each kilogram lost is about one litre of fluid. Dividing by the session length gives your hourly rate.',
+  how1: 'Sweat loss equals your weight before, minus your weight after, plus what you drank, minus any urine. Each pound lost is about 15.3 fl oz of fluid. Dividing by the session length gives your hourly rate.',
   how2: 'Sweat rate changes with heat, humidity, intensity and fitness, so repeat the test in different conditions. After exercise, drinking 1.25 to 1.5 times the weight you lost helps you fully rehydrate.',
   disclaimer: 'General guidance for healthy adults, not medical advice. If you have a heart or kidney condition or take medicine that affects fluids, ask your doctor about your fluid needs.'
 },
@@ -370,7 +370,7 @@ es: {
   avg: 'Tasa de sudoración promedio: {r}', clear: 'Borrar todas las sesiones', confirmClear: '¿Borrar todas las sesiones guardadas en este dispositivo?',
   colDate: 'Fecha', colAct: 'Actividad', colCond: 'Condiciones', colTime: 'Duración', colRate: 'Tasa', colLoss: 'Cambio de peso',
   howTitle: 'Cómo funciona',
-  how1: 'El sudor perdido es tu peso antes, menos tu peso después, más lo que bebiste, menos la orina. Cada kilo perdido equivale a cerca de un litro de líquido. Al dividirlo entre la duración obtienes tu tasa por hora.',
+  how1: 'El sudor perdido es tu peso antes, menos tu peso después, más lo que bebiste, menos la orina. Cada libra perdida equivale a cerca de 15.3 fl oz de líquido. Al dividirlo entre la duración obtienes tu tasa por hora.',
   how2: 'La tasa de sudoración cambia con el calor, la humedad, la intensidad y tu condición física, así que repite la prueba en distintas condiciones. Después del ejercicio, beber entre 1.25 y 1.5 veces el peso perdido te ayuda a rehidratarte por completo.',
   disclaimer: 'Orientación general para adultos sanos, no es consejo médico. Si tienes una condición cardíaca o renal, o tomas medicamentos que afectan los líquidos, consulta a tu médico.'
 }};
@@ -446,7 +446,7 @@ function render() {
   else if (pct < 1) { cls = 'ok'; msg = t('nOk'); }
   else if (pct <= 2) { cls = 'warn'; msg = t('nWarn', { p: num(pct, 1) }); }
   else { cls = 'bad'; msg = t('nBad', { p: num(pct, 1) }); }
-  const unusual = r.rate > 3.5 * L_TO_OZ || r.rate < 0.15 * L_TO_OZ;
+  const unusual = r.rate > 118 || r.rate < 5;
   const drink = r.minPerH <= 0 ? t('drinkThirst', { b: volOz(r.rate) }) : t('drinkRange', { a: volOz(r.minPerH), b: volOz(r.rate) });
   const rehyd = r.massLossKg > 0 ? t('drinkRange', { a: volOz(r.massLossKg * 1.25 * L_TO_OZ), b: volOz(r.massLossKg * 1.5 * L_TO_OZ) }) : t('rehydNone');
   const big = `${num(r.rate, 0)}<small>oz/h</small>`;
