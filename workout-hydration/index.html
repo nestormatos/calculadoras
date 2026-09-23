@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workout Hydration Calculator — Before, During &amp; After Exercise | Hydration Tools</title>
+<meta name="description" content="Plan how much to drink before, during and after a workout. Estimates sweat loss from body weight, duration, intensity and climate, and builds a complete session fluid plan.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Workout Hydration Calculator</h1>
+    <p class="lead">A complete fluid plan for your training session — what to drink beforehand, how to pace yourself while you move, and how to rehydrate afterward.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Build your session plan</h2>
+      <p class="card-sub">Switching units converts your weight automatically.</p>
+      <div class="field-grid cols-2">
+
+        <div>
+          <span class="field-label" id="unitLabel">Unit system</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="unitLabel">
+            <input type="radio" name="unit" id="unitLbs" value="lbs" checked>
+            <label for="unitLbs">Pounds (lb)</label>
+            <input type="radio" name="unit" id="unitKg" value="kg">
+            <label for="unitKg">Kilograms (kg)</label>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="weight">Body weight</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="weight" inputmode="decimal" placeholder="e.g. 154" min="1" step="any">
+            <span class="input-suffix" id="weightSuffix">lb</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="duration">Workout duration</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="duration" inputmode="numeric" value="60" min="5" max="600" step="1">
+            <span class="input-suffix">min</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="intensity">Intensity</label>
+          <select class="select" id="intensity">
+            <option value="0.7" data-label="low intensity">Low (easy pace, gentle yoga)</option>
+            <option value="1" data-label="moderate intensity" selected>Moderate (jogging, cycling, gym)</option>
+            <option value="1.3" data-label="high intensity">High (fast running, intervals)</option>
+            <option value="1.6" data-label="very high intensity">Very high (HIIT, competition)</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="climate">Conditions</label>
+          <select class="select" id="climate">
+            <option value="0.85" data-label="cool indoor conditions">Indoors / cool</option>
+            <option value="1" data-label="mild conditions" selected>Mild (comfortable temperature)</option>
+            <option value="1.25" data-label="hot or humid conditions">Hot or humid</option>
+          </select>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate my hydration plan</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your session fluid plan</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resTotal">0</span>
+          <span class="primary-unit">fl oz total</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resBefore">0</span><span class="stat-label">Before — 2h prior (fl oz)</span></div>
+          <div class="stat"><span class="stat-value" id="resDuring">0</span><span class="stat-label">During — every 15–20 min (fl oz)</span></div>
+          <div class="stat"><span class="stat-value" id="resAfter">0</span><span class="stat-label">After — within 2h (fl oz)</span></div>
+          <div class="stat"><span class="stat-value" id="resSweat">0</span><span class="stat-label">Estimated sweat loss (fl oz)</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">For precision, measure your real sweat rate with the <a href="../sweat-rate-calculator/">Sweat Rate Calculator</a>, and set your everyday baseline with the <a href="../water-intake-calculator/">Water Intake Calculator</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the plan is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Sweat loss estimate</h3>
+          <p class="formula">Sweat rate (fl oz/h) ≈ 0.34 × weight (kg) × intensity × climate<br>Intensity: ×0.7 / ×1.0 / ×1.3 / ×1.6<br>Climate: ×0.85 / ×1.0 / ×1.25</p>
+        </div>
+        <div class="formula-box">
+          <h3>Before · During · After</h3>
+          <p class="formula">Before: 0.2 fl oz × kg, about 2 hours prior<br>During: sweat rate ÷ 3, sipped every 15–20 min<br>After: 135% of sweat lost (guideline 125–150%), within 2h</p>
+        </div>
+      </div>
+      <p class="section-intro">The 0.34 fl oz/kg/hour baseline reflects typical sweat losses at moderate effort reported in sports-medicine research. Pre-loading with 0.2 fl oz/kg about two hours before exercise and replacing 125–150% of losses afterward follow widely used position-stand guidance. Sweat rates vary widely between people, so treat these numbers as a starting point and refine them with real before-and-after weigh-ins.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This calculator provides general wellness estimates for healthy adults and is not medical advice. Fluid needs vary with fitness, heat acclimatization, altitude and health status. If you have a heart, kidney or liver condition, or you train in extreme heat, consult a healthcare professional or sports-medicine specialist.</p>
+    </section>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KG_PER_LB = 0.45359237;
+  var weight = $('weight'), duration = $('duration'), intensity = $('intensity'), climate = $('climate');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  function unit() { return $('unitKg').checked ? 'kg' : 'lbs'; }
+  function syncUnit() {
+    var u = unit();
+    $('weightSuffix').textContent = u === 'kg' ? 'kg' : 'lb';
+    var v = parseFloat(weight.value);
+    if (!isNaN(v) && v > 0) { weight.value = (u === 'kg' ? v * KG_PER_LB : v / KG_PER_LB).toFixed(1); }
+    if (!results.hidden) calc();
+  }
+  $('unitLbs').addEventListener('change', syncUnit);
+  $('unitKg').addEventListener('change', syncUnit);
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function calc() {
+    var w = parseFloat(weight.value);
+    if (!w || w <= 0) { showErr('Please enter your body weight.'); return; }
+    var min = unit() === 'kg' ? 18 : 40, max = unit() === 'kg' ? 320 : 700;
+    if (w < min || w > max) { showErr('Enter a weight between ' + min + ' and ' + max + ' ' + (unit() === 'kg' ? 'kg' : 'lb') + '.'); return; }
+    var d = parseFloat(duration.value);
+    if (!d || d < 5 || d > 600) { showErr('Enter a workout duration between 5 and 600 minutes.'); return; }
+    errBox.hidden = true;
+    var kg = unit() === 'kg' ? w : w * KG_PER_LB;
+    var L_TO_OZ = 33.8140;
+    function roundOz(v) { return Math.round(v * 10) / 10; }
+    var rate = 0.01 * L_TO_OZ * kg * parseFloat(intensity.value) * parseFloat(climate.value);
+    var sweat = rate * (d / 60);
+    var before = 0.006 * L_TO_OZ * kg;
+    var per20 = rate / 3;
+    var after = sweat * 1.35;
+    var total = before + sweat + after;
+    $('resTotal').textContent = roundOz(total).toLocaleString('en-US');
+    $('resSub').textContent = 'Based on ' + Math.round(kg) + ' kg, ' + d + ' minutes of ' + intensity.options[intensity.selectedIndex].dataset.label + ' in ' + climate.options[climate.selectedIndex].dataset.label + '. During the workout, aim for about ' + roundOz(per20).toLocaleString('en-US') + ' fl oz every 15–20 minutes.';
+    $('resBefore').textContent = roundOz(before).toLocaleString('en-US');
+    $('resDuring').textContent = roundOz(per20).toLocaleString('en-US');
+    $('resAfter').textContent = roundOz(after).toLocaleString('en-US');
+    $('resSweat').textContent = roundOz(sweat).toLocaleString('en-US');
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', calc);
+  [intensity, climate].forEach(function (el) { el.addEventListener('change', function () { if (!results.hidden) calc(); }); });
+  [weight, duration].forEach(function (el) { el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } }); });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'Workout hydration plan: ' + $('resTotal').textContent + ' fl oz total — ' + $('resBefore').textContent + ' fl oz before, about ' + $('resDuring').textContent + ' fl oz every 15–20 min during, ' + $('resAfter').textContent + ' fl oz after.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    weight.value = ''; duration.value = '60'; intensity.selectedIndex = 1; climate.selectedIndex = 1;
+    results.hidden = true; errBox.hidden = true; weight.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
