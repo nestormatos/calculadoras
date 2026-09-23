@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bottled Water Savings Calculator — Money, Plastic &amp; CO₂ | Hydration Tools</title>
+<meta name="description" content="Compare the yearly cost of bottled water against a returnable jug, a filter pitcher or tap water — and see the plastic and CO₂ you could avoid. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Money &amp; Footprint</span>
+    <h1>Bottled Water Savings Calculator</h1>
+    <p class="lead">A year of bottled water adds up fast — in money, plastic and CO₂. Enter your own local prices (nothing here assumes what things cost where you live) and compare against a returnable jug, a filter pitcher or plain tap water.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Compare your yearly bottled-water habit</h2>
+      <p class="card-sub">Every price field is editable — enter your own local prices. Leave prices empty to see only bottles, plastic and CO₂.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="daily">Water you drink</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="daily" inputmode="decimal" value="2" min="0" step="any">
+            <span class="input-suffix">L / day</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="days">Days per year</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="days" inputmode="numeric" value="365" min="1" max="366" step="1">
+            <span class="input-suffix">days</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="bottleSize">Bottle size</label>
+          <select class="select" id="bottleSize">
+            <option value="0.5" selected>0.5 L — standard single-serve</option>
+            <option value="1.5">1.5 L — large bottle</option>
+            <option value="custom">Custom size…</option>
+          </select>
+        </div>
+        <div id="customSizeWrap" hidden>
+          <label class="field-label" for="customSize">Custom bottle size</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="customSize" inputmode="decimal" placeholder="e.g. 0.75" min="0" step="any">
+            <span class="input-suffix">L</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="currency">Your currency label</label>
+          <input class="input" type="text" id="currency" value="$" maxlength="8" placeholder="$, €, MXN…">
+          <p class="hint">Just a label for display — no conversion is done.</p>
+        </div>
+        <div>
+          <label class="field-label" for="bottlePrice">Price per bottle</label>
+          <input class="input" type="number" id="bottlePrice" inputmode="decimal" min="0" step="any" placeholder="e.g. 25">
+          <p class="hint">No default — enter what a bottle actually costs you. Required for the money comparison.</p>
+        </div>
+        <div>
+          <label class="field-label" for="alt">Alternative to compare</label>
+          <select class="select" id="alt">
+            <option value="jug" selected>Returnable water jug (refill)</option>
+            <option value="filter">Filter pitcher</option>
+            <option value="tap">Tap water</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-grid cols-2" id="jugFields">
+        <div>
+          <label class="field-label" for="jugSize">Jug size</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="jugSize" inputmode="decimal" value="18.9" min="0" step="any">
+            <span class="input-suffix">L</span>
+          </div>
+          <p class="hint">18.9 L (5 gal) is the common returnable size.</p>
+        </div>
+        <div>
+          <label class="field-label" for="refillPrice">Price per refill</label>
+          <input class="input" type="number" id="refillPrice" inputmode="decimal" min="0" step="any" placeholder="e.g. 100">
+          <p class="hint">A returnable jug adds no new plastic per refill.</p>
+        </div>
+      </div>
+      <div class="field-grid cols-2" id="filterFields" hidden>
+        <div>
+          <label class="field-label" for="upfrontCost">Pitcher upfront cost</label>
+          <input class="input" type="number" id="upfrontCost" inputmode="decimal" min="0" step="any" placeholder="e.g. 600">
+        </div>
+        <div>
+          <label class="field-label" for="cartsPerYear">Cartridges per year</label>
+          <input class="input" type="number" id="cartsPerYear" inputmode="numeric" value="4" min="0" step="1">
+        </div>
+        <div>
+          <label class="field-label" for="cartPrice">Price per cartridge</label>
+          <input class="input" type="number" id="cartPrice" inputmode="decimal" min="0" step="any" placeholder="e.g. 150">
+        </div>
+      </div>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="bottleMass">Plastic per bottle</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="bottleMass" inputmode="decimal" value="10" min="0" step="any">
+            <span class="input-suffix">g</span>
+          </div>
+          <p class="hint">Editable — the industry average for a 0.5 L bottle is about 9.3–9.9 g, while an NIH-cited range runs 13–26 g.</p>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Compare my options</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your yearly comparison</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resPrimary">0</span>
+          <span class="primary-unit" id="resPrimaryUnit">per year</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resBottles">0</span><span class="stat-label">Bottles per year</span></div>
+          <div class="stat"><span class="stat-value" id="resPlastic">0</span><span class="stat-label">Plastic per year</span></div>
+          <div class="stat"><span class="stat-value" id="resCo2">0</span><span class="stat-label">CO₂ per year (range)</span></div>
+          <div class="stat"><span class="stat-value" id="resAltCost">—</span><span class="stat-label" id="resAltLabel">Alternative cost per year</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Picking a reusable bottle? Try the <a href="../bottle-size-recommender/">Bottle Size Recommender</a>, then track what you drink with the <a href="../water-tracker/">Water Tracker</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the estimate is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Consumption &amp; cost</h3>
+          <p class="formula">Liters/year = daily L × days<br>Bottles/year = liters ÷ bottle size (rounded up)<br>Bottled cost = bottles × price<br>Jug cost = (liters ÷ jug size) × refill price<br>Filter cost = upfront + cartridges × price</p>
+        </div>
+        <div class="formula-box">
+          <h3>Footprint avoided</h3>
+          <p class="formula">Plastic (kg) = bottles × grams per bottle ÷ 1000<br>CO₂ (kg) = liters × (166–222 g per liter) ÷ 1000<br>Savings = bottled cost − alternative cost</p>
+        </div>
+      </div>
+      <p class="section-intro">The CO₂ figure uses a study-based estimate of 83–111 g of CO₂ per 0.5 L single-use bottle (roughly 166–222 g per liter, covering production and transport). A returnable jug is refilled, so it adds no new plastic per refill. Tap-water CO₂ is treated as zero — it is small and depends on your city's water system. Bottle mass is editable because published figures vary: about 9.3–9.9 g for a modern 0.5 L bottle by industry averages, with an NIH-cited range of 13–26 g across markets. No default prices are presented as facts — everything money-related comes from what you type.</p>
+    </section>
+    <section class="disclaimer" aria-label="Disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This tool provides general budgeting and environmental estimates only. General estimate — prices and environmental figures vary by country and study. It does not account for deposits, taxes, water-quality differences or local recycling systems.</p>
+    </section>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var daily = $('daily'), days = $('days'), bottleSize = $('bottleSize'), customSize = $('customSize');
+  var currency = $('currency'), bottlePrice = $('bottlePrice'), alt = $('alt');
+  var jugSize = $('jugSize'), refillPrice = $('refillPrice');
+  var upfrontCost = $('upfrontCost'), cartsPerYear = $('cartsPerYear'), cartPrice = $('cartPrice');
+  var bottleMass = $('bottleMass');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  var ALT_LABEL = { jug: 'returnable water jug', filter: 'filter pitcher', tap: 'tap water' };
+  function fmt(n) { return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  bottleSize.addEventListener('change', function () {
+    $('customSizeWrap').hidden = bottleSize.value !== 'custom';
+    if (bottleSize.value === '0.5') { bottleMass.value = '10'; }
+    else if (bottleSize.value === '1.5') { bottleMass.value = '30'; }
+    if (!results.hidden) render();
+  });
+  alt.addEventListener('change', function () {
+    $('jugFields').hidden = alt.value !== 'jug';
+    $('filterFields').hidden = alt.value !== 'filter';
+    if (!results.hidden) render();
+  });
+  function calc(quiet) {
+    var d = parseFloat(daily.value);
+    if (isNaN(d) || d <= 0 || d > 50) { if (!quiet) { showErr('Enter a daily amount between 0 and 50 liters.'); } return null; }
+    var dy = parseFloat(days.value);
+    if (isNaN(dy) || dy < 1 || dy > 366) { if (!quiet) { showErr('Days per year must be between 1 and 366.'); } return null; }
+    var size = bottleSize.value === 'custom' ? parseFloat(customSize.value) : parseFloat(bottleSize.value);
+    if (isNaN(size) || size <= 0 || size > 20) { if (!quiet) { showErr('Enter a bottle size between 0 and 20 liters.'); } return null; }
+    var mass = parseFloat(bottleMass.value);
+    if (isNaN(mass) || mass <= 0 || mass > 500) { if (!quiet) { showErr('Plastic per bottle must be between 0 and 500 grams.'); } return null; }
+    var litersYear = d * dy;
+    var bottles = litersYear / size;
+    var plastic = bottles * mass / 1000;
+    var co2low = litersYear * 166 / 1000;
+    var co2high = litersYear * 222 / 1000;
+    var cur = currency.value.replace(/^\s+|\s+$/g, '') || '$';
+    var priceRaw = bottlePrice.value.replace(/^\s+|\s+$/g, '');
+    var money = null;
+    if (priceRaw !== '') {
+      var price = parseFloat(priceRaw);
+      if (isNaN(price) || price <= 0) { if (!quiet) { showErr('Enter a valid bottle price, or clear the field to skip the money comparison.'); } return null; }
+      var altCost = 0, detail = '';
+      if (alt.value === 'jug') {
+        var js = parseFloat(jugSize.value);
+        if (isNaN(js) || js <= 0 || js > 100) { if (!quiet) { showErr('Enter a jug size between 0 and 100 liters.'); } return null; }
+        var rp = parseFloat(refillPrice.value);
+        if (refillPrice.value === '' || isNaN(rp) || rp < 0) { if (!quiet) { showErr('Enter the refill price to compare costs — or clear the bottle price to see only bottles, plastic and CO₂.'); } return null; }
+        var refills = litersYear / js;
+        altCost = refills * rp;
+        detail = refills.toFixed(1) + ' refills of ' + js + ' L';
+      } else if (alt.value === 'filter') {
+        var up = parseFloat(upfrontCost.value);
+        if (upfrontCost.value === '' || isNaN(up) || up < 0) { if (!quiet) { showErr('Enter the pitcher upfront cost — or clear the bottle price to see only bottles, plastic and CO₂.'); } return null; }
+        var cn = parseFloat(cartsPerYear.value);
+        if (isNaN(cn) || cn < 0 || cn > 52) { if (!quiet) { showErr('Cartridges per year must be between 0 and 52.'); } return null; }
+        var cp = parseFloat(cartPrice.value);
+        if (cartPrice.value === '' || isNaN(cp) || cp < 0) { if (!quiet) { showErr('Enter the cartridge price to compare costs — or clear the bottle price to see only bottles, plastic and CO₂.'); } return null; }
+        altCost = up + cn * cp;
+        detail = 'pitcher + ' + cn + ' cartridge' + (cn === 1 ? '' : 's') + ' per year';
+      }
+      money = { price: price, costBottled: bottles * price, altCost: altCost, savings: bottles * price - altCost, detail: detail };
+    }
+    errBox.hidden = true;
+    return { litersYear: litersYear, bottles: bottles, plastic: plastic, co2low: co2low, co2high: co2high, cur: cur, money: money };
+  }
+
+  function render() {
+    var r = calc(false);
+    if (!r) { return; }
+    $('resBottles').textContent = Math.ceil(r.bottles).toLocaleString('en-US');
+    $('resPlastic').textContent = r.plastic.toFixed(2) + ' kg';
+    $('resCo2').textContent = r.co2low.toFixed(1) + '–' + r.co2high.toFixed(1) + ' kg';
+    if (r.money) {
+      var s = r.money.savings;
+      $('resPrimary').textContent = r.cur + ' ' + fmt(Math.abs(s));
+      $('resPrimaryUnit').textContent = s >= 0 ? 'saved per year with a ' + ALT_LABEL[alt.value] : 'extra per year — the ' + ALT_LABEL[alt.value] + ' costs more at these prices';
+      $('resSub').textContent = 'Bottled water: ' + r.cur + ' ' + fmt(r.money.costBottled) + '/year vs ' + ALT_LABEL[alt.value] + ': ' + r.cur + ' ' + fmt(r.money.altCost) + '/year' + (r.money.detail ? ' (' + r.money.detail + ').' : '.');
+      $('resAltCost').textContent = r.cur + ' ' + fmt(r.money.altCost);
+    } else {
+      $('resPrimary').textContent = Math.ceil(r.bottles).toLocaleString('en-US');
+      $('resPrimaryUnit').textContent = 'bottles per year';
+      $('resSub').textContent = 'That is ' + r.litersYear.toLocaleString('en-US') + ' L of water per year. Add a bottle price above to compare costs against an alternative.';
+      $('resAltCost').textContent = '—';
+    }
+    $('resAltLabel').textContent = r.money ? ('Cost per year: ' + ALT_LABEL[alt.value]) : 'Alternative cost per year';
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', render);
+  var inputs = [daily, days, customSize, bottlePrice, jugSize, refillPrice, upfrontCost, cartsPerYear, cartPrice, bottleMass, currency];
+  inputs.forEach(function (el) { el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); render(); } }); });
+  $('copyBtn').addEventListener('click', function () {
+    var t = $('resPrimary').textContent + ' ' + $('resPrimaryUnit').textContent + ' — ' + $('resSub').textContent +
+      ' Bottles/year: ' + $('resBottles').textContent + ', plastic: ' + $('resPlastic').textContent + ', CO₂: ' + $('resCo2').textContent + '. General estimate; figures vary by country and study.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    daily.value = '2'; days.value = '365'; bottleSize.selectedIndex = 0; customSize.value = '';
+    $('customSizeWrap').hidden = true; currency.value = '$'; bottlePrice.value = '';
+    alt.selectedIndex = 0; jugSize.value = '18.9'; refillPrice.value = '';
+    upfrontCost.value = ''; cartsPerYear.value = '4'; cartPrice.value = ''; bottleMass.value = '10';
+    $('jugFields').hidden = false; $('filterFields').hidden = true;
+    results.hidden = true; errBox.hidden = true; bottlePrice.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>General estimate — prices and environmental figures vary by country and study.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
