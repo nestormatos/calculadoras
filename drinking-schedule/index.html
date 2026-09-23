@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drinking Schedule Planner — Spread Your Water Goal Across the Day | Hydration Tools</title>
+<meta name="description" content="Build a timed drinking schedule from your wake-up and bed times. Evenly spaced drinks, per-drink amounts, running totals and a printable plan that ends 30 minutes before bed.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Planner</span>
+    <h1>Drinking Schedule Planner</h1>
+    <p class="lead">Big daily goals are easier in small, timed sips. Tell us when your day starts and ends, and we'll space your water evenly — finishing 30 minutes before bed.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Plan your drinking day</h2>
+      <p class="card-sub">An even split keeps hydration steady; the final drink is scheduled at least 30 minutes before bedtime.</p>
+      <div class="no-print">
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="goal">Daily water goal</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="goal" inputmode="decimal" value="68" min="8" step="any">
+            <span class="input-suffix">fl oz</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="drinks">Number of drinks</label>
+          <select class="select" id="drinks">
+            <option value="6">6 drinks</option>
+            <option value="7">7 drinks</option>
+            <option value="8" selected>8 drinks</option>
+            <option value="9">9 drinks</option>
+            <option value="10">10 drinks</option>
+            <option value="11">11 drinks</option>
+            <option value="12">12 drinks</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="wake">Wake-up time</label>
+          <input class="input" type="time" id="wake" value="07:00">
+        </div>
+        <div>
+          <label class="field-label" for="sleep">Bedtime</label>
+          <input class="input" type="time" id="sleep" value="23:00">
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Build my schedule</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      </div>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your drinking schedule</h3><span class="results-tag">Plan</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resPer">0</span>
+                    <span class="primary-unit">fl oz per drink</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resDrinks">0</span><span class="stat-label">Drinks</span></div>
+          <div class="stat"><span class="stat-value" id="resWindow">0</span><span class="stat-label">Drinking window</span></div>
+          <div class="stat"><span class="stat-value" id="resFirst">—</span><span class="stat-label">First drink</span></div>
+          <div class="stat"><span class="stat-value" id="resLast">—</span><span class="stat-label">Last drink</span></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>Timed plan — even split, final drink 30 minutes before bed</caption>
+            <thead><tr><th scope="col">Time</th><th scope="col">Amount</th><th scope="col">Running total</th><th scope="col">% of goal</th></tr></thead>
+            <tbody id="planBody"></tbody>
+          </table>
+        </div>
+        <div class="results-actions" style="margin-top:16px">
+          <button class="btn btn-secondary no-print" id="printBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>Print schedule</button>
+          <button class="btn btn-secondary no-print" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy schedule</span></button>
+          <button class="btn btn-ghost no-print" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Keep it going: set the <a href="../water-reminder/">Water Reminder Timer</a> to match these intervals, or check the <a href="../bottle-count/">Bottle Count Calculator</a> to see the goal in refills.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the schedule is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Even split</h3>
+          <p class="formula">per drink = goal ÷ drinks,<br>rounded to nearest 0.5 fl oz;<br>final drink takes the remainder</p>
+        </div>
+        <div class="formula-box">
+          <h3>Timing</h3>
+          <p class="formula">window = wake-up → bedtime − 30 min<br>interval = window ÷ (drinks − 1)<br>times rounded to nearest 5 min</p>
+        </div>
+      </div>
+      <p class="section-intro">Spacing intake evenly keeps hydration steady instead of flooding your system all at once, and stopping 30 minutes before bed reduces night-time bathroom trips. Amounts are rounded to the nearest 0.5 fl oz so they're easy to pour; the last drink absorbs any rounding difference so the day still totals your exact goal.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This planner offers general scheduling guidance only and is not medical advice. Fluid needs vary with health, activity and environment — if you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional.</p>
+    </section>
+<script>
+(function () {
+'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var goal = $('goal'), wake = $('wake'), sleep = $('sleep'), drinks = $('drinks');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtTime(mins) {
+    mins = ((mins % 1440) + 1440) % 1440;
+    return pad(Math.floor(mins / 60)) + ':' + pad(mins % 60);
+  }
+  function parseTime(v) {
+    var p = (v || '').split(':');
+    if (p.length !== 2) { return NaN; }
+    var h = parseInt(p[0], 10), m = parseInt(p[1], 10);
+    if (isNaN(h) || isNaN(m) || h > 23 || m > 59) { return NaN; }
+    return h * 60 + m;
+  }
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function calc() {
+    var goalOz = Math.round(parseFloat(goal.value) * 2) / 2;
+    if (!goalOz || goalOz <= 0) { showErr('Please enter your daily water goal.'); return; }
+    if (goalOz < 8 || goalOz > 338) { showErr('Enter a goal between 8 and 338 fl oz.'); return; }
+    var w = parseTime(wake.value), s = parseTime(sleep.value);
+    if (isNaN(w) || isNaN(s)) { showErr('Please set both your wake-up time and bedtime.'); return; }
+    if (s - w < 120) { showErr('Allow at least 2 hours between wake-up and bedtime.'); return; }
+    errBox.hidden = true;
+    var n = parseInt(drinks.value, 10);
+    var start = w, end = s - 30, span = end - start;
+    var step = n > 1 ? span / (n - 1) : 0;
+    var per = Math.max(0.5, Math.round(goalOz / n * 2) / 2);
+    if (n > 1) { per = Math.max(0.5, Math.min(per, Math.floor((goalOz - 0.5) / (n - 1) * 2) / 2)); }
+    var body = $('planBody');
+    body.innerHTML = '';
+    var total = 0;
+    for (var i = 0; i < n; i++) {
+      var t = Math.round((start + step * i) / 5) * 5;
+      var amt = (i === n - 1) ? Math.max(0, Math.round((goalOz - total) * 2) / 2) : per;
+      total = Math.round((total + amt) * 2) / 2;
+      var tr = document.createElement('tr');
+      var cells = [fmtTime(t), amt.toLocaleString('en-US') + ' fl oz', total.toLocaleString('en-US') + ' fl oz', Math.round(total / goalOz * 100) + '%'];
+      for (var c = 0; c < cells.length; c++) {
+        var td = document.createElement('td');
+        td.textContent = cells[c];
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    }
+    $('resPer').textContent = per.toLocaleString('en-US');
+    $('resSub').textContent = n + ' drinks from ' + fmtTime(start) + ' to ' + fmtTime(end) + ' — finished 30 minutes before bed.';
+    $('resDrinks').textContent = String(n);
+    $('resWindow').textContent = (span / 60).toFixed(1) + ' h';
+    $('resFirst').textContent = fmtTime(start);
+    $('resLast').textContent = fmtTime(end);
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', calc);
+  [wake, sleep, drinks].forEach(function (el) { el.addEventListener('change', function () { if (!results.hidden) calc(); }); });
+  [goal, wake, sleep].forEach(function (el) { el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } }); });
+  $('printBtn').addEventListener('click', function () { window.print(); });
+  $('copyBtn').addEventListener('click', function () {
+    var lines = ['My drinking schedule — ' + goal.value + ' fl oz in ' + drinks.value + ' drinks:'];
+    var rows = $('planBody').rows;
+    for (var i = 0; i < rows.length; i++) {
+      lines.push(rows[i].cells[0].textContent + ' — ' + rows[i].cells[1].textContent + ' (total ' + rows[i].cells[2].textContent + ', ' + rows[i].cells[3].textContent + ')');
+    }
+    var t = lines.join('\n');
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy schedule'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    goal.value = '68'; wake.value = '07:00'; sleep.value = '23:00'; drinks.selectedIndex = 2;
+    results.hidden = true; errBox.hidden = true; goal.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
