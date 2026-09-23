@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flight &amp; Altitude Hydration Calculator | Hydration Tools</title>
+<meta name="description" content="Estimate how much to drink during a flight and how your daily water target shifts at high altitude. Honest, estimate-based guidance with safety warnings. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Flight &amp; Altitude Hydration Calculator</h1>
+    <p class="lead">Estimate what to drink during a flight, or how your daily target shifts at high altitude — with honest notes about how limited the evidence behind these estimates is.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Plan your travel hydration</h2>
+      <p class="card-sub">Every figure here is an estimate. Research on travel hydration is thin, so treat results as a practical starting point, not a prescription.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <span class="field-label" id="modeLabel">Situation</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="modeLabel">
+            <input type="radio" name="mode" id="modeFlight" value="flight" checked>
+            <label for="modeFlight">Flight</label>
+            <input type="radio" name="mode" id="modeAltitude" value="altitude">
+            <label for="modeAltitude">Altitude</label>
+          </div>
+        </div>
+      </div>
+      <div id="flightFields">
+        <div class="field-grid cols-2">
+          <div>
+            <label class="field-label" for="flightHours">Flight duration</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="flightHours" inputmode="decimal" placeholder="e.g. 8" min="0.5" max="20" step="0.5">
+              <span class="input-suffix">hours</span>
+            </div>
+            <p class="hint">Scheduled time in the air, between 0.5 and 20 hours.</p>
+          </div>
+        </div>
+        <div class="notice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <p>Studies show that cabin humidity at cruising altitude drops to roughly 10–20% — drier than most deserts — which increases the fluid you lose through breathing and skin.</p>
+        </div>
+      </div>
+      <div id="altitudeFields" hidden>
+        <div class="field-grid cols-2">
+          <div>
+            <span class="field-label" id="altUnitLabel">Altitude unit</span>
+            <div class="segmented" role="radiogroup" aria-labelledby="altUnitLabel">
+              <input type="radio" name="altUnit" id="altUnitM" value="m" checked>
+              <label for="altUnitM">Meters (m)</label>
+              <input type="radio" name="altUnit" id="altUnitFt" value="ft">
+              <label for="altUnitFt">Feet (ft)</label>
+            </div>
+          </div>
+          <div>
+            <label class="field-label" for="altitude">Destination altitude</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="altitude" inputmode="decimal" placeholder="e.g. 3000" min="0" step="any">
+              <span class="input-suffix" id="altSuffix">m</span>
+            </div>
+            <p class="hint">Switching units converts the value automatically.</p>
+          </div>
+          <div>
+            <label class="field-label" for="baseGoal">Your baseline daily goal</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="baseGoal" inputmode="decimal" value="68" min="17" max="200" step="any">
+              <span class="input-suffix">fl oz</span>
+            </div>
+            <p class="hint">Pre-filled from your saved tracker goal when available; otherwise defaults to 68 fl oz.</p>
+          </div>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Estimate my hydration</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3 id="resTitle">Your estimate</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resMain">0</span>
+          <span class="primary-unit" id="resUnit">fl oz</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resS1v">—</span><span class="stat-label" id="resS1l">—</span></div>
+          <div class="stat"><span class="stat-value" id="resS2v">—</span><span class="stat-label" id="resS2l">—</span></div>
+          <div class="stat"><span class="stat-value" id="resS3v">—</span><span class="stat-label" id="resS3l">—</span></div>
+          <div class="stat"><span class="stat-value" id="resS4v">—</span><span class="stat-label" id="resS4l">—</span></div>
+        </div>
+        <div class="notice" id="flightTips" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <p>This estimate covers everything you drink during the flight, including moisture from food — it is not extra on top of your daily goal. Alcohol and excess caffeine during the flight make dehydration worse, so go easy on both. On long flights, concentrate your intake while you are awake so your sleep is not interrupted.</p>
+        </div>
+        <div class="notice" id="altWarn" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <p>Drinking well does <strong>not</strong> prevent altitude sickness. If you develop a severe headache, confusion, shortness of breath at rest, or clumsy walking, descend and seek medical care. Thirst decreases at altitude, so drink on a schedule — without forcing large amounts at once.</p>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Also useful: the <a href="../hot-weather-water-calculator/">Hot Weather Water Calculator</a> for destination climates, or the <a href="../sweat-rate-calculator/">Sweat Rate Calculator</a> if you will be hiking at altitude.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the estimates are built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Flight estimate</h3>
+          <p class="formula">During flight: 3.4–10.1 fl oz per hour<br>Highlighted midpoint: hours × 6.8 fl oz</p>
+        </div>
+        <div class="formula-box">
+          <h3>Altitude adjustment</h3>
+          <p class="formula">Below 1,500 m: +0 fl oz<br>1,500–2,500 m: +0 to 17 fl oz<br>2,500 m and above: +34 to 51 fl oz</p>
+        </div>
+      </div>
+      <p class="section-intro">The in-flight range reflects commonly cited aerospace-medicine guidance: studies show cabin humidity at cruise is only about 10–20%, which raises insensible fluid losses. The altitude tiers are conservative design thresholds — there is no official source that specifies exact extra volumes — so treat them as a practical guide, not a medical target. For your everyday baseline, start with the <a href="../water-intake-calculator/">Water Intake Calculator</a>.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>General guidance for healthy people — not medical advice. If you have kidney, heart or liver disease, or you have been told to restrict fluids or sodium, follow your doctor's instructions. Drinking too much can also be dangerous: it can lower blood sodium (hyponatremia). Every number on this page is an estimate based on limited evidence; if you are travelling to very high altitude, talk to a healthcare professional first.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var L_TO_OZ = 33.8140; /* world standard: ounces primary */
+  var OZ_PER_HOUR_LOW = 0.1 * L_TO_OZ, OZ_PER_HOUR_MID = 0.2 * L_TO_OZ, OZ_PER_HOUR_HIGH = 0.3 * L_TO_OZ; /* 3.4–10.1 fl oz/h */
+  /* Self-verified test cases (ounces primary):
+     Flight 8 h   -> 27–81 fl oz, highlighted mid 54 fl oz
+     Flight 2.5 h -> 8.5–25 fl oz, mid 17 fl oz
+     3000 m, base 68 -> 102–119 fl oz/day (high tier +34 to 51)
+     2000 m, base 68 -> 68–85 fl oz/day (middle tier +0 to 17)
+     8000 ft = 2438.4 m -> middle tier (+0 to 17 fl oz) */
+  var results = $('results'), errBox = $('calcError'), errText = $('calcErrorText');
+  var hours = $('flightHours'), alt = $('altitude'), base = $('baseGoal');
+  var lastCopy = '';
+  try {
+    var g = localStorage.getItem('ph-tracker-goal');
+    if (g) {
+      var gv = parseFloat(g);
+      if (!isNaN(gv)) {
+        /* one-time migration: legacy metric goal (millilitres) -> oz */
+        if (gv >= 250 && gv <= 6000) { gv = Math.round(gv / 29.5735); }
+        if (gv >= 17 && gv <= 200) { base.value = Math.round(gv); }
+      }
+    }
+  } catch (e) {}
+  function mode() { return $('modeAltitude').checked ? 'altitude' : 'flight'; }
+  function syncMode() {
+    var m = mode();
+    $('flightFields').hidden = m !== 'flight';
+    $('altitudeFields').hidden = m !== 'altitude';
+    results.hidden = true; errBox.hidden = true;
+  }
+  $('modeFlight').addEventListener('change', syncMode);
+  $('modeAltitude').addEventListener('change', syncMode);
+  function altUnit() { return $('altUnitFt').checked ? 'ft' : 'm'; }
+  function syncAltUnit() {
+    var u = altUnit();
+    $('altSuffix').textContent = u;
+    var v = parseFloat(alt.value);
+    if (!isNaN(v) && v >= 0) { alt.value = u === 'ft' ? Math.round(v / 0.3048) : Math.round(v * 0.3048); }
+    if (!results.hidden) { calc(); }
+  }
+  $('altUnitM').addEventListener('change', syncAltUnit);
+  $('altUnitFt').addEventListener('change', syncAltUnit);
+  function fmtOz(v) { return (Math.round(v * 10) / 10).toLocaleString('en-US'); }
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function setStat(i, v, l) { $('resS' + i + 'v').textContent = v; $('resS' + i + 'l').textContent = l; }
+  function calc() {
+    if (mode() === 'flight') {
+      var h = parseFloat(hours.value);
+      if (isNaN(h) || h <= 0) { showErr('Please enter your flight duration in hours.'); return; }
+      if (h < 0.5 || h > 20) { showErr('Enter a flight time between 0.5 and 20 hours.'); return; }
+      errBox.hidden = true;
+      var low = h * OZ_PER_HOUR_LOW, mid = h * OZ_PER_HOUR_MID, high = h * OZ_PER_HOUR_HIGH;
+      $('resTitle').textContent = 'Estimated intake during your flight';
+      $('resMain').textContent = fmtOz(mid);
+      $('resUnit').textContent = 'fl oz during the flight';
+      $('resSub').textContent = 'Estimated range: ' + fmtOz(low) + '–' + fmtOz(high) + ' fl oz for a ' + h + '-hour flight. The midpoint is highlighted as a practical target.';
+      setStat(1, fmtOz(low) + ' fl oz', 'Low estimate (3.4 fl oz/h)');
+      setStat(2, fmtOz(mid) + ' fl oz', 'Midpoint (6.8 fl oz/h)');
+      setStat(3, fmtOz(high) + ' fl oz', 'High estimate (10.1 fl oz/h)');
+      setStat(4, fmtOz(mid) + ' fl oz', 'Midpoint in ounces');
+      $('flightTips').hidden = false;
+      $('altWarn').hidden = true;
+      lastCopy = 'Estimated in-flight hydration for a ' + h + '-hour flight: ' + fmtOz(low) + '–' + fmtOz(high) + ' fl oz (midpoint ' + fmtOz(mid) + ' fl oz), including food moisture — not extra on top of the daily goal.';
+    } else {
+      var a = parseFloat(alt.value);
+      if (isNaN(a) || a < 0) { showErr('Please enter your destination altitude.'); return; }
+      var am = altUnit() === 'ft' ? a * 0.3048 : a;
+      if (am > 9000) { showErr('Enter an altitude up to 9,000 m (29,500 ft).'); return; }
+      var b = parseFloat(base.value);
+      if (isNaN(b) || b < 17 || b > 200) { showErr('Enter a baseline daily goal between 17 and 200 fl oz.'); return; }
+      errBox.hidden = true;
+      var addLow, addHigh, tier;
+      if (am < 1500) { addLow = 0; addHigh = 0; tier = 'below 1,500 m — no extra fluid is estimated'; }
+      else if (am < 2500) { addLow = 0; addHigh = 17; tier = 'the moderate tier (1,500–2,500 m)'; }
+      else { addLow = 34; addHigh = 51; tier = 'the high tier (2,500 m and above)'; }
+      var lo = b + addLow, hi = b + addHigh;
+      var amR = Math.round(am);
+      var altText = altUnit() === 'ft' ? Math.round(a).toLocaleString('en-US') + ' ft (≈' + amR.toLocaleString('en-US') + ' m)' : amR.toLocaleString('en-US') + ' m';
+      $('resTitle').textContent = 'Estimated daily target at altitude';
+      $('resMain').textContent = lo === hi ? fmtOz(lo) : fmtOz(lo) + '–' + fmtOz(hi);
+      $('resUnit').textContent = 'fl oz per day';
+      $('resSub').textContent = 'At ' + altText + ' you are in ' + tier + '. Baseline goal: ' + fmtOz(b) + ' fl oz/day.';
+      setStat(1, fmtOz(b) + ' fl oz', 'Baseline daily goal');
+      setStat(2, addLow === addHigh ? '+0 fl oz' : '+' + fmtOz(addLow) + '–' + fmtOz(addHigh) + ' fl oz', 'Estimated altitude add-on');
+      setStat(3, fmtOz(lo) + ' fl oz', 'Target — low end');
+      setStat(4, fmtOz(hi) + ' fl oz', 'Target — high end');
+      $('flightTips').hidden = true;
+      $('altWarn').hidden = false;
+      lastCopy = 'Estimated daily target at ' + altText + ': ' + (lo === hi ? fmtOz(lo) : fmtOz(lo) + '–' + fmtOz(hi)) + ' fl oz/day (baseline ' + fmtOz(b) + ' fl oz + estimated altitude adjustment).';
+    }
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', calc);
+  [hours, alt, base].forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } });
+  });
+  base.addEventListener('change', function () { if (!results.hidden) { calc(); } });
+  $('copyBtn').addEventListener('click', function () {
+    var t = lastCopy;
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    hours.value = ''; alt.value = ''; base.value = '68';
+    $('modeFlight').checked = true; $('altUnitM').checked = true; $('altSuffix').textContent = 'm';
+    syncMode(); hours.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
