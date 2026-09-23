@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids Hydration Calculator — Daily Water Needs by Age | Hydration Tools</title>
+<meta name="description" content="Find out how much water children need each day by age, sex and activity level. Based on Institute of Medicine total-water guidelines, with drink targets in fluid ounces and cups.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Guide</span>
+    <h1>Kids Hydration Calculator</h1>
+    <p class="lead">How much should your child drink today? Age-based targets from established guidelines, adjusted for busy, active days — in numbers that are easy for parents to use.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Find your child's daily target</h2>
+      <p class="card-sub">The sex field appears for ages 9 and up, where guidelines start to differ.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="age">Age group</label>
+          <select class="select" id="age">
+            <option value="1-3">1–3 years (toddlers)</option>
+            <option value="4-8" selected>4–8 years (young kids)</option>
+            <option value="9-13">9–13 years (preteens)</option>
+            <option value="14-18">14–18 years (teens)</option>
+          </select>
+        </div>
+        <div id="sexField" hidden>
+          <label class="field-label" for="sex">Sex (from age 9)</label>
+          <select class="select" id="sex">
+            <option value="girls">Girls</option>
+            <option value="boys">Boys</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="activity">Activity today</label>
+          <select class="select" id="activity">
+            <option value="1" data-label="a quiet day">Quiet day (school, indoor play)</option>
+            <option value="1.15" data-label="an active day" selected>Active day (playground, bike rides)</option>
+            <option value="1.3" data-label="a sport day">Sport day (practice, game, hot weather)</option>
+          </select>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate daily target</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Daily target for your child</h3><span class="results-tag">Guideline</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resDrinks">0</span>
+                    <span class="primary-unit">fl oz from drinks</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resTotal">0</span><span class="stat-label">Total water — food + drinks (fl oz)</span></div>
+          <div class="stat"><span class="stat-value" id="resDrinksStat">0</span><span class="stat-label">Drinks portion — about 75% (fl oz)</span></div>
+          <div class="stat"><span class="stat-value" id="resCups">0</span><span class="stat-label">Cups of 8 fl oz</span></div>
+          <div class="stat"><span class="stat-value" id="resSchool">0</span><span class="stat-label">Suggested per school hour (fl oz)</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Build the habit with gentle nudges from the <a href="../water-reminder/">Water Reminder</a>, or make tracking fun with the <a href="../printable-water-tracker/">Printable Water Tracker</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">Where the numbers come from</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Total water by age (food + drinks)</h3>
+          <p class="formula">Ages 1–3: 1.3 L · Ages 4–8: 1.7 L<br>Ages 9–13: girls 2.1 L · boys 2.4 L<br>Ages 14–18: girls 2.3 L · boys 3.3 L</p>
+        </div>
+        <div class="formula-box">
+          <h3>From total to drinks</h3>
+          <p class="formula">Drinks ≈ 75% of total water<br>Activity: quiet ×1.0 · active ×1.15 · sport ×1.3<br>1 cup = 8 fl oz</p>
+        </div>
+        <div class="formula-box">
+          <h3>Practical tips for parents</h3>
+          <ul>
+            <li>Keep a filled bottle within reach — kids drink more when water is visible.</li>
+            <li>Offer water with every meal and snack, not just when they ask.</li>
+            <li>Send a labeled bottle to school and ask about refill breaks.</li>
+            <li>On sport days, encourage a few sips every 15–20 minutes.</li>
+            <li>Water and milk are the best everyday choices; limit sugary drinks.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="section-intro">These values follow Institute of Medicine (National Academies) adequate-intake levels for total water — everything a child drinks plus the water in food. Roughly one fifth of intake normally comes from food, which is why the drinks target sits near 75% of the total. Active play and hot weather raise needs, so the activity multiplier nudges the target up on busier days.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This tool offers general guidance for healthy children and is not medical advice. Needs vary with health, weather and diet. Always consult your pediatrician about your child's hydration — especially for infants under 12 months, children with medical conditions, or during illness with fever, vomiting or diarrhea.</p>
+    </section>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var TOTALS = {
+    '1-3': { any: 1.3 },
+    '4-8': { any: 1.7 },
+    '9-13': { girls: 2.1, boys: 2.4 },
+    '14-18': { girls: 2.3, boys: 3.3 }
+  };
+  var AGE_LABELS = { '1-3': 'ages 1–3', '4-8': 'ages 4–8', '9-13': 'ages 9–13', '14-18': 'ages 14–18' };
+  var OZ_PER_L = 33.814;
+  var age = $('age'), sex = $('sex'), activity = $('activity'), sexField = $('sexField');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  function needsSex() { return age.value === '9-13' || age.value === '14-18'; }
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function calc() {
+    var entry = TOTALS[age.value];
+    if (!entry) { showErr('Please choose an age group.'); return; }
+    var base = entry.any !== undefined ? entry.any : entry[sex.value];
+    if (!base) { showErr('Please choose an option for every field.'); return; }
+    errBox.hidden = true;
+    var totalOz = base * parseFloat(activity.value) * OZ_PER_L;
+    var drinksOz = totalOz * 0.75;
+    var cups = drinksOz / 8;
+    var school = drinksOz / 6;
+    function round1(x) { return Math.round(x * 10) / 10; }
+    $('resDrinks').textContent = round1(drinksOz).toLocaleString('en-US');
+    $('resSub').textContent = 'About ' + cups.toFixed(1) + ' cups (8 fl oz each) on ' + activity.options[activity.selectedIndex].dataset.label + ' for ' + AGE_LABELS[age.value] + '. Water, milk and other unsweetened drinks all count.';
+    $('resTotal').textContent = round1(totalOz).toLocaleString('en-US');
+    $('resDrinksStat').textContent = round1(drinksOz).toLocaleString('en-US');
+    $('resCups').textContent = cups.toFixed(1);
+    $('resSchool').textContent = round1(school).toLocaleString('en-US');
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  age.addEventListener('change', function () {
+    sexField.hidden = !needsSex();
+    if (!results.hidden) calc();
+  });
+  $('calcBtn').addEventListener('click', calc);
+  [sex, activity].forEach(function (el) { el.addEventListener('change', function () { if (!results.hidden) calc(); }); });
+  [age, sex, activity].forEach(function (el) { el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } }); });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'Kids hydration target (' + AGE_LABELS[age.value] + '): ' + $('resDrinks').textContent + ' fl oz from drinks (' + $('resCups').textContent + ' cups of 8 fl oz), out of ' + $('resTotal').textContent + ' fl oz total water per day.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    age.selectedIndex = 1; sex.selectedIndex = 0; sexField.hidden = true; activity.selectedIndex = 1;
+    results.hidden = true; errBox.hidden = true; age.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
