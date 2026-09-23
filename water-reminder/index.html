@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Reminder Timer — Gentle Interval Alerts to Drink More | Hydration Tools</title>
+<meta name="description" content="A simple interval timer that nudges you to drink water every 15–90 minutes, with an optional sound, browser notifications and a live countdown in the tab title.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Timer</span>
+    <h1>Water Reminder Timer</h1>
+    <p class="lead">Set an interval, press start, and get a friendly nudge when it's time for the next glass — with a soft beep, a browser notification, and a countdown right in the tab title.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Set your reminder interval</h2>
+      <p class="card-sub">The timer loops automatically — each alarm starts the next countdown. Keep this tab open while it runs.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="interval">Remind me every</label>
+          <select class="select" id="interval">
+            <option value="15">15 minutes</option>
+            <option value="20">20 minutes</option>
+            <option value="30" selected>30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">60 minutes</option>
+            <option value="90">90 minutes</option>
+          </select>
+        </div>
+        <div>
+          <span class="field-label">Alerts</span>
+          <label style="display:flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600;margin-bottom:10px;cursor:pointer">
+            <input type="checkbox" id="sound" checked style="width:17px;height:17px;accent-color:var(--accent)"> Sound (short beep)
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600;cursor:pointer">
+            <input type="checkbox" id="notif" style="width:17px;height:17px;accent-color:var(--accent)"> Browser notification
+          </label>
+          <p class="hint">Notifications need your permission; without it, the page flashes instead.</p>
+        </div>
+      </div>
+      <div class="timer-face" id="face" aria-live="polite">30:00</div>
+      <p class="timer-status" id="status">Ready when you are.</p>
+      <div class="results-actions" style="justify-content:center;margin-bottom:4px">
+        <button class="btn btn-primary" id="startBtn"><span id="startLabel">Start</span></button>
+        <button class="btn btn-secondary" id="resetBtn">Reset</button>
+      </div>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Session stats</h3><span class="results-tag">Live</span></div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resInt">30 min</span><span class="stat-label">Interval</span></div>
+          <div class="stat"><span class="stat-value" id="resNext">—</span><span class="stat-label">Next reminder at</span></div>
+          <div class="stat"><span class="stat-value" id="resDone">0</span><span class="stat-label">Reminders completed</span></div>
+          <div class="stat"><span class="stat-value" id="resAlert">Sound</span><span class="stat-label">Alert style</span></div>
+        </div>
+        <p class="results-note">Pair this timer with the <a href="../drinking-schedule/">Drinking Schedule Planner</a> to match your ideal pace, and log each glass in the <a href="../water-tracker/">Daily Water Tracker</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the timer works</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Countdown</h3>
+          <p class="formula">remaining = alarm time − now<br>displayed as mm:ss in the page<br>and in the browser tab title</p>
+        </div>
+        <div class="formula-box">
+          <h3>Alert chain</h3>
+          <p class="formula">on alarm: beep (if sound on)<br>+ notification (if permitted)<br>+ in-page flash — then restart</p>
+        </div>
+      </div>
+      <p class="section-intro">The timer is anchored to the clock rather than counted ticks, so it stays accurate even if your browser throttles background tabs. Regular, evenly spaced reminders are the easiest way to turn a daily goal into a habit — most people do well with a nudge every 30–60 minutes.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This timer is a convenience tool, not medical advice, and it depends on this browser tab staying open. If you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional about your fluid needs.</p>
+    </section>
+<script>
+(function () {
+'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var intervalSel = $('interval'), soundChk = $('sound'), notifChk = $('notif');
+  var face = $('face'), status = $('status'), startBtn = $('startBtn'), startLabel = $('startLabel');
+  var baseTitle = document.title;
+  var remainMs = 0, endAt = 0, tickId = null, running = false, completed = 0, audioCtx = null;
+  function selectedMs() { return parseInt(intervalSel.value, 10) * 60000; }
+  function fmt(sec) {
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function render() {
+    var sec = Math.max(0, Math.ceil(remainMs / 1000));
+    face.textContent = fmt(sec);
+    if (running) { document.title = '(' + fmt(sec) + ') Water Reminder'; }
+  }
+  function alertStyle() {
+    var parts = [];
+    if (soundChk.checked) { parts.push('Sound'); }
+    if (notifChk.checked) { parts.push('Notification'); }
+    return parts.length ? parts.join(' + ') : 'Flash only';
+  }
+  function updateStats() {
+    $('resInt').textContent = intervalSel.value + ' min';
+    $('resAlert').textContent = alertStyle();
+    $('resNext').textContent = running ? new Date(endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—';
+  }
+  function ensureAudio() {
+    try {
+      if (!audioCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) { audioCtx = new AC(); }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') { audioCtx.resume(); }
+    } catch (e) {}
+  }
+  function beep() {
+    if (!soundChk.checked) { return; }
+    ensureAudio();
+    if (!audioCtx) { return; }
+    try {
+      var t0 = audioCtx.currentTime;
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, t0);
+      osc.frequency.setValueAtTime(660, t0 + 0.18);
+      gain.gain.setValueAtTime(0.001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.25, t0 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.5);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t0);
+      osc.stop(t0 + 0.55);
+    } catch (e) {}
+  }
+  function flash() {
+    status.textContent = 'Time to drink water!';
+    face.style.color = 'var(--accent)';
+    setTimeout(function () {
+      face.style.color = '';
+      if (running) { status.textContent = 'Running — we\'ll nudge you when it\'s time to drink.'; }
+    }, 4000);
+  }
+  function notify() {
+    if (notifChk.checked && 'Notification' in window && Notification.permission === 'granted') {
+      try { new Notification('Time to drink water', { body: 'Take a glass — small sips add up.' }); return; } catch (e) {}
+    }
+    flash();
+  }
+  function fire() {
+    completed++;
+    $('resDone').textContent = String(completed);
+    beep();
+    notify();
+    remainMs = selectedMs();
+    endAt = Date.now() + remainMs;
+    updateStats();
+  }
+  function tick() {
+    remainMs = endAt - Date.now();
+    if (remainMs <= 0) { fire(); }
+    render();
+    updateStats();
+  }
+  startBtn.addEventListener('click', function () {
+    if (running) {
+      remainMs = Math.max(0, endAt - Date.now());
+      clearInterval(tickId); tickId = null; running = false;
+      startLabel.textContent = 'Resume';
+      status.textContent = 'Paused — ' + fmt(Math.ceil(remainMs / 1000)) + ' left on this interval.';
+      document.title = baseTitle;
+      updateStats();
+    } else {
+      if (remainMs <= 0) { remainMs = selectedMs(); }
+      ensureAudio();
+      endAt = Date.now() + remainMs;
+      running = true;
+      startLabel.textContent = 'Pause';
+      status.textContent = 'Running — we\'ll nudge you when it\'s time to drink.';
+      results_shown();
+      tickId = setInterval(tick, 250);
+      tick();
+    }
+  });
+  function results_shown() { $('results').hidden = false; }
+  $('resetBtn').addEventListener('click', function () {
+    if (tickId) { clearInterval(tickId); tickId = null; }
+    running = false; completed = 0;
+    remainMs = selectedMs();
+    face.style.color = '';
+    startLabel.textContent = 'Start';
+    status.textContent = 'Ready when you are.';
+    document.title = baseTitle;
+    $('resDone').textContent = '0';
+    render();
+    updateStats();
+  });
+  intervalSel.addEventListener('change', function () {
+    if (!running) { remainMs = selectedMs(); render(); }
+    updateStats();
+  });
+  soundChk.addEventListener('change', updateStats);
+  notifChk.addEventListener('change', function () {
+    updateStats();
+    if (notifChk.checked && 'Notification' in window && Notification.permission === 'default') {
+      try {
+        Notification.requestPermission().then(function (p) {
+          if (p !== 'granted') { status.textContent = 'Notifications blocked — the page will flash instead.'; }
+        });
+      } catch (e) {}
+    }
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && running) { tick(); }
+  });
+  remainMs = selectedMs();
+  render();
+  updateStats();
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
