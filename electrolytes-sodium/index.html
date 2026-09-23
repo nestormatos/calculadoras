@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electrolyte &amp; Sodium Calculator — Sweat Sodium Loss | Hydration Tools</title>
+<meta name="description" content="Estimate how much sodium you lose in sweat during exercise, the equivalent in table salt, and how much of it your planned sports drinks replace. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Electrolyte &amp; Sodium Calculator</h1>
+    <p class="lead">Estimate how much sodium you lose in sweat during exercise — and how much of it your planned drinks will put back.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Estimate your sodium loss</h2>
+      <p class="card-sub">Sweat sodium varies widely from person to person. The profiles below are estimates — only a sweat test gives your real number.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="sweatRate">Sweat rate</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="sweatRate" inputmode="decimal" placeholder="e.g. 1.0" min="0.2" max="4" step="0.1">
+            <span class="input-suffix">L/h</span>
+          </div>
+          <p class="hint">Don't know it? Measure it with the <a href="../sweat-rate-calculator/">Sweat Rate Calculator</a>.</p>
+        </div>
+        <div>
+          <label class="field-label" for="duration">Exercise duration</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="duration" inputmode="decimal" placeholder="e.g. 2" min="0.25" max="24" step="0.25">
+            <span class="input-suffix">hours</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="naProfile">Sweat sodium profile</label>
+          <select class="select" id="naProfile">
+            <option value="460" data-label="a low-salt-sweater profile (460 mg/L)">Low — 460 mg/L (little salt on skin)</option>
+            <option value="920" data-label="an average sweat sodium profile (920 mg/L)" selected>Average — 920 mg/L (typical)</option>
+            <option value="1380" data-label="a salty-sweater profile (1,380 mg/L)">High — 1,380 mg/L (salty sweater)</option>
+            <option value="custom">Lab-measured (custom value)</option>
+          </select>
+          <p class="hint">Profiles are practical estimates — only a sweat test gives the real value.</p>
+        </div>
+        <div>
+          <label class="field-label" for="intake">Planned fluid intake</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="intake" inputmode="decimal" value="0.6" min="0" max="2" step="0.1">
+            <span class="input-suffix">L/h</span>
+          </div>
+          <p class="hint">How much you plan to drink per hour (0 if none).</p>
+        </div>
+      </div>
+      <div id="customBlock" hidden>
+        <label class="field-label" for="customNa">Measured sweat sodium</label>
+        <div class="field-grid cols-2">
+          <div class="input-wrap">
+            <input class="input" type="number" id="customNa" inputmode="decimal" placeholder="e.g. 50" min="0" step="any">
+            <span class="input-suffix" id="customSuffix">mg/L</span>
+          </div>
+          <div>
+            <div class="segmented" role="radiogroup" aria-label="Concentration unit">
+              <input type="radio" name="naUnit" id="unitMg" value="mg" checked>
+              <label for="unitMg">mg/L</label>
+              <input type="radio" name="naUnit" id="unitMmol" value="mmol">
+              <label for="unitMmol">mmol/L</label>
+            </div>
+            <p class="hint">Lab report in mmol/L? We convert it: mmol/L × 22.99 = mg/L.</p>
+          </div>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate sodium loss</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your estimated sodium loss</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resNa">0</span>
+          <span class="primary-unit">mg sodium lost</span>
+          <p class="primary-sub" id="resNaSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resSweat">0</span><span class="stat-label">Sweat loss</span></div>
+          <div class="stat"><span class="stat-value" id="resSalt">0</span><span class="stat-label">Salt equivalent</span></div>
+          <div class="stat"><span class="stat-value" id="resDrinkNa">0</span><span class="stat-label">Sodium in planned drinks (500–700 mg/L)</span></div>
+          <div class="stat"><span class="stat-value" id="resRep">0</span><span class="stat-label">Replaced by drinks</span></div>
+        </div>
+        <p class="results-note" id="shortNote" hidden>For exercise under 1 hour, plain water is usually enough — the loss above is shown for reference; targeted sodium replacement is rarely needed.</p>
+        <p class="results-note">Sodium drinks do not prevent hyponatremia if you overdrink — keep intake at or below your sweat rate. The replacement percentage is informational, not a target: you don't need to replace 100% during exercise.</p>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Next step: dial in your <a href="../sweat-rate-calculator/">sweat rate</a>, or plan race-day fluids with <a href="../workout-hydration/">Workout Hydration</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the estimate is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Sweat &amp; sodium loss</h3>
+          <p class="formula">sweat loss (L) = sweat rate × duration<br>sodium loss (mg) = sweat loss × sweat sodium (mg/L)<br>salt equivalent (g) = sodium (mg) ÷ 393.4</p>
+        </div>
+        <div class="formula-box">
+          <h3>Replacement from drinks</h3>
+          <p class="formula">drink sodium target: 500–700 mg/L (ACSM)<br>sodium in drinks = drink volume × 500–700<br>replaced % = drink sodium ÷ sodium loss × 100</p>
+        </div>
+      </div>
+      <p class="section-intro">Studies show sweat sodium typically ranges from about 200 mg/L to over 2,000 mg/L; the Low, Average and High profiles (460 / 920 / 1,380 mg/L) are practical estimates within that range. According to the American College of Sports Medicine (ACSM), drinks for prolonged exercise should provide roughly 500–700 mg of sodium per liter. As a practical guide, table salt is 39.34% sodium by weight — that is the ratio behind the salt equivalent (1 g of sodium ≈ 2.54 g of salt).</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>General guidance for healthy people — not medical advice. If you have kidney, heart or liver disease, or you have been told to restrict fluids or sodium, follow your doctor's instructions. Drinking too much can also be dangerous: it can lower blood sodium (hyponatremia). This tool is not intended for people on low-sodium diets (for example for hypertension, kidney or heart disease).</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var rate = $('sweatRate'), dur = $('duration'), prof = $('naProfile'), intake = $('intake');
+  var customBlock = $('customBlock'), customNa = $('customNa'), customSuffix = $('customSuffix');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  function isMmol() { return $('unitMmol').checked; }
+  function naMgL() {
+    if (prof.value !== 'custom') { return parseFloat(prof.value); }
+    var c = parseFloat(customNa.value);
+    if (isNaN(c) || c <= 0) { return NaN; }
+    return isMmol() ? c * 22.99 : c;
+  }
+  function syncUnit() { customSuffix.textContent = isMmol() ? 'mmol/L' : 'mg/L'; }
+  prof.addEventListener('change', function () {
+    customBlock.hidden = prof.value !== 'custom';
+    if (prof.value === 'custom') { customNa.focus(); }
+    if (!results.hidden && prof.value !== 'custom') { calc(); }
+  });
+  $('unitMg').addEventListener('change', syncUnit);
+  $('unitMmol').addEventListener('change', syncUnit);
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function calc() {
+    var r = parseFloat(rate.value);
+    if (isNaN(r) || r < 0.2 || r > 4) { showErr('Enter a sweat rate between 0.2 and 4.0 L/h.'); return; }
+    var d = parseFloat(dur.value);
+    if (isNaN(d) || d < 0.25 || d > 24) { showErr('Enter a duration between 0.25 and 24 hours.'); return; }
+    var na = naMgL();
+    if (isNaN(na)) { showErr('Enter your measured sweat sodium concentration.'); return; }
+    if (na < 100 || na > 2500) { showErr('Enter a measured sodium between 100 and 2,500 mg/L (about 4 to 109 mmol/L).'); return; }
+    var f = parseFloat(intake.value);
+    if (isNaN(f) || f < 0 || f > 2) { showErr('Enter a planned intake between 0 and 2.0 L/h (0 if you will not drink).'); return; }
+    errBox.hidden = true;
+    var sweatL = r * d;
+    var naLoss = sweatL * na;
+    var saltG = naLoss / 393.4;
+    var drinkL = f * d;
+    var naLow = drinkL * 500, naHigh = drinkL * 700;
+    var repLow = naLoss > 0 ? naLow / naLoss * 100 : 0;
+    var repHigh = naLoss > 0 ? naHigh / naLoss * 100 : 0;
+    /* Self-check: 1.0 L/h x 2 h at 920 mg/L -> sweat 2.00 L, sodium 1840 mg, salt 4.68 g.
+       Intake 0.8 L/h -> 1.6 L -> 800-1120 mg -> 43.5-60.9%. Custom 50 mmol/L -> 1149.5 mg/L. */
+    $('resNa').textContent = (Math.round(naLoss / 10) * 10).toLocaleString('en-US');
+    var label = prof.value === 'custom'
+      ? 'a measured sweat sodium of ' + na.toFixed(1) + ' mg/L'
+      : prof.options[prof.selectedIndex].dataset.label;
+    $('resNaSub').textContent = 'Based on ' + sweatL.toFixed(2) + ' L of sweat over ' + d + ' h with ' + label + '.';
+    $('resSweat').textContent = sweatL.toFixed(2) + ' L';
+    $('resSalt').textContent = saltG.toFixed(2) + ' g';
+    $('resDrinkNa').textContent = drinkL === 0 ? '0 mg (no drinks)' : Math.round(naLow).toLocaleString('en-US') + '–' + Math.round(naHigh).toLocaleString('en-US') + ' mg';
+    $('resRep').textContent = drinkL === 0 ? '0%' : repLow.toFixed(1) + '–' + repHigh.toFixed(1) + '%';
+    $('shortNote').hidden = d >= 1;
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', calc);
+  [rate, dur, intake, customNa].forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } });
+  });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'Sodium lost in ' + $('resSweat').textContent + ' of sweat: ' + $('resNa').textContent + ' mg (about ' + $('resSalt').textContent + ' of salt). Planned drinks provide ' + $('resDrinkNa').textContent + ' — ' + $('resRep').textContent + ' replaced.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    rate.value = ''; dur.value = ''; prof.selectedIndex = 1; customNa.value = ''; customBlock.hidden = true;
+    $('unitMg').checked = true; syncUnit(); intake.value = '0.6';
+    results.hidden = true; errBox.hidden = true; rate.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
