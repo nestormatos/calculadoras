@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydration Progress Chart — Today’s Ring &amp; 7-Day Bars | Hydration Tools</title>
+<meta name="description" content="See today’s hydration as a progress ring and your last 7 days as a bar chart, drawn from the water tracker log saved on this device. Private, instant, no account.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Chart</span>
+    <h1>Hydration Progress Chart</h1>
+    <p class="lead">Today’s ring and the last seven days at a glance — proof that small glasses add up.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Today &amp; the last 7 days</h2>
+      <p class="card-sub">Drawn from the log saved by the <a href="../water-tracker/">Daily Water Tracker</a> on this device.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="goalOverride">Daily goal override</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="goalOverride" inputmode="numeric" min="8" max="203" step="1" placeholder="e.g. 68">
+            <span class="input-suffix">fl oz</span>
+          </div>
+          <p class="hint">Defaults to the goal saved in the <a href="../water-tracker/">Daily Water Tracker</a> (68 fl oz if unset).</p>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <button class="btn btn-secondary" type="button" id="applyBtn">Apply goal</button>
+        </div>
+      </div>
+      <p class="form-error" id="pcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="pcErrorText"></span></p>
+      <div class="notice" id="emptyState" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <p>No water logged in the past 7 days on this device. Open the <a href="../water-tracker/">Daily Water Tracker</a>, log a few glasses, and this chart will draw itself.</p>
+      </div>
+      <div id="chartArea" hidden>
+        <div class="ring-wrap">
+          <svg class="ring" width="150" height="150" viewBox="0 0 150 150" role="img" aria-label="Today's progress ring">
+            <circle cx="75" cy="75" r="54" fill="none" stroke="var(--surface-alt)" stroke-width="12"></circle>
+            <circle class="progress" id="ringFill" cx="75" cy="75" r="54" fill="none" stroke="var(--accent)" stroke-width="12" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 75 75)"></circle>
+            <text class="ring-label" id="ringPct" x="75" y="72" text-anchor="middle">0%</text>
+            <text class="ring-sub" id="ringSub" x="75" y="96" text-anchor="middle">of goal</text>
+          </svg>
+        </div>
+        <h3 style="font-size:1rem;margin:4px 0 12px">Last 7 days</h3>
+        <div id="bars" style="display:flex;gap:10px;align-items:stretch;height:230px;border-bottom:1px solid var(--border);padding:0 2px"></div>
+      </div>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>7-day summary</h3><span class="results-tag">This device</span></div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="statWeek">0</span><span class="stat-label">Total this week</span></div>
+          <div class="stat"><span class="stat-value" id="statAvg">0</span><span class="stat-label">Daily average</span></div>
+          <div class="stat"><span class="stat-value" id="statMet">0 / 7</span><span class="stat-label">Days goal met</span></div>
+          <div class="stat"><span class="stat-value" id="statBest">—</span><span class="stat-label">Best day</span></div>
+        </div>
+        <p class="results-note">Log more in the <a href="../water-tracker/">Daily Water Tracker</a>, build the habit with the <a href="../7-day-challenge/">7-Day Hydration Challenge</a>, or take the week on paper with the <a href="../printable-water-tracker/">Printable Water Tracker</a>.</p>
+      </div>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Reads local data only — nothing is uploaded.</p>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the chart is drawn</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Today's ring</h3>
+          <p class="formula">offset = 339.29 × (1 − min(1, today ÷ goal))<br>Full circle = 2π × r 54 ≈ 339.29</p>
+        </div>
+        <div class="formula-box">
+          <h3>7-day bars</h3>
+          <p class="formula">Bar height = min(100%, day total ÷ goal)<br>Source: ph-water-log-YYYY-MM-DD keys</p>
+        </div>
+      </div>
+      <p class="section-intro">All data stays in this browser and the chart refreshes when you return to the tab. Recalculate your target anytime with the <a href="../water-intake-calculator/">Water Intake Calculator</a> or the <a href="../water-intake-by-weight/">weight-based tool</a>.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This chart visualizes self-logged data for general wellness only and is not medical advice. If you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var GOAL_KEY = 'ph-tracker-goal';
+  var C = 339.29;
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function entryOz(e) { if (e.oz !== undefined) { return Number(e.oz) || 0; } return typeof e.ml === 'number' ? Math.round(e.ml / 29.5735 * 10) / 10 : 0; }
+  function dayTotal(d) {
+    try {
+      var raw = localStorage.getItem('ph-water-log-' + dateKey(d));
+      if (!raw) { return 0; }
+      var arr = JSON.parse(raw), s = 0, i;
+      if (!arr || !arr.length) { return 0; }
+      for (i = 0; i < arr.length; i++) { s += entryOz(arr[i]); }
+      return s;
+    } catch (e) { return 0; }
+  }
+  function defaultGoal() {
+    try {
+      var raw = localStorage.getItem(GOAL_KEY);
+      if (raw) {
+        var g = parseFloat(raw);
+        /* one-time migration: legacy metric goal (millilitres) -> oz */
+        if (g >= 250 && g <= 6000) { g = Math.round(g / 29.5735); }
+        if (g >= 8 && g <= 203) { return g; }
+      }
+    } catch (e) {}
+    return 68;
+  }
+  var goalInput = $('goalOverride');
+  goalInput.value = defaultGoal();
+  function currentGoal() {
+    var v = parseInt(goalInput.value, 10);
+    if (isNaN(v) || v < 8 || v > 203) { return defaultGoal(); }
+    return v;
+  }
+  function render() {
+    var goal = currentGoal();
+    var days = [], totals = [], any = false, i, d, t;
+    for (i = 6; i >= 0; i--) {
+      d = new Date();
+      d.setDate(d.getDate() - i);
+      t = dayTotal(d);
+      days.push(d);
+      totals.push(t);
+      if (t > 0) { any = true; }
+    }
+    $('emptyState').hidden = any;
+    $('chartArea').hidden = !any;
+    $('results').hidden = !any;
+    if (!any) { return; }
+    var todayTotal = totals[6];
+    var pct = goal > 0 ? todayTotal / goal * 100 : 0;
+    var clamped = Math.min(100, pct);
+    $('ringFill').style.strokeDashoffset = (C * (1 - clamped / 100)).toFixed(2);
+    $('ringPct').textContent = Math.round(pct) + '%';
+    $('ringSub').textContent = Math.round(todayTotal).toLocaleString('en-US') + ' of ' + goal.toLocaleString('en-US') + ' oz';
+    var bars = $('bars');
+    bars.innerHTML = '';
+    var sum = 0, best = 0, bestI = 6, met = 0;
+    for (i = 0; i < 7; i++) {
+      sum += totals[i];
+      if (totals[i] >= goal && totals[i] > 0) { met++; }
+      if (totals[i] > best) { best = totals[i]; bestI = i; }
+      var p = goal > 0 ? Math.min(100, totals[i] / goal * 100) : 0;
+      var col = document.createElement('div');
+      col.setAttribute('style', 'flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0');
+      var v = document.createElement('span');
+      v.setAttribute('style', 'font-size:.72rem;font-weight:700;color:var(--muted)');
+      v.textContent = totals[i] > 0 ? Math.round(totals[i] / goal * 100) + '%' : '—';
+      var track = document.createElement('div');
+      track.setAttribute('style', 'flex:1;width:100%;display:flex;align-items:flex-end');
+      var barEl = document.createElement('div');
+      var h = Math.max(totals[i] > 0 ? 3 : 0, p);
+      var isToday = i === 6;
+      barEl.setAttribute('style', 'width:100%;max-width:46px;margin:0 auto;height:' + h + '%;border-radius:6px 6px 0 0;background:' + (isToday ? 'var(--accent)' : 'var(--accent-soft)') + ';border:1px solid ' + (isToday ? 'var(--accent)' : 'var(--border)') + ';border-bottom:none');
+      barEl.title = DAYS[days[i].getDay()] + ': ' + Math.round(totals[i]).toLocaleString('en-US') + ' oz';
+      track.appendChild(barEl);
+      var lab = document.createElement('span');
+      lab.setAttribute('style', 'font-size:.72rem;color:' + (isToday ? 'var(--text)' : 'var(--muted)') + ';font-weight:' + (isToday ? '700' : '400') + ';text-align:center;line-height:1.3');
+      lab.textContent = (isToday ? 'Today' : DAYS[days[i].getDay()]) + ' · ' + MONTHS[days[i].getMonth()] + ' ' + days[i].getDate();
+      col.appendChild(v);
+      col.appendChild(track);
+      col.appendChild(lab);
+      bars.appendChild(col);
+    }
+    $('statWeek').textContent = Math.round(sum).toLocaleString('en-US') + ' oz';
+    $('statAvg').textContent = Math.round(sum / 7).toLocaleString('en-US') + ' oz';
+    $('statMet').textContent = met + ' / 7';
+    $('statBest').textContent = best > 0 ? DAYS[days[bestI].getDay()] + ' (' + Math.round(best).toLocaleString('en-US') + ' oz)' : '—';
+  }
+  $('applyBtn').addEventListener('click', function () {
+    var v = parseInt(goalInput.value, 10);
+    if (goalInput.value !== '' && (isNaN(v) || v < 8 || v > 203)) {
+      $('pcErrorText').textContent = 'Enter a goal between 8 and 203 fl oz, or leave it blank to use your tracker goal.';
+      $('pcError').hidden = false;
+      return;
+    }
+    $('pcError').hidden = true;
+    if (goalInput.value === '') { goalInput.value = defaultGoal(); }
+    render();
+  });
+  goalInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); $('applyBtn').click(); } });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') { render(); }
+  });
+  render();
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
