@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Printable Water Tracker — Free Weekly Check-Off Sheet | Hydration Tools</title>
+<meta name="description" content="Generate a clean, printable weekly water tracker sized to your glass and daily goal. Seven days of checkboxes on one page — print it, stick it up, tick as you drink.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header no-print"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero no-print"><div class="container">
+    <span class="eyebrow">Printable</span>
+    <h1>Printable Water Tracker</h1>
+    <p class="lead">Prefer pen and paper? Generate a weekly check-off sheet sized to your glass, print it, and stick it on the fridge.</p>
+  </div></section>
+  <div class="container">
+    <section class="card print-sheet" aria-labelledby="tool-title">
+      <div class="no-print">
+        <h2 id="tool-title">Configure your sheet</h2>
+        <p class="card-sub">One page, seven days, one box per glass — sized to your bottle or glass.</p>
+        <div class="field-grid cols-3">
+          <div>
+            <label class="field-label" for="goal">Daily goal</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="goal" inputmode="numeric" min="8" max="203" step="1" placeholder="e.g. 68">
+              <span class="input-suffix">fl oz</span>
+            </div>
+          </div>
+          <div>
+            <label class="field-label" for="glass">Glass size</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="glass" inputmode="numeric" min="2" max="34" step="0.5" placeholder="e.g. 8.5">
+              <span class="input-suffix">fl oz</span>
+            </div>
+          </div>
+          <div>
+            <label class="field-label" for="weekStart">Week starts on</label>
+            <select class="select" id="weekStart">
+              <option value="mon" selected>Monday</option>
+              <option value="sun">Sunday</option>
+            </select>
+          </div>
+        </div>
+        <p class="form-error" id="prError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="prErrorText"></span></p>
+        <div class="results-actions" style="margin-bottom:4px">
+          <button class="btn btn-primary" type="button" id="printBtn">Print sheet</button>
+          <button class="btn btn-secondary" type="button" id="genBtn">Regenerate</button>
+        </div>
+        <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Settings are saved in this browser — nothing is sent anywhere.</p>
+      </div>
+      <div style="margin-top:26px">
+        <h2 class="print-only" id="sheetTitle" style="font-size:1.2rem">Weekly Water Tracker</h2>
+        <div class="table-wrap">
+          <table id="sheet">
+            <caption id="sheetCaption"></caption>
+            <thead id="sheetHead"></thead>
+            <tbody id="sheetBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="section no-print" aria-labelledby="m-title">
+      <h2 id="m-title">How the sheet is sized</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Grid size</h3>
+          <p class="formula">Columns = ceil(goal ÷ glass size), capped at 12<br>Rows = 7 days of the current week</p>
+        </div>
+        <div class="formula-box">
+          <h3>Totals row</h3>
+          <p class="formula">Each box = one glass (e.g. 8 fl oz)<br>Full row ≈ your daily goal in fl oz</p>
+        </div>
+      </div>
+      <p class="section-intro">Prefer tracking on screen? The <a href="../water-tracker/">Daily Water Tracker</a> logs every glass for you, the <a href="../bottle-count/">Bottle Count</a> tool converts your goal into bottle refills, and the <a href="../progress-chart/">Progress Chart</a> graphs the week.</p>
+    </section>
+    <section class="disclaimer no-print" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This sheet is an organizational aid for general wellness, not medical advice. If you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional about your daily target.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var KEY = 'ph-printable-config';
+  var DAYS_FULL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var cfg = { goal: 68, glass: 8.5, weekStart: 'mon' };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var c = JSON.parse(raw);
+      var cg = parseFloat(c.goal);
+      /* one-time migration: legacy metric goal (millilitres) -> oz */
+      if (cg >= 250 && cg <= 6000) { cg = Math.round(cg / 29.5735); }
+      if (cg >= 8 && cg <= 203) { cfg.goal = cg; }
+      if (c.glass >= 2 && c.glass <= 34) { cfg.glass = c.glass; }
+      if (c.weekStart === 'mon' || c.weekStart === 'sun') { cfg.weekStart = c.weekStart; }
+    }
+  } catch (e) {}
+  $('goal').value = cfg.goal;
+  $('glass').value = cfg.glass;
+  $('weekStart').value = cfg.weekStart;
+  function showErr(m) { $('prErrorText').textContent = m; $('prError').hidden = false; }
+  function generate() {
+    var goal = parseInt($('goal').value, 10);
+    var glass = parseFloat($('glass').value);
+    var ws = $('weekStart').value === 'sun' ? 'sun' : 'mon';
+    if (isNaN(goal) || goal < 8 || goal > 203) { showErr('Enter a daily goal between 8 and 203 fl oz.'); return; }
+    if (isNaN(glass) || glass < 2 || glass > 34) { showErr('Enter a glass size between 2 and 34 fl oz.'); return; }
+    $('prError').hidden = true;
+    cfg = { goal: goal, glass: glass, weekStart: ws };
+    try { localStorage.setItem(KEY, JSON.stringify(cfg)); } catch (e) {}
+    var glasses = Math.ceil(goal / glass);
+    var capped = glasses > 12;
+    if (capped) { glasses = 12; }
+    var today = new Date();
+    var dow = today.getDay();
+    var offset = ws === 'mon' ? (dow + 6) % 7 : dow;
+    var start = new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset);
+    $('sheetTitle').textContent = 'Weekly Water Tracker — ' + goal.toLocaleString('en-US') + ' fl oz per day';
+    $('sheetCaption').textContent = 'Goal: ' + goal.toLocaleString('en-US') + ' fl oz/day — tick one box per ' + glass + ' fl oz glass' + (capped ? ' (columns capped at 12)' : '') + '.';
+    var thead = '<tr><th scope="col">Day</th>';
+    var i;
+    for (i = 1; i <= glasses; i++) { thead += '<th scope="col" style="text-align:center">Glass ' + i + '</th>'; }
+    thead += '</tr>';
+    var body = '';
+    var r, c, d;
+    for (r = 0; r < 7; r++) {
+      d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + r);
+      body += '<tr><th scope="row">' + DAYS_FULL[d.getDay()] + ' <span style="font-weight:400;color:var(--muted)">' + MONTHS[d.getMonth()] + ' ' + d.getDate() + '</span></th>';
+      for (c = 0; c < glasses; c++) {
+        body += '<td style="text-align:center"><input type="checkbox" aria-label="' + DAYS[d.getDay()] + ' glass ' + (c + 1) + '"></td>';
+      }
+      body += '</tr>';
+    }
+    body += '<tr><th scope="row">Each glass</th>';
+    for (c = 0; c < glasses; c++) { body += '<td style="text-align:center">' + glass + ' fl oz</td>'; }
+    body += '</tr>';
+    $('sheetHead').innerHTML = thead;
+    $('sheetBody').innerHTML = body;
+  }
+  $('genBtn').addEventListener('click', generate);
+  $('printBtn').addEventListener('click', function () { window.print(); });
+  $('goal').addEventListener('change', generate);
+  $('glass').addEventListener('change', generate);
+  $('weekStart').addEventListener('change', generate);
+  generate();
+})();
+</script>
+<footer class="site-footer no-print"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
