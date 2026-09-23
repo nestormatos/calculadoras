@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water Intake by Weight Calculator | Precision Hydration Engine</title>
+<meta name="description" content="Free water intake by weight calculator. Get your daily hydration target in ounces, liters and bottle counts. Runs entirely in your browser — private, no sign-up.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2C12 2 5 10.2 5 15a7 7 0 0 0 14 0C19 10.2 12 2 12 2Z'/%3E%3C/svg%3E">
+<script>
+(function(){try{var t=localStorage.getItem('ph-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<style>
+:root{
+  --bg:#f5f8fa; --surface:#ffffff; --surface-alt:#edf2f5;
+  --border:#dbe4ea; --border-strong:#c3d2dc;
+  --text:#14232e; --muted:#546877;
+  --accent:#0b7285; --accent-hover:#095f6f; --accent-contrast:#ffffff;
+  --accent-soft:#e0eff2;
+  --danger:#b3382c; --success:#0e7a4e;
+  --ring:rgba(11,114,133,.35);
+  --header-bg:rgba(255,255,255,.82);
+  --shadow:0 1px 2px rgba(16,42,54,.05),0 10px 30px rgba(16,42,54,.07);
+  --radius:12px;
+}
+[data-theme="dark"]{
+  --bg:#0b131a; --surface:#111d27; --surface-alt:#172633;
+  --border:#22303e; --border-strong:#2e4152;
+  --text:#e6eef4; --muted:#9badbc;
+  --accent:#4fc0d4; --accent-hover:#72d1e2; --accent-contrast:#06222b;
+  --accent-soft:rgba(79,192,212,.13);
+  --danger:#e1826f; --success:#4cc490;
+  --ring:rgba(79,192,212,.4);
+  --header-bg:rgba(11,19,26,.82);
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 12px 32px rgba(0,0,0,.35);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background-color .25s ease,color .25s ease}
+[hidden]{display:none!important}
+.container{max-width:1060px;margin:0 auto;padding:0 20px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:6px}
+h1,h2,h3{line-height:1.25;margin:0 0 .5em}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-contrast);padding:8px 14px;border-radius:0 0 8px 0;z-index:100}
+.skip-link:focus{left:0}
+/* ---------- Header ---------- */
+.site-header{position:sticky;top:0;z-index:50;background:var(--header-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:700;font-size:1.02rem;letter-spacing:-.01em;text-decoration:none}
+.brand:hover{text-decoration:none}
+.brand-badge{width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
+.brand-badge svg{width:20px;height:20px;fill:var(--accent-contrast)}
+.brand small{display:block;font-size:.68rem;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.header-actions{display:flex;align-items:center;gap:10px}
+.back-link{display:inline-flex;align-items:center;gap:7px;font-size:.9rem;font-weight:600;color:var(--muted);padding:8px 12px;border-radius:8px;border:1px solid transparent}
+.back-link:hover{color:var(--text);border-color:var(--border);text-decoration:none;background:var(--surface)}
+.back-link svg{width:16px;height:16px}
+.theme-toggle{width:40px;height:40px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s}
+.theme-toggle:hover{border-color:var(--border-strong)}
+.theme-toggle svg{width:19px;height:19px}
+[data-theme="light"] .icon-moon{display:block}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="dark"] .icon-moon{display:none}
+[data-theme="dark"] .icon-sun{display:block}
+/* ---------- Hero ---------- */
+.hero{padding:60px 0 38px}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.hero h1{font-size:clamp(1.9rem,4.2vw,2.7rem);font-weight:800;letter-spacing:-.025em;margin-bottom:14px}
+.lead{font-size:1.08rem;color:var(--muted);max-width:720px;margin:0 0 22px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:0;list-style:none}
+.badges li{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:7px 13px;border-radius:999px}
+.badges svg{width:15px;height:15px;color:var(--success)}
+/* ---------- Calculator card ---------- */
+.calc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin:6px 0 56px}
+@media(min-width:640px){.calc-card{padding:34px}}
+.calc-card h2{font-size:1.25rem;margin-bottom:6px}
+.card-sub{color:var(--muted);font-size:.92rem;margin:0 0 22px}
+.field-grid{display:grid;gap:18px;grid-template-columns:1fr;margin-bottom:18px}
+@media(min-width:600px){.field-grid{grid-template-columns:1fr 1fr}}
+.field-label{display:block;font-size:.85rem;font-weight:700;margin-bottom:8px}
+.segmented{position:relative;display:flex;background:var(--surface-alt);border:1px solid var(--border);border-radius:10px;padding:4px;gap:4px}
+.segmented input{position:absolute;opacity:0;pointer-events:none}
+.segmented label{flex:1;text-align:center;font-size:.9rem;font-weight:600;color:var(--muted);padding:9px 10px;border-radius:7px;cursor:pointer;transition:background .18s,color .18s;user-select:none;margin:0}
+.segmented input:checked+label{background:var(--accent);color:var(--accent-contrast)}
+.segmented input:focus-visible+label{outline:3px solid var(--ring);outline-offset:1px}
+.weight-wrap{position:relative}
+.weight-wrap input{width:100%;font:inherit;font-size:1rem;color:var(--text);background:var(--surface);border:1px solid var(--border-strong);border-radius:10px;padding:11px 52px 11px 14px;transition:border-color .15s,box-shadow .15s}
+.weight-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
+.weight-wrap input::-webkit-outer-spin-button,.weight-wrap input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.weight-wrap input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.weight-suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.9rem;font-weight:700;color:var(--muted);pointer-events:none}
+.hint{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+.form-error{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--danger);margin:0 0 14px}
+.form-error svg{width:16px;height:16px;flex:none}
+.btn{font:inherit;font-weight:700;border-radius:10px;cursor:pointer;border:1px solid transparent;transition:background .18s,border-color .18s,color .18s,transform .05s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{display:block;width:100%;background:var(--accent);color:var(--accent-contrast);font-size:1rem;padding:13px 20px}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--text);border-color:var(--border-strong);font-size:.9rem;padding:10px 16px}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-secondary svg{width:16px;height:16px}
+.btn-ghost{background:transparent;color:var(--muted);font-size:.9rem;padding:10px 14px}
+.btn-ghost:hover{color:var(--text);background:var(--surface-alt)}
+.privacy-note{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.8rem;color:var(--muted);margin:14px 0 0}
+.privacy-note svg{width:14px;height:14px;flex:none}
+/* ---------- Results ---------- */
+.results{margin-top:26px;border-top:1px solid var(--border);padding-top:24px}
+.results-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.results-head h3{margin:0;font-size:1.05rem}
+.results-tag{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:999px}
+.primary-result{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;background:var(--accent-soft);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px}
+.primary-value{font-size:clamp(2.2rem,6vw,3rem);font-weight:800;letter-spacing:-.03em;color:var(--accent);line-height:1}
+.primary-unit{font-size:1.05rem;font-weight:700;color:var(--muted)}
+.primary-sub{flex-basis:100%;font-size:.92rem;color:var(--muted);margin:4px 0 0}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:var(--surface-alt);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat-value{display:block;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+.stat-label{display:block;font-size:.76rem;font-weight:600;color:var(--muted);margin-top:2px}
+.results-actions{display:flex;gap:10px;flex-wrap:wrap}
+.results-note{font-size:.8rem;color:var(--muted);margin:14px 0 0}
+/* ---------- Content sections ---------- */
+.section{padding:6px 0 44px}
+.section h2{font-size:1.45rem;letter-spacing:-.02em;margin-bottom:10px}
+.section-intro{color:var(--muted);max-width:740px;margin:0 0 22px}
+.formula-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:18px}
+@media(min-width:640px){.formula-grid{grid-template-columns:1fr 1fr}}
+.formula-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.formula-box h3{font-size:.95rem;margin-bottom:10px}
+.formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow-x:auto}
+.conversions{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.conversions li{display:flex;gap:10px;font-size:.92rem;color:var(--muted)}
+.conversions svg{width:16px;height:16px;flex:none;color:var(--accent);margin-top:4px}
+/* ---------- Reference table ---------- */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
+caption{text-align:left;font-size:.8rem;color:var(--muted);padding:10px 16px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
+thead th{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-alt)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface-alt)}
+/* ---------- FAQ ---------- */
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 18px;font-weight:700;font-size:.95rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{width:18px;height:18px;flex:none;transition:transform .2s;color:var(--muted)}
+.faq details[open] summary .chev{transform:rotate(180deg)}
+.faq-body{padding:0 18px 16px;color:var(--muted);font-size:.92rem}
+.faq-body p{margin:0 0 10px}
+.faq-body p:last-child{margin-bottom:0}
+/* ---------- Sources ---------- */
+.sources{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.sources li{background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:border-color .18s}
+.sources li:hover{border-color:var(--border-strong)}
+.sources a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;color:var(--text);font-weight:600;font-size:.92rem}
+.sources a:hover{text-decoration:none;color:var(--accent)}
+.sources svg{width:16px;height:16px;color:var(--muted);flex:none}
+/* ---------- Disclaimer ---------- */
+.disclaimer{border:1px solid var(--border);border-left:4px solid var(--accent);background:var(--surface);border-radius:10px;padding:20px 22px}
+.disclaimer h2{font-size:1.05rem;display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.disclaimer h2 svg{width:20px;height:20px;color:var(--accent);flex:none}
+.disclaimer p{margin:0 0 10px;font-size:.9rem;color:var(--muted)}
+.disclaimer p:last-child{margin-bottom:0}
+/* ---------- Footer ---------- */
+.site-footer{border-top:1px solid var(--border);background:var(--surface);padding:34px 0 36px;margin-top:20px}
+.footer-inner{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between}
+.footer-brand{max-width:360px}
+.footer-brand p{font-size:.82rem;color:var(--muted);margin:10px 0 0}
+.footer-nav{display:flex;flex-direction:column;gap:8px;font-size:.88rem}
+.footer-nav strong{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.footer-bottom{border-top:1px solid var(--border);margin-top:26px;padding-top:18px;font-size:.78rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+@media print{.site-header,.badges,.results-actions,.site-footer{display:none!important}.calc-card{box-shadow:none}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Water Intake by Weight Calculator — Precision Hydration Engine","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate your daily water intake target from your body weight. Results in fluid ounces, liters, cups and standard bottle counts."}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#calculator">Skip to calculator</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../index.html" aria-label="Hydration Tools home">
+      <span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 5 10.2 5 15a7 7 0 0 0 14 0C19 10.2 12 2 12 2Z"/></svg></span>
+      <span>Hydration Tools<small>Precision Engine</small></span>
+    </a>
+    <div class="header-actions">
+      <a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg>All Tools</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark and light mode" title="Toggle dark / light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <section class="hero container">
+    <span class="eyebrow">Precision Hydration Engine</span>
+    <h1>Water Intake by Weight Calculator</h1>
+    <p class="lead">Get a precise daily hydration target based on your body weight — shown in fluid ounces, liters, cups and standard bottle counts. Instant, free, and completely private.</p>
+    <ul class="badges">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>100% Free</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No Sign-Up</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Private — Runs on Your Device</li>
+    </ul>
+  </section>
+  <section class="container" id="calculator" aria-labelledby="calc-title">
+    <div class="calc-card">
+      <h2 id="calc-title">Calculate your daily target</h2>
+      <p class="card-sub">Enter your body weight and choose your preferred unit system.</p>
+      <form id="calcForm" novalidate>
+        <div class="field-grid">
+          <div class="field">
+            <span class="field-label" id="unitLabel">Unit system</span>
+            <div class="segmented" role="radiogroup" aria-labelledby="unitLabel">
+              <input type="radio" id="unitLbs" name="unit" value="lbs" checked>
+              <label for="unitLbs">Pounds (lb)</label>
+              <input type="radio" id="unitKg" name="unit" value="kg">
+              <label for="unitKg">Kilograms (kg)</label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="weightInput">Body weight</label>
+            <div class="weight-wrap">
+              <input id="weightInput" type="number" inputmode="decimal" min="1" step="any" placeholder="e.g. 154" autocomplete="off">
+              <span class="weight-suffix" id="weightSuffix">lb</span>
+            </div>
+            <p class="hint" id="weightHint">Accepted range: 40 – 700 lb.</p>
+          </div>
+        </div>
+        <p class="form-error" id="formError" role="alert" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+          <span id="formErrorText"></span>
+        </p>
+        <button type="submit" class="btn btn-primary" id="calcBtn">Calculate Daily Water Intake</button>
+        <p class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          All calculations run locally in your browser. Nothing is stored or transmitted.
+        </p>
+      </form>
+      <div class="results" id="resultsArea" hidden aria-live="polite">
+        <div class="results-head">
+          <h3>Your daily hydration target</h3>
+          <span class="results-tag">Estimated</span>
+        </div>
+        <div class="primary-result">
+          <span class="primary-value" id="ozResult">0</span>
+          <span class="primary-unit">fl oz / day</span>
+          <p class="primary-sub" id="primarySub">&asymp; 0 fl oz &middot; 0 L per day</p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="ozStatResult">0</span><span class="stat-label">Ounces (fl oz)</span></div>
+          <div class="stat"><span class="stat-value" id="literResult">0</span><span class="stat-label">Liters (L)</span></div>
+          <div class="stat"><span class="stat-value" id="cupResult">0</span><span class="stat-label">8-oz cups</span></div>
+          <div class="stat"><span class="stat-value" id="b16Result">0</span><span class="stat-label">17 fl oz (16.9 oz) bottles</span></div>
+          <div class="stat"><span class="stat-value" id="b591Result">0</span><span class="stat-label">20 fl oz bottles</span></div>
+        </div>
+        <div class="results-actions">
+          <button type="button" class="btn btn-secondary" id="copyResultsBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copyLabel">Copy results</span>
+          </button>
+          <button type="button" class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Baseline estimate for a healthy adult at rest in temperate conditions. Increase your intake with exercise, heat, fever, pregnancy or breastfeeding — see the FAQ below.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section container" id="methodology" aria-labelledby="method-title">
+    <h2 id="method-title">How the calculation works</h2>
+    <p class="section-intro">The Precision Hydration Engine applies the widely used weight-based guideline for daily water intake. Your result is a practical baseline for healthy adults, not a medical prescription.</p>
+    <div class="formula-grid">
+      <div class="formula-box">
+        <h3>Imperial (pounds)</h3>
+        <div class="formula">Daily target (fl oz) = body weight (lb) &times; 0.50</div>
+      </div>
+      <div class="formula-box">
+        <h3>Metric (kilograms)</h3>
+        <div class="formula">Daily target (fl oz) = body weight (kg) &times; 1.10</div>
+      </div>
+    </div>
+    <ul class="conversions">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>1 US fl oz is the base unit for every conversion on this page.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Standard bottle equivalents: 16.9 fl oz and 20 fl oz.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Both factors are equivalent: since 1 kg &asymp; 2.205 lb, kg &times; 1.10 gives the same result as lb &times; 0.50.</span></li>
+    </ul>
+  </section>
+  <section class="section container" aria-labelledby="ref-title">
+    <h2 id="ref-title">Quick reference: daily target by body weight</h2>
+    <p class="section-intro">Common body weights converted with the formulas above. Values rounded to one decimal.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Baseline daily water intake estimates for healthy adults.</caption>
+        <thead>
+          <tr><th scope="col">Body weight</th><th scope="col">Daily target</th><th scope="col">Approx. liters</th><th scope="col">17 fl oz bottles</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>50 kg (110 lb)</td><td>55.0 fl oz</td><td>1.63 L</td><td>3.3</td></tr>
+          <tr><td>60 kg (132 lb)</td><td>66.0 fl oz</td><td>1.95 L</td><td>3.9</td></tr>
+          <tr><td>70 kg (154 lb)</td><td>77.0 fl oz</td><td>2.28 L</td><td>4.6</td></tr>
+          <tr><td>80 kg (176 lb)</td><td>88.0 fl oz</td><td>2.60 L</td><td>5.2</td></tr>
+          <tr><td>90 kg (198 lb)</td><td>99.0 fl oz</td><td>2.93 L</td><td>5.9</td></tr>
+          <tr><td>100 kg (220 lb)</td><td>110.0 fl oz</td><td>3.25 L</td><td>6.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="section container" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Frequently asked questions</h2>
+    <p class="section-intro">Straight answers about weight-based hydration, adjusted needs and safe limits.</p>
+    <div class="faq">
+      <details>
+        <summary>How much water should I drink for my weight?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="faq-body">
+          <p>A widely used baseline is half your body weight in pounds, expressed in fluid ounces per day — equivalently, kilograms multiplied by 1.10. For example, a 154 lb (70 kg) adult would target about 77 fl oz, roughly 2.3 liters per day.</p>
+          <p>Treat this as a starting point and adjust for activity, climate and your own thirst.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Is this the same as the &ldquo;8 glasses a day&rdquo; rule?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="faq-body">
+          <p>The classic 8&times;8 rule (eight 8-ounce glasses, or 64 fl oz) is easy to remember but ignores body size. A weight-based target scales with your body, so it is generally more personalized — lighter people need less, heavier people need more.</p>
+        </div>
+      </details>
+      <details>
+        <summary>When should I drink more than my calculated target?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="faq-body">
+          <p>Increase your intake during exercise (an extra 12–24 fl oz around workouts), in hot or humid weather, at high altitude, and during fever, vomiting or diarrhea. Pregnancy and breastfeeding also raise fluid needs — follow your healthcare provider&rsquo;s guidance in those cases.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Can I drink too much water?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="faq-body">
+          <p>Yes. Drinking excessive amounts in a short period can dilute blood sodium (hyponatremia), which can be dangerous. Spread your intake across the day, drink to thirst, and include electrolytes during prolonged endurance exercise.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Do coffee, tea and food count toward my daily target?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="faq-body">
+          <p>Yes. All beverages and water-rich foods (fruit, vegetables, soups) contribute to your total water intake. Caffeinated drinks have a mild diuretic effect, but for most people they still provide a net positive contribution.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+  <section class="section container" id="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title">Trusted sources</h2>
+    <p class="section-intro">Learn more about safe water intake and heat safety from leading health authorities.</p>
+    <ul class="sources">
+      <li><a href="https://www.mayoclinic.org/healthy-lifestyle/nutrition-and-healthy-eating/in-depth/water/art-20044256" target="_blank" rel="noopener">Mayo Clinic — Water: how much should you drink every day?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg></a></li>
+      <li><a href="https://www.who.int/news-room/fact-sheets/detail/drinking-water" target="_blank" rel="noopener">World Health Organization — Drinking-water fact sheet<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg></a></li>
+      <li><a href="https://www.cdc.gov/heat-health/about/index.html" target="_blank" rel="noopener">CDC — Heat and your health<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg></a></li>
+    </ul>
+  </section>
+  <section class="section container" id="disclaimer" aria-labelledby="disc-title">
+    <div class="disclaimer">
+      <h2 id="disc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>Medical disclaimer</h2>
+      <p>This tool provides general educational estimates for healthy adults only. Results are not medical advice and should not replace guidance from a qualified healthcare professional.</p>
+      <p>If you are pregnant or breastfeeding, or live with kidney disease, heart failure, diabetes or any other condition that affects fluid balance — or if you take medication that influences hydration — consult your doctor before changing how much you drink.</p>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="../index.html" aria-label="Hydration Tools home">
+        <span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 5 10.2 5 15a7 7 0 0 0 14 0C19 10.2 12 2 12 2Z"/></svg></span>
+        <span>Hydration Tools<small>Precision Engine</small></span>
+      </a>
+      <p>Free, privacy-first hydration calculators. Every tool runs entirely in your browser — no accounts, no tracking of your inputs.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Tools">
+      <strong>Tools</strong>
+      <a href="../index.html#all-tools">All hydration tools</a>
+      <a href="#calculator">Water intake by weight</a>
+    </nav>
+    <nav class="footer-nav" aria-label="About this tool">
+      <strong>About</strong>
+      <a href="#methodology">Methodology</a>
+      <a href="#sources">Trusted sources</a>
+      <a href="#disclaimer">Medical disclaimer</a>
+    </nav>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; <span id="year">2026</span> Hydration Tools. All rights reserved.</span>
+    <span>Educational estimates only — not medical advice.</span>
+  </div>
+</footer>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Theme toggle (persisted) ---------- */
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('ph-theme', next); } catch (e) {}
+    });
+  }
+  var yearEl = document.getElementById('year');
+  if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+
+  /* ---------- Precision Hydration Engine ----------
+     Original formulas (ozwater.js):
+       lbs: weight * 0.50 = daily fluid ounces
+       kg : weight * 1.10 = daily fluid ounces
+       1 US fl oz is the base unit for every conversion here
+       Bottles: 16.9 fl oz and 20 fl oz
+  ---------------------------------------------------- */
+  var OZ_TO_L = 0.0295735;
+  var BOTTLE_500_OZ = 16.9;
+  var BOTTLE_591_OZ = 20;
+
+  var form = document.getElementById('calcForm');
+  var weightInput = document.getElementById('weightInput');
+  var weightSuffix = document.getElementById('weightSuffix');
+  var weightHint = document.getElementById('weightHint');
+  var formError = document.getElementById('formError');
+  var formErrorText = document.getElementById('formErrorText');
+  var resultsArea = document.getElementById('resultsArea');
+  var ozResult = document.getElementById('ozResult');
+  var ozStatResult = document.getElementById('ozStatResult');
+  var literResult = document.getElementById('literResult');
+  var cupResult = document.getElementById('cupResult');
+  var b16Result = document.getElementById('b16Result');
+  var b591Result = document.getElementById('b591Result');
+  var primarySub = document.getElementById('primarySub');
+  var copyBtn = document.getElementById('copyResultsBtn');
+  var copyLabel = document.getElementById('copyLabel');
+  var resetBtn = document.getElementById('resetBtn');
+
+  var lastSummary = '';
+  var copyTimer = null;
+
+  function currentUnit(){
+    var checked = document.querySelector('input[name="unit"]:checked');
+    return checked ? checked.value : 'lbs';
+  }
+
+  function updateUnitUI(){
+    var isLbs = currentUnit() === 'lbs';
+    weightSuffix.textContent = isLbs ? 'lb' : 'kg';
+    weightInput.placeholder = isLbs ? 'e.g. 154' : 'e.g. 70';
+    weightHint.textContent = isLbs ? 'Accepted range: 40 – 700 lb.' : 'Accepted range: 18 – 320 kg.';
+  }
+
+  function showError(message){
+    formErrorText.textContent = message;
+    formError.hidden = false;
+    resultsArea.hidden = true;
+  }
+
+  function clearError(){
+    formError.hidden = true;
+    formErrorText.textContent = '';
+  }
+
+  function fmt(value, decimals){
+    return value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  }
+
+  function calculate(){
+    clearError();
+    var unit = currentUnit();
+    var raw = weightInput.value.trim();
+    var weight = parseFloat(raw);
+
+    if (raw === '' || isNaN(weight) || weight <= 0) {
+      showError('Please enter a valid body weight greater than zero.');
+      weightInput.focus();
+      return;
+    }
+    if (unit === 'lbs' && (weight < 40 || weight > 700)) {
+      showError('Please enter a weight between 40 and 700 lb.');
+      weightInput.focus();
+      return;
+    }
+    if (unit === 'kg' && (weight < 18 || weight > 320)) {
+      showError('Please enter a weight between 18 and 320 kg.');
+      weightInput.focus();
+      return;
+    }
+
+    var totalOz = unit === 'lbs' ? weight * 0.50 : weight * 1.10;
+    var liters = totalOz * OZ_TO_L;
+    var cups = totalOz / 8;
+    var bottles500 = totalOz / BOTTLE_500_OZ;
+    var bottles591 = totalOz / BOTTLE_591_OZ;
+    var ozRounded = fmt(totalOz, 1);
+
+    ozResult.textContent = fmt(totalOz, 1);
+    ozStatResult.textContent = ozRounded;
+    literResult.textContent = fmt(liters, 2);
+    cupResult.textContent = fmt(cups, 1);
+    b16Result.textContent = fmt(bottles500, 1);
+    b591Result.textContent = fmt(bottles591, 1);
+    primarySub.textContent = '\u2248 ' + ozRounded + ' fl oz \u00B7 ' + fmt(liters, 2) + ' L per day';
+
+    lastSummary = [
+      'Daily Water Intake \u2014 Precision Hydration Engine',
+      'Body weight: ' + weight + (unit === 'lbs' ? ' lb' : ' kg'),
+      'Daily target: ' + fmt(totalOz, 1) + ' fl oz (\u2248 ' + fmt(liters, 2) + ' L)',
+      'Equivalent: ' + fmt(cups, 1) + ' \u00D7 8-oz cups \u00B7 ' + fmt(bottles500, 1) + ' \u00D7 17 fl oz bottles \u00B7 ' + fmt(bottles591, 1) + ' \u00D7 20 fl oz bottles',
+      'Baseline estimate only \u2014 not medical advice.'
+    ].join('\n');
+
+    resultsArea.hidden = false;
+    if (window.matchMedia('(max-width: 700px)').matches) {
+      resultsArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    calculate();
+  });
+
+  document.querySelectorAll('input[name="unit"]').forEach(function(radio){
+    radio.addEventListener('change', updateUnitUI);
+  });
+
+  copyBtn.addEventListener('click', function(){
+    if (!lastSummary) { return; }
+    function done(){
+      copyLabel.textContent = 'Copied to clipboard';
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(function(){ copyLabel.textContent = 'Copy results'; }, 2000);
+    }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = lastSummary;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(lastSummary).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
+  });
+
+  resetBtn.addEventListener('click', function(){
+    form.reset();
+    clearError();
+    resultsArea.hidden = true;
+    lastSummary = '';
+    updateUnitUI();
+    weightInput.focus();
+  });
+
+  /* Deep-link support: ?unit=kg or ?unit=lbs */
+  try {
+    var urlUnit = new URLSearchParams(window.location.search).get('unit');
+    if (urlUnit === 'kg' || urlUnit === 'lbs') {
+      document.getElementById(urlUnit === 'kg' ? 'unitKg' : 'unitLbs').checked = true;
+    }
+  } catch (e) {}
+  updateUnitUI();
+})();
+</script>
+</body>
+</html>
