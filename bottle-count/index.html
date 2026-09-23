@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bottle Count Calculator — How Many Bottles of Water a Day? | Hydration Tools</title>
+<meta name="description" content="Turn your daily water goal into an exact bottle count. Get a whole-bottle plan with the leftover top-up, plus a per-bottle table with cumulative totals and percent of goal.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Bottle Count Calculator</h1>
+    <p class="lead">How many refills is your daily water goal, really? Enter your target and bottle size to get the exact count, a whole-bottle plan, and a refill-by-refill breakdown.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">How many bottles is your goal?</h2>
+      <p class="card-sub">Switching units converts your goal automatically — the math always runs in fluid ounces.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <span class="field-label" id="unitLabel">Unit system</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="unitLabel">
+            <input type="radio" name="unit" id="unitOz" value="oz" checked>
+            <label for="unitOz">Fluid ounces (fl oz)</label>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="goal">Daily water goal</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="goal" inputmode="decimal" value="68" min="8" step="any">
+            <span class="input-suffix" id="goalSuffix">fl oz</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="bottleSize">Your bottle size</label>
+          <select class="select" id="bottleSize">
+            <option value="11">11 fl oz — small bottle</option>
+            <option value="17" selected>17 fl oz — standard bottle</option>
+            <option value="25">25 fl oz — large bottle</option>
+            <option value="34">34 fl oz — 1 L bottle</option>
+            <option value="51">51 fl oz — 1.5 L bottle</option>
+          </select>
+        </div>
+        <div>
+          <span class="field-label" id="countLabel">Bottles in plan</span>
+          <div style="display:flex;gap:8px;align-items:stretch">
+            <button type="button" class="btn btn-secondary" id="stepDown" aria-label="One fewer bottle" style="padding:10px 16px">−</button>
+            <input class="input" type="number" id="planCount" min="1" max="30" value="4" inputmode="numeric" aria-labelledby="countLabel" style="text-align:center">
+            <button type="button" class="btn btn-secondary" id="stepUp" aria-label="One more bottle" style="padding:10px 16px">+</button>
+          </div>
+          <p class="hint">Defaults to the rounded-up count — step it up or down to preview a bigger or smaller plan.</p>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate bottle count</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your bottle plan</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resBottles">0</span>
+          <span class="primary-unit">bottles / day</span>
+          <p class="primary-sub" id="resPlan"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resFull">0</span><span class="stat-label">Full bottles</span></div>
+          <div class="stat"><span class="stat-value" id="resLeft">0</span><span class="stat-label">Leftover top-up</span></div>
+          <div class="stat"><span class="stat-value" id="resSize">0</span><span class="stat-label">Bottle size</span></div>
+          <div class="stat"><span class="stat-value" id="resCeil">0</span><span class="stat-label">Rounded-up total</span></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>Refill-by-refill plan — cumulative intake and progress toward your goal</caption>
+            <thead><tr><th scope="col">Bottle</th><th scope="col">Amount</th><th scope="col">Cumulative</th><th scope="col">% of goal</th></tr></thead>
+            <tbody id="planBody"></tbody>
+          </table>
+        </div>
+        <div class="results-actions" style="margin-top:16px">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Not sure the bottle is right? Try the <a href="../bottle-size-recommender/">Bottle Size Recommender</a>, or start from your personal target with the <a href="../water-intake-calculator/">Water Intake Calculator</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the count is calculated</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Exact division</h3>
+          <p class="formula">bottles needed = daily goal ÷ bottle size<br>shown to 1 decimal place</p>
+        </div>
+        <div class="formula-box">
+          <h3>Whole-bottle plan</h3>
+          <p class="formula">full bottles = floor(goal ÷ size)<br>top-up = goal − full bottles × size<br>rounded-up count = ceil(goal ÷ size)</p>
+        </div>
+      </div>
+      <p class="section-intro">The plan always rounds up: the rounded-up bottle count covers at least 100% of your goal, so you never finish the day short. The final bottle is usually a partial pour — the "leftover top-up" is exactly what remains after the full bottles.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This calculator provides general wellness estimates only and is not medical advice. If you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional.</p>
+    </section>
+<script>
+(function () {
+'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var goal = $('goal'), size = $('bottleSize'), count = $('planCount');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  var lastGoalOz = 0, lastSizeOz = 0, lastExact = 0, lastLeft = 0, lastFull = 0;
+  function fmtAmt(oz) {
+    return oz.toFixed(1) + ' fl oz';
+  }
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function buildTable(goalOz, sizeOz) {
+    var n = parseInt(count.value, 10);
+    if (isNaN(n) || n < 1) { n = 1; }
+    if (n > 30) { n = 30; }
+    var body = $('planBody');
+    body.innerHTML = '';
+    var cum = 0;
+    for (var i = 1; i <= n; i++) {
+      var remaining = goalOz - cum;
+      var amt = (remaining > 0 && remaining < sizeOz) ? remaining : sizeOz;
+      var hitGoal = cum < goalOz && cum + amt >= goalOz;
+      cum += amt;
+      var tr = document.createElement('tr');
+      var cells = ['Bottle ' + i, fmtAmt(amt), fmtAmt(cum), Math.round(cum / goalOz * 100) + '%' + (hitGoal ? ' ✓' : '')];
+      for (var c = 0; c < cells.length; c++) {
+        var td = document.createElement('td');
+        td.textContent = cells[c];
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    }
+  }
+  function calc(setCount) {
+    var raw = parseFloat(goal.value);
+    if (!raw || raw <= 0) { showErr('Please enter your daily water goal.'); return; }
+    var goalOz = raw;
+    if (goalOz < 8 || goalOz > 338) { showErr('Enter a goal between 8 and 338 fl oz.'); return; }
+    errBox.hidden = true;
+    var sizeOz = parseFloat(size.value);
+    var exact = goalOz / sizeOz;
+    var full = Math.floor(exact);
+    var leftover = Math.round((goalOz - full * sizeOz) * 10) / 10;
+    lastGoalOz = goalOz; lastSizeOz = sizeOz; lastExact = exact; lastLeft = leftover; lastFull = full;
+    $('resBottles').textContent = exact.toFixed(1);
+    var plan = leftover === 0 ? full + ' full bottles — an exact fit, no top-up needed.' : full + ' full bottles + ' + fmtAmt(leftover) + ' to finish.';
+    $('resPlan').textContent = 'Whole-bottle plan: ' + plan + ' Bottle size: ' + fmtAmt(sizeOz) + '.';
+    $('resFull').textContent = String(full);
+    $('resLeft').textContent = leftover === 0 ? '0 — exact fit' : fmtAmt(leftover);
+    $('resSize').textContent = fmtAmt(sizeOz);
+    $('resCeil').textContent = Math.ceil(exact) + ' (' + fmtAmt(Math.ceil(exact) * sizeOz) + ')';
+    if (setCount) { count.value = Math.ceil(exact); }
+    buildTable(goalOz, sizeOz);
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', function () { calc(true); });
+  size.addEventListener('change', function () { if (!results.hidden) { calc(true); } });
+  goal.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(true); } });
+  count.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(false); } });
+  count.addEventListener('change', function () { if (!results.hidden) { calc(false); } });
+  $('stepUp').addEventListener('click', function () {
+    count.value = Math.min(30, (parseInt(count.value, 10) || 0) + 1);
+    if (!results.hidden) { calc(false); }
+  });
+  $('stepDown').addEventListener('click', function () {
+    count.value = Math.max(1, (parseInt(count.value, 10) || 2) - 1);
+    if (!results.hidden) { calc(false); }
+  });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'My water goal of ' + fmtAmt(lastGoalOz) + ' = ' + lastExact.toFixed(1) + ' × ' + fmtAmt(lastSizeOz) + ' bottles. Plan: ' + lastFull + ' full bottles' + (lastLeft === 0 ? ' (exact fit).' : ' + ' + fmtAmt(lastLeft) + ' top-up.');
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    goal.value = '68'; $('unitOz').checked = true; $('goalSuffix').textContent = 'fl oz';
+    size.selectedIndex = 1; count.value = 4;
+    results.hidden = true; errBox.hidden = true; goal.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
