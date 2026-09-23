@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caffeine &amp; Alcohol Calculator — Daily Limits &amp; Standard Drinks | Hydration Tools</title>
+<meta name="description" content="Add up your daily caffeine against the 400 mg adult or 200 mg pregnancy limit, and estimate the alcohol in your drinks in standard units with a practical water-pairing suggestion. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Caffeine &amp; Alcohol Calculator</h1>
+    <p class="lead">Add up your daily caffeine against evidence-based limits, and estimate the alcohol in your drinks in standard units — with a practical water suggestion and none of the usual myths.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="caf-title">
+      <h2 id="caf-title">Part A — Caffeine</h2>
+      <p class="card-sub">Caffeine values are approximate (Mayo Clinic figures, mg per 8 fl oz unless noted). Add every caffeinated drink you have today.</p>
+      <div class="field-grid">
+        <div>
+          <span class="field-label" id="limitLabel">Your caffeine limit</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="limitLabel">
+            <input type="radio" name="limit" id="limAdult" value="400" checked>
+            <label for="limAdult">Adult — 400 mg</label>
+            <input type="radio" name="limit" id="limPreg" value="200">
+            <label for="limPreg">Pregnancy — 200 mg</label>
+          </div>
+        </div>
+      </div>
+      <div class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <p>Caffeinated drinks still count toward your fluid intake. In Beverage Hydration Index studies (Maughan et al., 2016), coffee, tea and cola produced the same urine volume as water over 4 hours — so this tool never subtracts their volume from your hydration.</p>
+      </div>
+      <span class="field-label">Your drinks today</span>
+      <p class="hint" style="margin:0 0 10px">Each row has its own size: a 12 fl oz can counts as the 8 fl oz value × 1.5. Espresso and energy shots keep their own serving size.</p>
+      <div class="log-list" id="cafRows"></div>
+      <p style="margin:10px 0 18px"><button class="btn btn-secondary" id="cafAdd" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>Add a drink</button></p>
+      <p class="form-error" id="cafError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="cafErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="cafBtn">Add up my caffeine</button>
+      <div class="results" id="cafResults" hidden>
+        <div class="results-head"><h3>Your caffeine today</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="cafTotal">0</span>
+          <span class="primary-unit">mg of caffeine</span>
+          <p class="primary-sub" id="cafSub"></p>
+        </div>
+        <div class="progress-bar" role="img" aria-label="Share of your caffeine limit used"><div class="progress-fill" id="cafBar"></div></div>
+        <div class="stat-grid" style="margin-top:14px">
+          <div class="stat"><span class="stat-value" id="cafPct">0%</span><span class="stat-label">Of your limit used</span></div>
+          <div class="stat"><span class="stat-value" id="cafLimitOut">400 mg</span><span class="stat-label">Your limit</span></div>
+          <div class="stat"><span class="stat-value" id="cafLeft">0 mg</span><span class="stat-label">Remaining today</span></div>
+        </div>
+        <p class="form-error" id="cafOver" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="cafOverText"></span></p>
+        <div class="notice" id="cafDose" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <p>One of your drinks contains more than about 300 mg of caffeine in a single serving — a dose that high may temporarily increase urine output.</p>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="cafCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="cafCopyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="cafReset">Reset</button>
+        </div>
+      </div>
+    </section>
+    <div class="notice" id="pregNotice" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <p><strong>There is no safe amount of alcohol during pregnancy.</strong> Part B is hidden while the pregnancy limit is selected. See the <a href="../pregnancy-hydration/">Pregnancy Hydration</a> tool for fluid guidance during pregnancy.</p>
+    </div>
+    <section class="card" id="partB" aria-labelledby="alc-title">
+      <h2 id="alc-title">Part B — Alcohol</h2>
+      <p class="card-sub">Estimate the pure alcohol in your drinks, expressed as standard drinks, with a practical water-pairing suggestion.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <span class="field-label" id="stdLabel">Standard drink definition</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="stdLabel">
+            <input type="radio" name="std" id="stdUS" value="14" checked>
+            <label for="stdUS">US — 14 g</label>
+            <input type="radio" name="std" id="stdOther" value="10">
+            <label for="stdOther">Other — 10 g</label>
+          </div>
+          <p class="hint">The US standard drink is 14 g of pure alcohol; many other countries use 10 g.</p>
+        </div>
+      </div>
+      <span class="field-label">Your drinks</span>
+      <div class="log-list" id="alcRows"></div>
+      <p style="margin:10px 0 18px"><button class="btn btn-secondary" id="alcAdd" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>Add a drink</button></p>
+      <p class="form-error" id="alcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="alcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="alcBtn">Estimate my drinks</button>
+      <div class="results" id="alcResults" hidden>
+        <div class="results-head"><h3>Your alcohol estimate</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="alcStd">0</span>
+          <span class="primary-unit" id="alcStdUnit">standard drinks</span>
+          <p class="primary-sub" id="alcSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="alcGrams">0 g</span><span class="stat-label">Pure alcohol</span></div>
+          <div class="stat">          <span class="stat-value" id="alcWater">0 fl oz</span><span class="stat-label">Suggested water</span></div>
+          <div class="stat"><span class="stat-value" id="alcGlasses">0</span><span class="stat-label">Glasses (8 fl oz each)</span></div>
+        </div>
+        <div class="notice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <p>This tool does <strong>not</strong> calculate blood alcohol or driving safety — if you have been drinking, do not drive. And while water between drinks helps you pace yourself, it does not prevent intoxication or hangovers.</p>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="alcCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="alcCopyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="alcReset">Reset</button>
+        </div>
+        <p class="results-note">The water suggestion is a practical public-health rule of thumb — about one glass of water (8 fl oz) per standard drink — not a medical target. Track the rest of your day with the <a href="../water-tracker/">Water Tracker</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the estimates are built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Caffeine</h3>
+          <p class="formula">Total mg = Σ (mg per serving × servings)<br>12 fl oz can = 8 fl oz value × 1.5<br>Limits: 400 mg/day (adults), 200 mg/day (pregnancy)</p>
+        </div>
+        <div class="formula-box">
+          <h3>Alcohol</h3>
+          <p class="formula">ethanol (g) = volume (fl oz) × ABV ÷ 100 × 23.3335 × servings<br>standard drinks = ethanol (g) ÷ 14 g (US) or 10 g<br>suggested water = standard drinks × 8 fl oz</p>
+        </div>
+      </div>
+      <p class="section-intro">Studies show that moderate caffeine intake does not dehydrate you: in the Beverage Hydration Index work of Maughan and colleagues (2016), coffee, tea and cola hydrated participants about as well as water over four hours. The caffeine limits come from the FDA (healthy adults) and ACOG (pregnancy). The water-per-drink figure is a practical guide used in public-health campaigns, not a clinical rule. Curious how hydrated you actually are? Try the <a href="../urine-color-guide/">Urine Color Hydration Guide</a>.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>General guidance for healthy people — not medical advice. If you have kidney, heart or liver disease, or you have been told to restrict fluids or sodium, follow your doctor's instructions. Caffeine values are approximations and alcohol content varies by brand and pour; this tool cannot estimate blood alcohol concentration. If you are pregnant, managing a medical condition, or taking medication, ask a healthcare professional about safe caffeine and alcohol limits.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var CAF_DRINKS = [
+    { label: 'Brewed coffee', mg: 96 },
+    { label: 'Decaf coffee', mg: 2 },
+    { label: 'Espresso (1 oz shot)', mg: 63, shot: true },
+    { label: 'Instant coffee', mg: 62 },
+    { label: 'Black tea', mg: 48 },
+    { label: 'Green tea', mg: 29 },
+    { label: 'Cola', mg: 33 },
+    { label: 'Energy drink', mg: 79 },
+    { label: 'Energy shot (2 oz)', mg: 200, shot: true },
+    { label: 'Custom — enter mg', mg: -1 }
+  ];
+  var ALC_DRINKS = [
+             { label: 'Beer — 12 fl oz, 5%', vol: 12, abv: 5 },
+    { label: 'Wine — 5 fl oz, 12%', vol: 5, abv: 12 },
+    { label: 'Spirits — 1.5 fl oz, 40%', vol: 1.5, abv: 40 },
+    { label: 'Custom — enter volume & ABV', vol: -1, abv: -1 }
+  ];
+  /* Self-verified test cases:
+     2 brewed coffees (8 oz) + 1 cola (12 oz can) = 96*2 + 33*1.5 = 241.5 mg = 60.4% of the 400 mg adult limit
+     Same intake under the pregnancy limit: 241.5 / 200 = 120.8% -> over-limit warning
+      2 beers 12 fl oz 5% (US 14 g): 28.0 g ethanol, 2.0 standard drinks, 16 fl oz suggested water
+      1 wine preset 5 fl oz 12% (US 14 g): 14.0 g ethanol, 1.0 standard drink, 8 fl oz suggested water
+      1 wine custom 5.1 fl oz 12% (10 g definition): 14.3 g ethanol, 1.43 standard drinks, 11.4 fl oz suggested water
+     All math in fl oz/grams; ethanol density 23.3335 g per fl oz; intermediates are never rounded. */
+  function copyText(text, labelId) {
+    function done() { $(labelId).textContent = 'Copied'; setTimeout(function () { $(labelId).textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  }
+  function showErr(boxId, textId, msg, resId) { $(textId).textContent = msg; $(boxId).hidden = false; $(resId).hidden = true; }
+  function makeRow(list, onRemove, extraHtml) {
+    var row = document.createElement('div');
+    row.className = 'log-item';
+    var sel = document.createElement('select');
+    sel.className = 'select row-drink';
+    sel.style.flex = '1'; sel.style.minWidth = '170px';
+    for (var i = 0; i < list.length; i++) {
+      var o = document.createElement('option');
+      o.value = String(i); o.textContent = list[i].label;
+      sel.appendChild(o);
+    }
+    row.appendChild(sel);
+    if (extraHtml) {
+      var wrap = document.createElement('span');
+      wrap.innerHTML = extraHtml;
+      while (wrap.firstChild) { row.appendChild(wrap.firstChild); }
+    }
+    var serv = document.createElement('input');
+    serv.className = 'input row-serv'; serv.type = 'number'; serv.min = '0.5'; serv.max = '30'; serv.step = '0.5'; serv.value = '1';
+    serv.style.width = '86px'; serv.title = 'Servings'; serv.setAttribute('aria-label', 'Servings');
+    row.appendChild(serv);
+    var del = document.createElement('button');
+    del.className = 'log-del'; del.type = 'button'; del.textContent = 'Remove';
+    del.addEventListener('click', function () { onRemove(row); });
+    row.appendChild(del);
+    return row;
+  }
+  /* ---------- Part A: caffeine ---------- */
+  var cafRows = $('cafRows');
+  var cafLast = '';
+  function addCafRow() {
+    var row = makeRow(CAF_DRINKS, function (r) {
+      if (cafRows.children.length > 1) { cafRows.removeChild(r); }
+    }, '<select class="select row-size" aria-label="Serving size" style="width:160px"><option value="1">8 fl oz</option><option value="1.5">12 fl oz can (×1.5)</option></select><input class="input row-mg" type="number" min="0" max="1000" step="1" placeholder="mg each" aria-label="Caffeine mg per serving" style="width:104px" hidden>');
+    var sel = row.querySelector('.row-drink');
+    sel.addEventListener('change', function () {
+      var d = CAF_DRINKS[parseInt(sel.value, 10)];
+      row.querySelector('.row-size').hidden = d.mg === -1 || !!d.shot;
+      row.querySelector('.row-mg').hidden = d.mg !== -1;
+    });
+    cafRows.appendChild(row);
+    return row;
+  }
+  function cafLimit() { return $('limPreg').checked ? 200 : 400; }
+  function cafCalc() {
+    var total = 0, maxDose = 0, any = false;
+    for (var i = 0; i < cafRows.children.length; i++) {
+      var row = cafRows.children[i];
+      var d = CAF_DRINKS[parseInt(row.querySelector('.row-drink').value, 10)];
+      var serv = parseFloat(row.querySelector('.row-serv').value);
+      if (isNaN(serv) || serv <= 0) { continue; }
+      var mg = d.mg;
+      if (mg === -1) {
+        mg = parseFloat(row.querySelector('.row-mg').value);
+        if (isNaN(mg) || mg < 0 || mg > 1000) { showErr('cafError', 'cafErrorText', 'Enter a caffeine amount between 0 and 1,000 mg for each custom drink.', 'cafResults'); return; }
+      } else {
+        mg = mg * parseFloat(row.querySelector('.row-size').value); /* 12 fl oz can = 8 fl oz value × 1.5; shots keep ×1 */
+      }
+      any = true;
+      total += mg * serv;
+      if (mg > maxDose) { maxDose = mg; }
+    }
+    if (!any) { showErr('cafError', 'cafErrorText', 'Add at least one drink with a serving count above zero.', 'cafResults'); return; }
+    $('cafError').hidden = true;
+    var limit = cafLimit();
+    var pct = total / limit * 100;
+    $('cafTotal').textContent = total.toFixed(1);
+    $('cafSub').textContent = 'Across ' + cafRows.children.length + (cafRows.children.length === 1 ? ' drink' : ' drinks') + ', against a ' + limit + ' mg ' + (limit === 200 ? 'pregnancy' : 'adult') + ' limit.';
+    $('cafPct').textContent = pct.toFixed(1) + '%';
+    $('cafLimitOut').textContent = limit + ' mg';
+    $('cafLeft').textContent = Math.max(0, limit - total).toFixed(1) + ' mg';
+    $('cafBar').style.width = Math.min(100, pct) + '%';
+    $('cafBar').style.background = pct > 100 ? 'var(--danger)' : '';
+    if (pct > 100) {
+      $('cafOverText').textContent = 'You are ' + (total - limit).toFixed(1) + ' mg over the suggested ' + limit + ' mg limit. Consider cutting back for the rest of the day.';
+      $('cafOver').hidden = false;
+    } else { $('cafOver').hidden = true; }
+    $('cafDose').hidden = maxDose <= 300;
+    $('cafResults').hidden = false;
+    $('cafResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    cafLast = 'Caffeine today: ' + total.toFixed(1) + ' mg — ' + pct.toFixed(1) + '% of my ' + limit + ' mg limit.';
+  }
+  $('cafBtn').addEventListener('click', cafCalc);
+  $('cafAdd').addEventListener('click', function () { addCafRow().querySelector('.row-drink').focus(); });
+  cafRows.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); cafCalc(); } });
+  cafRows.addEventListener('change', function () { if (!$('cafResults').hidden) { cafCalc(); } });
+  $('cafCopy').addEventListener('click', function () { copyText(cafLast, 'cafCopyLabel'); });
+  $('cafReset').addEventListener('click', function () {
+    while (cafRows.children.length > 1) { cafRows.removeChild(cafRows.lastChild); }
+    cafRows.children[0].querySelector('.row-drink').value = '0';
+    cafRows.children[0].querySelector('.row-serv').value = '1';
+    cafRows.children[0].querySelector('.row-size').value = '1';
+    cafRows.children[0].querySelector('.row-size').hidden = false;
+    cafRows.children[0].querySelector('.row-mg').value = '';
+    cafRows.children[0].querySelector('.row-mg').hidden = true;
+    $('cafResults').hidden = true; $('cafError').hidden = true;
+  });
+  /* ---------- Pregnancy toggle: hide Part B ---------- */
+  function syncPreg() {
+    var preg = $('limPreg').checked;
+    $('partB').hidden = preg;
+    $('pregNotice').hidden = !preg;
+    if (preg) { $('alcResults').hidden = true; $('alcError').hidden = true; }
+    if (!$('cafResults').hidden) { cafCalc(); }
+  }
+  $('limAdult').addEventListener('change', syncPreg);
+  $('limPreg').addEventListener('change', syncPreg);
+  /* ---------- Part B: alcohol ---------- */
+  var alcRows = $('alcRows');
+  var alcLast = '';
+  function addAlcRow() {
+    var row = makeRow(ALC_DRINKS, function (r) {
+      if (alcRows.children.length > 1) { alcRows.removeChild(r); }
+    }, '      <input class="input row-vol" type="number" min="1" max="68" step="any" placeholder="fl oz" aria-label="Volume in fl oz" style="width:80px" hidden><input class="input row-abv" type="number" min="0" max="100" step="any" placeholder="% ABV" aria-label="Alcohol by volume percent" style="width:86px" hidden>');
+    var sel = row.querySelector('.row-drink');
+    sel.addEventListener('change', function () {
+      var custom = ALC_DRINKS[parseInt(sel.value, 10)].vol === -1;
+      row.querySelector('.row-vol').hidden = !custom;
+      row.querySelector('.row-abv').hidden = !custom;
+    });
+    alcRows.appendChild(row);
+    return row;
+  }
+
+  function alcCalc() {
+    var grams = 0, any = false;
+    for (var i = 0; i < alcRows.children.length; i++) {
+      var row = alcRows.children[i];
+      var d = ALC_DRINKS[parseInt(row.querySelector('.row-drink').value, 10)];
+      var serv = parseFloat(row.querySelector('.row-serv').value);
+      if (isNaN(serv) || serv <= 0) { continue; }
+      var vol = d.vol, abv = d.abv;
+      if (vol === -1) {
+        vol = parseFloat(row.querySelector('.row-vol').value);
+        abv = parseFloat(row.querySelector('.row-abv').value);
+        if (isNaN(vol) || vol <= 0 || vol > 68) { showErr('alcError', 'alcErrorText', 'Enter a volume greater than 0 and up to 68 fl oz for each custom drink.', 'alcResults'); return; }
+        if (isNaN(abv) || abv <= 0 || abv > 100) { showErr('alcError', 'alcErrorText', 'Enter an ABV between 0 and 100% for each custom drink.', 'alcResults'); return; }
+      }
+      any = true;
+      grams += vol * (abv / 100) * 23.3335 * serv;
+    }
+    if (!any) { showErr('alcError', 'alcErrorText', 'Add at least one drink with a serving count above zero.', 'alcResults'); return; }
+    $('alcError').hidden = true;
+    var stdG = $('stdOther').checked ? 10 : 14;
+        var std = grams / stdG;
+    var water = std * 8;
+        var stdTxt = std.toFixed(2);
+    if (stdTxt.charAt(stdTxt.length - 1) === '0') { stdTxt = stdTxt.slice(0, -1); } /* 2.00 -> 2.0, 1.42 stays 1.42 */
+    $('alcStd').textContent = stdTxt;
+    $('alcStdUnit').textContent = Math.abs(std - 1) < 0.005 ? 'standard drink' : 'standard drinks';
+    $('alcSub').textContent = 'Using the ' + stdG + ' g standard-drink definition.';
+    $('alcGrams').textContent = grams.toFixed(1) + ' g';
+    $('alcWater').textContent = (Math.round(water * 10) / 10).toLocaleString('en-US') + ' fl oz';
+    $('alcGlasses').textContent = (Math.round(std * 10) / 10).toFixed(1);
+    $('alcResults').hidden = false;
+    $('alcResults').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    alcLast = 'Alcohol estimate: ' + grams.toFixed(1) + ' g of pure alcohol = ' + stdTxt + ' standard drinks (' + stdG + ' g definition). Practical water suggestion: about ' + (Math.round(water * 10) / 10).toLocaleString('en-US') + ' fl oz.';
+  }
+  $('alcBtn').addEventListener('click', alcCalc);
+  $('alcAdd').addEventListener('click', function () { addAlcRow().querySelector('.row-drink').focus(); });
+  alcRows.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); alcCalc(); } });
+  $('stdUS').addEventListener('change', function () { if (!$('alcResults').hidden) { alcCalc(); } });
+  $('stdOther').addEventListener('change', function () { if (!$('alcResults').hidden) { alcCalc(); } });
+  $('alcCopy').addEventListener('click', function () { copyText(alcLast, 'alcCopyLabel'); });
+  $('alcReset').addEventListener('click', function () {
+    while (alcRows.children.length > 1) { alcRows.removeChild(alcRows.lastChild); }
+    var first = alcRows.children[0];
+    first.querySelector('.row-drink').value = '0';
+    first.querySelector('.row-serv').value = '1';
+    first.querySelector('.row-vol').value = '';
+    first.querySelector('.row-abv').value = '';
+    first.querySelector('.row-vol').hidden = true;
+    first.querySelector('.row-abv').hidden = true;
+    $('alcResults').hidden = true; $('alcError').hidden = true;
+  });
+  addCafRow();
+  addAlcRow();
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
