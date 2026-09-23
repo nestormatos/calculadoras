@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A7389">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z' fill='%230A7389'/%3E%3C/svg%3E">
+<title>Emergency Water Storage Calculator for Hurricanes and Outages | Hydration Tools</title>
+<meta name="description" content="Work out how much drinking water to store for your household and pets during hurricanes, storms and outages, and how many jugs or bottles you need.">
+<script>(function(){try{var t=localStorage.getItem("ph-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<style>
+:root{
+  --ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;
+  --current:#0A7389;--current-ink:#FFFFFF;
+  --ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA;
+  --radius-lg:18px;--radius:10px;
+  --font-display:ui-rounded,"SF Pro Rounded","Nunito","Varela Round","Segoe UI",system-ui,sans-serif;
+  --font-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;
+    --current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--font-body);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:20px;padding-right:20px}
+a{color:var(--current)}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center}
+.brand svg{color:var(--current)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{border:0;background:none;color:var(--ink-2);font:600 13px var(--font-body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.hero{padding:24px 0 28px;max-width:700px}
+.hero h1{font-family:var(--font-display);font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.06;margin:0 0 14px;letter-spacing:-.015em;font-weight:800}
+.hero p{font-size:1.12rem;color:var(--ink-2);margin:0;max-width:60ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start;padding-bottom:28px}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:24px}
+@media (max-width:520px){.panel{padding:18px}}
+.result{position:sticky;top:16px}
+@media (max-width:880px){.result{position:static}}
+fieldset{border:0;padding:0;margin:0 0 26px;min-width:0}
+fieldset:last-child{margin-bottom:0}
+legend,.panel h2{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin:0 0 14px;padding:0}
+.panel h3{font-family:var(--font-display);font-size:1.02rem;margin:22px 0 8px}
+label,.label{display:block;font-weight:600;font-size:.94rem;margin:0 0 6px}
+.hint{font-size:.86rem;color:var(--ink-2);margin:6px 0 0;max-width:62ch}
+.muted{color:var(--ink-2)}
+.field{margin-bottom:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row .field{margin-bottom:0}
+.row + .hint,.row + .field{margin-top:12px}
+@media (max-width:420px){.row{grid-template-columns:1fr}}
+input[type=number],input[type=time],select{width:100%;font:inherit;font-size:1rem;padding:11px 12px;border:1px solid var(--line);
+  border-radius:var(--radius);background:var(--paper);color:var(--ink);font-variant-numeric:tabular-nums;min-height:46px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--current);outline-offset:2px}
+.with-unit{position:relative}
+.with-unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--ink-2);font-size:.9rem;pointer-events:none}
+.with-unit input{padding-right:52px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:var(--surface);color:var(--ink-2);font:600 14px var(--font-body);padding:10px 14px;cursor:pointer;min-height:42px}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--current);color:var(--current-ink)}
+.stepper{display:flex}
+.stepper input{text-align:center;border-radius:0;border-left:0;border-right:0;-moz-appearance:textfield}
+.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
+.stepper button{width:46px;flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 20px var(--font-body);cursor:pointer}
+.stepper button:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.stepper button:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--current);margin:2px 0 0;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:var(--radius);padding:12px 18px;
+  font:600 15px var(--font-body);cursor:pointer;background:var(--current);color:var(--current-ink);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.k{font-weight:600;color:var(--ink-2);margin:0 0 4px}
+.big{font-family:var(--font-display);font-size:clamp(2.8rem,8vw,4rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.big small{font-size:.38em;font-weight:700;margin-left:8px;color:var(--ink-2);letter-spacing:0}
+.note{border-radius:var(--radius);padding:12px 14px;font-size:.94rem;margin-top:14px}
+.note.ok{background:var(--ok-soft)}.note.warn{background:var(--warn-soft)}.note.bad{background:var(--bad-soft)}.note.info{background:var(--mist)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;margin-top:20px}
+.stat{border-top:2px solid var(--line);padding-top:8px}
+.stat span{display:block;font-size:.86rem;color:var(--ink-2)}
+.stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums;margin-top:2px}
+.scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th,.tbl td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl th{font-weight:600;color:var(--ink-2)}
+.tbl .n{text-align:right;font-variant-numeric:tabular-nums}
+.prose{max-width:70ch}
+.prose p{margin:0 0 12px}
+.section{margin-bottom:24px}
+.more{border-top:1px solid var(--line);padding-top:26px;padding-bottom:44px;font-size:.92rem;color:var(--ink-2)}
+.more nav{display:flex;gap:10px 22px;flex-wrap:wrap;margin-bottom:14px}
+.more p{margin:0 0 8px;max-width:75ch}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:600}
+.toast.show{opacity:1}
+.print-only{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  header.top,.more,.no-print,.lang{display:none!important}
+  .print-only{display:block}
+  body{background:#fff;color:#000}
+  .panel{border:0;padding:0;background:none}
+  .result{position:static}
+}
+.prose h2{font-family:var(--font-display);font-size:1.3rem;margin:0 0 10px}
+@media (max-width:420px){.seg button{padding:10px 10px;font-size:13px}}
+
+.jugs{display:flex;flex-wrap:wrap;gap:6px 5px;align-items:flex-end;margin:18px 0 10px;padding:14px;background:var(--mist);border-radius:var(--radius);min-height:64px}
+.jugs svg{height:auto;fill:var(--current)}
+.jugs .more-n{font-weight:700;color:var(--ink-2);margin-left:6px;align-self:center}
+.j-c5{width:30px}.j-c1{width:20px}.j-c15{width:14px}.j-c05{width:10px}
+.bd{list-style:none;padding:0;margin:16px 0 0}
+.bd li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.bd li b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.strong{font-weight:700;font-size:1.05rem;margin:0}
+.tips{padding-left:1.2em;margin:0}
+.tips li{margin-bottom:8px}
+#daysCustom[hidden]{display:none}
+@media print{
+  .hero,form{display:none!important}
+  .grid{display:block}
+  .jugs{background:none;padding:0}
+  .jugs svg{fill:#555}
+  .section{break-inside:avoid}
+}
+html[data-theme="light"]{--ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;--current:#0A7389;--current-ink:#FFFFFF;--ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA}
+html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;--current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;width:38px;height:38px;font-size:16px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="../index.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
+    <span data-i18n="brand">Hydration Tools</span>
+  </a>
+  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+    <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
+  </div>
+</div></header>
+<main class="wrap">
+  <section class="hero">
+    <h1 data-i18n="h1">Emergency water storage calculator</h1>
+    <p data-i18n="lead"></p>
+  </section>
+
+  <div class="grid">
+    <form class="panel" id="form" novalidate onsubmit="return false">
+      <div class="field">
+        <span class="label" data-i18n="units">Units</span>
+        <div class="seg" id="units" role="group">
+          <button type="button" data-v="L" data-i18n="unitsL">Liters</button><button type="button" data-v="G" data-i18n="unitsG">Gallons</button>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend data-i18n="household">Your household</legend>
+        <div class="row">
+          <div class="field">
+            <label for="adults" data-i18n="adults">Adults</label>
+            <div class="stepper"><button type="button" data-step="-1" data-i18n-aria="dec">−</button><input id="adults" type="number" inputmode="numeric" min="0" max="50" value="2"><button type="button" data-step="1" data-i18n-aria="inc">+</button></div>
+          </div>
+          <div class="field">
+            <label for="kids" data-i18n="kids">Children</label>
+            <div class="stepper"><button type="button" data-step="-1" data-i18n-aria="dec">−</button><input id="kids" type="number" inputmode="numeric" min="0" max="50" value="1"><button type="button" data-step="1" data-i18n-aria="inc">+</button></div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:16px">
+          <label for="extra" data-i18n="extra">People who need more</label>
+          <div class="stepper" style="max-width:220px"><button type="button" data-step="-1" data-i18n-aria="dec">−</button><input id="extra" type="number" inputmode="numeric" min="0" max="50" value="0"><button type="button" data-step="1" data-i18n-aria="inc">+</button></div>
+          <p class="hint" data-i18n="extraHint"></p>
+        </div>
+        <div class="field">
+          <label for="pets" data-i18n="pets">Pets' total weight</label>
+          <div class="with-unit" style="max-width:220px"><input id="pets" type="number" inputmode="decimal" min="0" step="1" value="0"><span id="petUnit">kg</span></div>
+          <p class="hint" data-i18n="petsHint"></p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend data-i18n="howLong">How long</legend>
+        <div class="seg" id="days" role="group">
+          <button type="button" data-v="3" data-i18n="days3">3 days</button><button type="button" data-v="7" data-i18n="days7">1 week</button><button type="button" data-v="14" data-i18n="days14">2 weeks</button><button type="button" data-v="custom" data-i18n="daysCustom">Other</button>
+        </div>
+        <div class="field" id="daysCustom" hidden style="margin-top:14px;max-width:220px">
+          <label for="daysN" data-i18n="daysN">Number of days</label>
+          <input id="daysN" type="number" inputmode="numeric" min="1" max="90" value="10">
+        </div>
+        <p class="hint" data-i18n="daysHint"></p>
+        <div class="field" style="margin-top:18px">
+          <label class="check"><input type="checkbox" id="hot"><span data-i18n="hot">Hot climate or no air conditioning</span></label>
+          <p class="hint" data-i18n="hotHint"></p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend data-i18n="container">Store it in</legend>
+        <select id="cont" data-i18n-aria="container">
+          <option value="c5" data-i18n="c5">5-gallon jugs (18.9 L)</option>
+          <option value="c1" data-i18n="c1">1-gallon jugs (3.8 L)</option>
+          <option value="c15" data-i18n="c15">1.5 L bottles</option>
+          <option value="c05" data-i18n="c05">17 fl oz bottles</option>
+        </select>
+      </fieldset>
+    </form>
+
+    <section class="panel result" id="result" aria-live="polite"></section>
+  </div>
+
+  <section class="panel section">
+    <h2 data-i18n="tipsTitle">Storing it safely</h2>
+    <ul class="tips">
+      <li data-i18n="tip1"></li><li data-i18n="tip2"></li><li data-i18n="tip3"></li><li data-i18n="tip4"></li><li data-i18n="tip5"></li>
+    </ul>
+    <p class="hint" data-i18n="source" style="margin-top:14px"></p>
+  </section>
+</main>
+<footer class="more wrap">
+  <nav data-i18n-aria="moreNav" aria-label="More hydration tools">
+    <a href="../sweat-rate-calculator/" data-i18n="toolSweat">Sweat rate calculator</a>
+    <a href="../emergency-water-storage/" data-i18n="toolEmergency">Emergency water storage calculator</a>
+    <a href="../bottle-time-marker-labels/" data-i18n="toolLabels">Bottle time-marker labels</a>
+    <a href="../index.html#all-tools" data-i18n="toolAll">All hydration tools</a>
+  </nav>
+  <p data-i18n="disclaimer"></p>
+  <p data-i18n="privacy">Everything runs in your browser. Nothing you enter is sent anywhere.</p>
+</footer>
+<script>
+const Common = (() => {
+  const BASE = {
+    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator',
+      toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language',
+      privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.', dec: 'Decrease', inc: 'Increase' },
+    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias',
+      toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma',
+      privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.', dec: 'Restar', inc: 'Sumar' }
+  };
+  let dict = BASE, lang = 'en', onChange = () => {};
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  function t(k, vars) {
+    const src = dict[lang] || {};
+    let s = src[k] != null ? src[k] : (dict.en[k] != null ? dict.en[k] : k);
+    if (vars) for (const v in vars) s = s.split('{' + v + '}').join(vars[v]);
+    return s;
+  }
+  function apply() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    document.title = t('title');
+    const md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', t('metaDesc'));
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    onChange();
+  }
+  function init(pageDict, cb) {
+    dict = { en: Object.assign({}, BASE.en, pageDict.en), es: Object.assign({}, BASE.es, pageDict.es) };
+    onChange = cb || onChange;
+    const q = new URLSearchParams(location.search).get('lang');
+    const saved = store.get('ht-lang');
+    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    lang = (q === 'es' || q === 'en') ? q : (saved === 'es' || saved === 'en' ? saved : (nav === 'es' ? 'es' : 'en'));
+    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+      lang = b.dataset.lang; store.set('ht-lang', lang); apply();
+    }));
+    document.addEventListener('click', e => {
+      const b = e.target.closest('[data-step]');
+      if (!b) return;
+      const inp = b.parentElement.querySelector('input');
+      const min = inp.min !== '' ? +inp.min : -Infinity, max = inp.max !== '' ? +inp.max : Infinity;
+      let v = parseFloat(inp.value); if (!isFinite(v)) v = 0;
+      inp.value = Math.min(max, Math.max(min, v + (+b.dataset.step)));
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    apply();
+  }
+  const locale = () => (lang === 'es' ? 'es-DO' : 'en-US');
+  function num(n, d = 0) {
+    return new Intl.NumberFormat(locale(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
+  }
+  function seg(el, cur, cb) {
+    const bs = el.querySelectorAll('button');
+    const set = v => bs.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(v))));
+    set(cur);
+    bs.forEach(b => b.addEventListener('click', () => {
+      if (b.getAttribute('aria-pressed') === 'true') return;
+      set(b.dataset.v); cb(b.dataset.v);
+    }));
+    return set;
+  }
+  function val(id) { const v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : NaN; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  let tt;
+  function toast(m) {
+    let el = document.getElementById('toast');
+    if (!el) { el = document.createElement('div'); el.id = 'toast'; el.className = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+    el.textContent = m; el.classList.add('show');
+    clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+  return { t, init, num, seg, val, esc, toast, store, locale, get lang() { return lang; } };
+})();
+
+(() => {
+const D = {
+en: {
+  title: 'Emergency Water Storage Calculator for Hurricanes and Outages | Hydration Tools',
+  metaDesc: 'Work out how much drinking water to store for your household and pets during hurricanes, storms and outages, and how many jugs or bottles you need.',
+  h1: 'Emergency water storage calculator',
+  lead: 'Find out how much water to keep at home for hurricanes, storms and outages, and how many jugs or bottles that takes.',
+  units: 'Units', unitsL: 'Liters', unitsG: 'Gallons',
+  household: 'Your household', adults: 'Adults', kids: 'Children', extra: 'People who need more',
+  extraHint: 'Pregnant or nursing, sick, or older adults. Count them above too; we add half a gallon (1.9 L) more for each per day.',
+  pets: "Pets' total weight", petsHint: 'Add up the weight of your dogs and cats. Leave at 0 if you have none.',
+  howLong: 'How long', days3: '3 days', days7: '1 week', days14: '2 weeks', daysCustom: 'Other', daysN: 'Number of days',
+  daysHint: 'Keep at least 3 days in case you need to leave, and up to 2 weeks for sheltering at home.',
+  hot: 'Hot climate or no air conditioning', hotHint: 'Heat can double how much water people need, so we double the household amount.',
+  container: 'Store it in', c5: '5-gallon jugs (18.9 L)', c1: '1-gallon jugs (3.8 L)', c15: '1.5 L bottles', c05: '17 fl oz bottles',
+  c5n: '5-gallon jugs', c1n: '1-gallon jugs', c15n: '1.5 L bottles', c05n: '17 fl oz bottles',
+  emptyTitle: 'Add your household', emptyBody: 'Enter at least one person or pet to see how much water to store.',
+  resultTotal: 'Water to store', perDay: 'About {v} per day for everyone, for {d} days.',
+  youNeed: "That's {n} {c}.",
+  bdPeople: 'Drinking and hygiene for {n}', bdHot: 'Drinking and hygiene for {n}, doubled for heat',
+  bdExtra: 'Extra for {n} with higher needs', bdPets: 'Pets',
+  tableTitle: 'The same amount in other containers', colCont: 'Container', colQty: 'Quantity',
+  rotate: 'If you fill containers yourself, date them and replace the water by {d}.',
+  print: 'Print checklist', printHeader: 'Emergency water checklist', filledOn: 'Filled on', replaceBy: 'Replace by',
+  tipsTitle: 'Storing it safely',
+  tip1: 'Keep water in a cool, dark place, off the floor and away from gasoline, paint and cleaning products.',
+  tip2: 'Keep store-bought water sealed in its original container and replace it by the expiration date.',
+  tip3: 'If you fill your own containers, use clean food-grade containers, label them with the date and replace the water every 6 months.',
+  tip4: "Don't reuse milk jugs or containers that held chemicals; they're hard to clean fully and can break down.",
+  tip5: 'Keep a few smaller bottles ready to grab in case you need to leave home.',
+  source: 'Based on the Ready.gov guideline of at least one gallon (about 3.8 L) per person per day for drinking and hygiene. Pets are estimated at about 1 oz per lb (2.2 fl oz per kg) of body weight per day.',
+  disclaimer: 'General planning guidance. Follow instructions from your local emergency management office, such as the COE in the Dominican Republic or FEMA in the U.S.'
+},
+es: {
+  title: 'Calculadora de reserva de agua para emergencias, huracanes y apagones',
+  metaDesc: 'Calcula cuánta agua potable guardar para tu familia y mascotas ante huracanes, tormentas y apagones, y cuántos botellones o botellas necesitas.',
+  h1: 'Calculadora de agua para emergencias',
+  lead: 'Descubre cuánta agua guardar en casa para huracanes, tormentas y apagones, y cuántos botellones o botellas necesitas.',
+  units: 'Unidades', unitsL: 'Litros', unitsG: 'Galones',
+  household: 'Tu hogar', adults: 'Adultos', kids: 'Niños', extra: 'Personas que necesitan más',
+  extraHint: 'Embarazadas o lactando, enfermos o adultos mayores. Cuéntalos también arriba; sumamos medio galón (1.9 L) más por persona al día.',
+  pets: 'Peso total de tus mascotas', petsHint: 'Suma el peso de tus perros y gatos. Déjalo en 0 si no tienes.',
+  howLong: 'Por cuánto tiempo', days3: '3 días', days7: '1 semana', days14: '2 semanas', daysCustom: 'Otro', daysN: 'Número de días',
+  daysHint: 'Ten al menos 3 días por si debes salir de casa, y hasta 2 semanas para quedarte en casa.',
+  hot: 'Clima caluroso o sin aire acondicionado', hotHint: 'El calor puede duplicar el agua que necesitan las personas, así que duplicamos la cantidad del hogar.',
+  container: 'Guárdala en', c5: 'Botellones de 5 galones (18.9 L)', c1: 'Galones (3.8 L)', c15: 'Botellas de 1.5 L', c05: 'Botellitas de 17 fl oz',
+  c5n: 'botellones de 5 galones', c1n: 'galones', c15n: 'botellas de 1.5 L', c05n: 'botellitas de 17 fl oz',
+  emptyTitle: 'Añade a tu hogar', emptyBody: 'Escribe al menos una persona o mascota para ver cuánta agua guardar.',
+  resultTotal: 'Agua que debes guardar', perDay: 'Cerca de {v} al día para todos, durante {d} días.',
+  youNeed: 'Eso equivale a {n} {c}.',
+  bdPeople: 'Beber e higiene para {n}', bdHot: 'Beber e higiene para {n}, doble por calor',
+  bdExtra: 'Extra para {n} con más necesidad', bdPets: 'Mascotas',
+  tableTitle: 'La misma cantidad en otros envases', colCont: 'Envase', colQty: 'Cantidad',
+  rotate: 'Si llenas los envases tú mismo, ponles la fecha y cambia el agua antes del {d}.',
+  print: 'Imprimir lista', printHeader: 'Lista de agua para emergencias', filledOn: 'Llenado el', replaceBy: 'Cambiar antes del',
+  tipsTitle: 'Cómo guardarla de forma segura',
+  tip1: 'Guarda el agua en un lugar fresco y oscuro, sin tocar el piso y lejos de gasolina, pintura y productos de limpieza.',
+  tip2: 'Mantén el agua comprada sellada en su envase original y cámbiala antes de la fecha de vencimiento.',
+  tip3: 'Si llenas tus propios envases, usa envases limpios aptos para alimentos, ponles la fecha y cambia el agua cada 6 meses.',
+  tip4: 'No reutilices envases de leche ni envases que tuvieron químicos; son difíciles de limpiar bien y se deterioran.',
+  tip5: 'Ten algunas botellas pequeñas listas para llevar por si tienes que salir de casa.',
+  source: 'Basado en la guía de Ready.gov de al menos un galón (cerca de 3.8 L) por persona al día para beber e higiene. Para mascotas estimamos unos 2.2 fl oz por kilo de peso al día.',
+  disclaimer: 'Orientación general de planificación. Sigue las instrucciones de las autoridades locales, como el COE en República Dominicana o FEMA en Estados Unidos.'
+}};
+
+const GAL = 3.78541, LB = 0.45359237;
+const CONT = [
+  { k: 'c5', l: 5 * GAL }, { k: 'c1', l: GAL }, { k: 'c15', l: 1.5 }, { k: 'c05', l: 0.5 }
+];
+const BOTTLE = 'M7 0h6v4H7z M6 4h8v3c3 1 4 3 4 6v20c0 2-1 3-3 3H5c-2 0-3-1-3-3V13c0-3 1-5 4-6z';
+const $ = id => document.getElementById(id);
+const t = (k, v) => Common.t(k, v), num = Common.num;
+let S = {};
+try { S = JSON.parse(Common.store.get('ht-emerg') || '{}') || {}; } catch (e) { S = {}; }
+let units = S.units === 'G' ? 'G' : 'L';
+let daysSel = ['3', '7', '14', 'custom'].includes(S.days) ? S.days : '14';
+['adults', 'kids', 'extra', 'pets', 'daysN'].forEach(id => { if (S[id] != null && S[id] !== '') $(id).value = S[id]; });
+if (S.hot) $('hot').checked = true;
+if (S.cont) $('cont').value = S.cont;
+
+function persist() {
+  const o = { units, days: daysSel, hot: $('hot').checked, cont: $('cont').value };
+  ['adults', 'kids', 'extra', 'pets', 'daysN'].forEach(id => o[id] = $(id).value);
+  Common.store.set('ht-emerg', JSON.stringify(o));
+}
+function volTxt(l) { return units === 'G' ? num(l / GAL, l / GAL < 10 ? 1 : 0) + ' gal' : num(l, l < 10 ? 1 : 0) + ' L'; }
+function people(n) { return num(n, 0) + ' ' + (Common.lang === 'es' ? (n === 1 ? 'persona' : 'personas') : (n === 1 ? 'person' : 'people')); }
+function int(id) { const v = Math.round(Common.val(id)); return v > 0 ? v : 0; }
+
+function compute() {
+  const adults = int('adults'), kids = int('kids'), extra = int('extra');
+  const pw = Common.val('pets'), petKg = pw > 0 ? (units === 'L' ? pw : pw * LB) : 0;
+  const d = daysSel === 'custom' ? int('daysN') : +daysSel;
+  const pp = adults + kids, hot = $('hot').checked;
+  if (!(d > 0) || (pp + extra === 0 && petKg === 0)) return null;
+  const peopleL = pp * GAL * d * (hot ? 2 : 1);
+  const extraL = extra * GAL * 0.5 * d;
+  const petsL = petKg * 0.065 * d;
+  return { pp, extra, hot, d, peopleL, extraL, petsL, total: peopleL + extraL + petsL };
+}
+
+function render() {
+  persist();
+  const box = $('result'), r = compute();
+  if (!r) { box.innerHTML = `<h2>${t('emptyTitle')}</h2><p class="muted">${t('emptyBody')}</p>`; return; }
+  const sel = CONT.find(c => c.k === $('cont').value) || CONT[0];
+  const count = Math.ceil(r.total / sel.l - 1e-9);
+  const shown = Math.min(count, 90);
+  const icons = Array.from({ length: shown }, () => `<svg class="j-${sel.k}" viewBox="0 0 20 36"><path d="${BOTTLE}"/></svg>`).join('')
+    + (count > shown ? `<span class="more-n">+${num(count - shown)}</span>` : '');
+  const big = units === 'G' ? `${num(r.total / GAL, r.total / GAL < 10 ? 1 : 0)}<small>${t('unitsG').toLowerCase()}</small>`
+                            : `${num(r.total, 0)}<small>${t('unitsL').toLowerCase()}</small>`;
+  const rot = new Date(); rot.setMonth(rot.getMonth() + 6);
+  const rotTxt = rot.toLocaleDateString(Common.locale(), { day: 'numeric', month: 'long', year: 'numeric' });
+  const bd = [];
+  if (r.pp) bd.push([t(r.hot ? 'bdHot' : 'bdPeople', { n: people(r.pp) }), r.peopleL]);
+  if (r.extra) bd.push([t('bdExtra', { n: people(r.extra) }), r.extraL]);
+  if (r.petsL) bd.push([t('bdPets'), r.petsL]);
+  const rows = CONT.map(c => `<tr><td>${t(c.k)}</td><td class="n">${num(Math.ceil(r.total / c.l - 1e-9))}</td></tr>`).join('');
+  box.innerHTML = `
+    <div class="print-only"><h2>${t('printHeader')}</h2><p>${t('filledOn')}: ________________ &nbsp;&nbsp; ${t('replaceBy')}: ${rotTxt}</p></div>
+    <p class="k">${t('resultTotal')}</p>
+    <div class="big">${big}</div>
+    <p class="muted">${t('perDay', { v: volTxt(r.total / r.d), d: num(r.d) })}</p>
+    <div class="jugs" aria-hidden="true">${icons}</div>
+    <p class="strong">${t('youNeed', { n: num(count), c: t(sel.k + 'n') })}</p>
+    <ul class="bd">${bd.map(([k, v]) => `<li><span>${k}</span><b>${volTxt(v)}</b></li>`).join('')}</ul>
+    <h3>${t('tableTitle')}</h3>
+    <div class="scroll"><table class="tbl"><thead><tr><th>${t('colCont')}</th><th class="n">${t('colQty')}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="note info">${t('rotate', { d: rotTxt })}</div>
+    <div class="actions no-print"><button type="button" class="btn" id="print">${t('print')}</button></div>`;
+}
+
+function setUnits(u) {
+  const pw = Common.val('pets');
+  if (pw > 0) $('pets').value = Math.round(u === 'L' ? pw * LB : pw / LB);
+  units = u; $('petUnit').textContent = u === 'L' ? 'kg' : 'lb'; render();
+}
+
+$('petUnit').textContent = units === 'L' ? 'kg' : 'lb';
+$('daysCustom').hidden = daysSel !== 'custom';
+Common.seg($('units'), units, setUnits);
+Common.seg($('days'), daysSel, v => { daysSel = v; $('daysCustom').hidden = v !== 'custom'; render(); });
+$('form').addEventListener('input', render);
+$('form').addEventListener('change', render);
+$('result').addEventListener('click', e => { if (e.target.closest('#print')) window.print(); });
+Common.init(D, render);
+})();
+</script>
+<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});paint();})();</script></body>
+</html>
