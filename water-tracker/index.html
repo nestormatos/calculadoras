@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Water Tracker — Log Glasses &amp; Hit Your Goal | Hydration Tools</title>
+<meta name="description" content="Log every glass with quick-add buttons, watch a live progress bar fill, and build a daily hydration streak. Your log is saved privately in this browser — no account needed.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Tracker</span>
+    <h1>Daily Water Tracker</h1>
+    <p class="lead">Tap a button every time you drink. Watch the bar fill, keep the streak alive, and finish the day at 100%.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Log today's water</h2>
+      <p class="card-sub">Entries are saved day by day in this browser — no account, no sync, no fuss.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="goal">Daily goal</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="goal" inputmode="numeric" min="17" max="200" step="1" placeholder="e.g. 68">
+            <span class="input-suffix">fl oz</span>
+          </div>
+          <p class="hint">Not sure? Find yours with the <a href="../water-intake-calculator/">Water Intake Calculator</a>.</p>
+        </div>
+        <div>
+          <label class="field-label" for="customOz">Custom amount</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="customOz" inputmode="numeric" min="1" max="68" step="1" placeholder="e.g. 8">
+            <span class="input-suffix">fl oz</span>
+          </div>
+          <p class="hint">Add it with the button below, or tap a quick-add.</p>
+        </div>
+      </div>
+      <div class="quick-add" role="group" aria-label="Quick-add amounts">
+        <button class="btn btn-secondary" type="button" data-oz="5">+5 fl oz</button>
+        <button class="btn btn-secondary" type="button" data-oz="8">+8 fl oz</button>
+        <button class="btn btn-secondary" type="button" data-oz="11">+11 fl oz</button>
+        <button class="btn btn-secondary" type="button" data-oz="17">+17 fl oz</button>
+        <button class="btn btn-primary" type="button" id="addCustomBtn">Add custom</button>
+      </div>
+      <p class="form-error" id="trackError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="trackErrorText"></span></p>
+      <div class="progress-bar" id="progressBar" role="progressbar" aria-label="Progress toward daily goal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="stat-grid" style="margin-top:14px">
+        <div class="stat"><span class="stat-value" id="statTotal">0 fl oz</span><span class="stat-label">Drunk today</span></div>
+        <div class="stat"><span class="stat-value" id="statPct">0%</span><span class="stat-label">Of goal</span></div>
+        <div class="stat"><span class="stat-value" id="statLeft">0 fl oz</span><span class="stat-label">Remaining</span></div>
+        <div class="stat"><span class="stat-value" id="statStreak">0 days</span><span class="stat-label">Streak</span></div>
+      </div>
+      <h3 style="font-size:1rem;margin:20px 0 10px">Today's log</h3>
+      <ul class="log-list" id="logList"></ul>
+      <p class="hint" id="logEmpty">Nothing logged yet — tap a quick-add button to record your first glass.</p>
+      <div class="results-actions" style="margin-top:16px">
+        <button class="btn btn-secondary" type="button" id="undoBtn">Undo last entry</button>
+        <button class="btn btn-ghost" type="button" id="clearBtn">Clear day</button>
+      </div>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Goal reached</h3><span class="results-tag">Well done</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="celebPct">100%</span>
+          <span class="primary-unit">of your daily goal</span>
+          <p class="primary-sub" id="celebSub"></p>
+        </div>
+        <p class="results-note">Come back tomorrow to grow the streak — and see the bigger picture on the <a href="../progress-chart/">Progress Chart</a>.</p>
+      </div>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Saved only in this browser — nothing leaves your device.</p>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How tracking works</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Progress &amp; remaining</h3>
+          <p class="formula">Progress % = total today ÷ goal × 100<br>Remaining = max(0, goal − total)</p>
+        </div>
+        <div class="formula-box">
+          <h3>Streak rule</h3>
+          <p class="formula">Streak = consecutive days with total ≥ goal<br>(today counts once the goal is met)</p>
+        </div>
+      </div>
+      <p class="section-intro">Entries are stored only in this browser under dated keys, so the <a href="../progress-chart/">Hydration Progress Chart</a> can read the same history. Pace yourself with the <a href="../drinking-schedule/">Drinking Schedule</a>, set nudges with the <a href="../water-reminder/">Water Reminder</a>, or prefer paper with the <a href="../printable-water-tracker/">Printable Water Tracker</a>.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This tracker supports general wellness habits only and is not medical advice. Drinking far beyond your needs can be harmful; if you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional about your target.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var GOAL_KEY = 'ph-tracker-goal';
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function readLog(d) {
+    try {
+      var raw = localStorage.getItem('ph-water-log-' + dateKey(d));
+      if (!raw) { return []; }
+      var arr = JSON.parse(raw);
+      return Object.prototype.toString.call(arr) === '[object Array]' ? arr : [];
+    } catch (e) { return []; }
+  }
+  function writeLog(d, arr) {
+    try { localStorage.setItem('ph-water-log-' + dateKey(d), JSON.stringify(arr)); } catch (e) {}
+  }
+  function entryOz(e) { if (e.oz !== undefined) { return Number(e.oz) || 0; } return typeof e.ml === 'number' ? Math.round(e.ml / 29.5735 * 10) / 10 : 0; }
+  function dayTotal(d) {
+    var arr = readLog(d), s = 0, i;
+    for (i = 0; i < arr.length; i++) { s += entryOz(arr[i]); }
+    return s;
+  }
+  function fmtOz(n) { return (Math.round(n * 10) / 10).toLocaleString('en-US') + ' fl oz'; }
+  function fmtTime(mins) {
+    var h = Math.floor(mins / 60) % 24, m = mins % 60;
+    return pad(h) + ':' + pad(m);
+  }
+  var goal = 68;
+  try {
+    var g = parseInt(localStorage.getItem(GOAL_KEY), 10);
+    if (g >= 17 && g <= 200) { goal = g; }
+    else if (g >= 250 && g <= 6000) { goal = Math.round(g / 29.5735); }
+    if (!localStorage.getItem('ph-units')) { try { localStorage.setItem('ph-units', 'oz'); } catch (e2) {} }
+  } catch (e) {}
+  var goalInput = $('goal'), customInput = $('customOz');
+  var errBox = $('trackError'), errText = $('trackErrorText');
+  var fill = $('progressFill'), bar = $('progressBar'), results = $('results');
+  var today = new Date();
+  var entries = readLog(today);
+  goalInput.value = goal;
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; }
+  function hideErr() { errBox.hidden = true; }
+  function total() {
+    var s = 0, i;
+    for (i = 0; i < entries.length; i++) { s += entryOz(entries[i]); }
+    return s;
+  }
+  function streak() {
+    var s = 0, d = new Date();
+    if (dayTotal(d) < goal) { d.setDate(d.getDate() - 1); }
+    while (dayTotal(d) >= goal && s < 730) { s++; d.setDate(d.getDate() - 1); }
+    return s;
+  }
+  function renderLog() {
+    var list = $('logList');
+    list.innerHTML = '';
+    var i, li, left, time, del;
+    for (i = entries.length - 1; i >= 0; i--) {
+      li = document.createElement('li');
+      li.className = 'log-item';
+      left = document.createElement('span');
+      left.textContent = fmtOz(entryOz(entries[i])) + ' ';
+      time = document.createElement('span');
+      time.className = 'log-time';
+      time.textContent = 'at ' + fmtTime(entries[i].t);
+      left.appendChild(time);
+      del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'log-del';
+      del.setAttribute('data-i', String(i));
+      del.textContent = 'Remove';
+      li.appendChild(left);
+      li.appendChild(del);
+      list.appendChild(li);
+    }
+    $('logEmpty').hidden = entries.length > 0;
+  }
+  function render() {
+    var t = total();
+    var pct = goal > 0 ? (t / goal) * 100 : 0;
+    var shown = Math.min(100, Math.round(pct));
+    fill.style.width = shown + '%';
+    bar.setAttribute('aria-valuenow', String(shown));
+    if (pct >= 100) { fill.classList.add('complete'); } else { fill.classList.remove('complete'); }
+    $('statTotal').textContent = fmtOz(t);
+    $('statPct').textContent = Math.round(pct) + '%';
+    $('statLeft').textContent = pct >= 100 ? '0 fl oz' : fmtOz(goal - t);
+    var st = streak();
+    $('statStreak').textContent = st + (st === 1 ? ' day' : ' days');
+    renderLog();
+    if (pct >= 100) {
+      $('celebPct').textContent = Math.round(pct) + '%';
+      $('celebSub').textContent = 'You have logged ' + fmtOz(t) + ' today — every glass counted. Current streak: ' + st + (st === 1 ? ' day' : ' days') + '.';
+      results.hidden = false;
+    } else {
+      results.hidden = true;
+    }
+  }
+  function addOz(oz) {
+    if (!oz || oz <= 0 || oz > 68) { showErr('Enter an amount between 1 and 68 fl oz.'); return; }
+    hideErr();
+    var now = new Date();
+    if (dateKey(now) !== dateKey(today)) { today = now; entries = readLog(today); }
+    entries.push({ t: now.getHours() * 60 + now.getMinutes(), oz: oz });
+    writeLog(today, entries);
+    render();
+  }
+  var quick = document.querySelectorAll('[data-oz]');
+  Array.prototype.forEach.call(quick, function (b) {
+    b.addEventListener('click', function () { addOz(parseInt(b.getAttribute('data-oz'), 10)); });
+  });
+  $('addCustomBtn').addEventListener('click', function () {
+    var v = parseInt(customInput.value, 10);
+    if (isNaN(v)) { showErr('Enter your custom amount in fluid ounces first.'); return; }
+    addOz(v);
+    if (errBox.hidden) { customInput.value = ''; }
+  });
+  customInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); $('addCustomBtn').click(); } });
+  goalInput.addEventListener('change', function () {
+    var v = parseInt(goalInput.value, 10);
+    if (isNaN(v) || v < 17 || v > 200) { showErr('Enter a daily goal between 17 and 200 fl oz.'); goalInput.value = goal; return; }
+    hideErr();
+    goal = v;
+    try { localStorage.setItem(GOAL_KEY, String(goal)); } catch (e) {}
+    render();
+  });
+  $('logList').addEventListener('click', function (e) {
+    var b = e.target;
+    while (b && b !== this && !b.getAttribute('data-i')) { b = b.parentNode; }
+    var i = b && b.getAttribute ? parseInt(b.getAttribute('data-i'), 10) : NaN;
+    if (!isNaN(i)) { entries.splice(i, 1); writeLog(today, entries); render(); }
+  });
+  $('undoBtn').addEventListener('click', function () {
+    if (!entries.length) { showErr('Nothing to undo — the log is empty.'); return; }
+    hideErr();
+    entries.pop();
+    writeLog(today, entries);
+    render();
+  });
+  $('clearBtn').addEventListener('click', function () {
+    if (!entries.length) { showErr('The log is already empty.'); return; }
+    if (window.confirm('Remove all of today\'s entries? This cannot be undone.')) {
+      hideErr();
+      entries = [];
+      writeLog(today, entries);
+      render();
+    }
+  });
+  render();
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
