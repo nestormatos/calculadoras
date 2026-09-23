@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Hydration Tracker — Daily Pace for Adults 65+ | Hydration Tools</title>
+<meta name="description" content="A gentle daily hydration tracker for adults 65+ and their caregivers. ESPEN minimum targets, per-hour pace, quick-add drink log and calm progress alerts. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Tracker</span>
+    <h1>Senior Hydration Tracker</h1>
+    <p class="lead">A calm daily tracker for adults 65+ and the people who care for them — a steady per-hour pace, one-tap logging and gentle reminders.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Set up the day</h2>
+      <p class="card-sub">According to ESPEN, older women should drink at least 54 fl oz and older men at least 68 fl oz per day — unless a doctor has prescribed a fluid restriction.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="sex">Sex</label>
+          <select class="select" id="sex">
+            <option value="f" selected>Woman — 54 fl oz minimum (ESPEN)</option>
+            <option value="m">Man — 68 fl oz minimum (ESPEN)</option>
+          </select>
+        </div>
+        <div>
+          <span class="field-label" id="restrLabel">Doctor-prescribed fluid restriction?</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="restrLabel">
+            <input type="radio" name="restrict" id="restrNo" value="no" checked>
+            <label for="restrNo">No</label>
+            <input type="radio" name="restrict" id="restrYes" value="yes">
+            <label for="restrYes">Yes</label>
+          </div>
+          <p class="hint">Common in heart or kidney conditions.</p>
+        </div>
+        <div>
+          <label class="field-label" for="wakeTime">Wake-up time</label>
+          <input class="input" type="time" id="wakeTime" value="07:00">
+        </div>
+        <div>
+          <label class="field-label" for="sleepTime">Bedtime</label>
+          <input class="input" type="time" id="sleepTime" value="21:00">
+        </div>
+      </div>
+      <div id="restrBlock" hidden>
+        <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><p>Follow the amount your doctor prescribed — the ESPEN minimums do not apply when fluids are restricted.</p></div>
+        <label class="field-label" for="manualTarget">Prescribed daily target</label>
+        <div class="input-wrap">
+          <input class="input" type="number" id="manualTarget" inputmode="numeric" placeholder="e.g. 51" min="7" max="135" step="1">
+          <span class="input-suffix">fl oz</span>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Set up my day</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Today's log is saved only in this browser — nothing is sent anywhere.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Today's hydration</h3><span class="results-tag">Daily tracker</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resTarget">0</span>
+                    <span class="primary-unit">fl oz daily target</span>
+          <p class="primary-sub" id="resTargetSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resPace">0</span><span class="stat-label">Pace per hour</span></div>
+          <div class="stat"><span class="stat-value" id="resLogged">0</span><span class="stat-label">Logged today</span></div>
+          <div class="stat"><span class="stat-value" id="resExpected">0</span><span class="stat-label">Expected by now</span></div>
+          <div class="stat"><span class="stat-value" id="resRemaining">0</span><span class="stat-label">Remaining</span></div>
+        </div>
+        <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <p class="results-note" id="progressText">0 fl oz logged</p>
+        <p class="results-note" id="paceAlert" hidden></p>
+        <div class="quick-add" aria-label="Quick add a drink">
+          <button type="button" class="btn btn-secondary" data-oz="3.5">+3.5 fl oz</button>
+          <button type="button" class="btn btn-secondary" data-oz="5">+5 fl oz</button>
+          <button type="button" class="btn btn-secondary" data-oz="7">+7 fl oz</button>
+          <button type="button" class="btn btn-secondary" data-oz="8">+8 fl oz</button>
+        </div>
+        <div class="field-grid cols-2">
+          <div>
+                        <label class="field-label" for="customOz">Custom amount</label>
+            <div class="input-wrap">
+              <input class="input" type="number" id="customOz" inputmode="numeric" placeholder="e.g. 6" min="0.5" max="68" step="0.5">
+              <span class="input-suffix">fl oz</span>
+            </div>
+          </div>
+          <div>
+            <span class="field-label" aria-hidden="true">&nbsp;</span>
+            <button type="button" class="btn btn-secondary" id="addCustom">Add custom amount</button>
+          </div>
+        </div>
+        <ul class="log-list" id="logList"></ul>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Make it easier: set gentle nudges with the <a href="../water-reminder/">Water Reminder</a>, or print the <a href="../printable-water-tracker/">Printable Water Tracker</a> for the fridge.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the pace is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Target &amp; pace</h3>
+          <p class="formula">target: ESPEN minimums — women 54 fl oz, men 68 fl oz<br>pace = target ÷ waking hours<br>expected = pace × hours since waking<br>behind = expected − logged (never below 0)</p>
+        </div>
+        <div class="formula-box">
+          <h3>Signs that do NOT work in older adults</h3>
+          <p>According to ESPEN (grade-A evidence), urine color, thirst, dry mouth and skin elasticity are not reliable dehydration indicators in people over 65 — thirst fades with age and the other signs mislead. That is why this tracker uses intake against a target, not symptoms.</p>
+        </div>
+      </div>
+      <p class="section-intro">Practical tips from ESPEN for caregivers: keep drinks visible and within easy reach, offer a variety (water, milk, juice, soup, tea), offer small amounts often rather than large amounts rarely, and make sure the bathroom is quick and easy to reach — fear of not getting to the toilet in time makes many older people deliberately drink less.</p>
+    </section>
+    <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><p>Seek medical attention if the person is more confused or drowsy than usual, urinates very little, has fever, vomiting or diarrhea, or cannot drink.</p></div>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>General guidance for healthy people — not medical advice. If you have kidney, heart or liver disease, or you have been told to restrict fluids or sodium, follow your doctor's instructions. Drinking too much can also be dangerous: it can lower blood sodium (hyponatremia).</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var sex = $('sex'), wake = $('wakeTime'), sleep = $('sleepTime'), manual = $('manualTarget');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  var target = 0, perHour = 0, wakeMin = 0, wakingMin = 0;
+  function todayKey() {
+    var n = new Date();
+    var p = function (v) { return (v < 10 ? '0' : '') + v; };
+    return 'ph-senior-log-' + n.getFullYear() + '-' + p(n.getMonth() + 1) + '-' + p(n.getDate());
+  }
+  function loadLog() {
+    try {
+      var raw = localStorage.getItem(todayKey());
+      var arr = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(arr)) { return []; }
+      arr.forEach(function (e) { if (e && e.oz === undefined && typeof e.ml === 'number') { e.oz = Math.round(e.ml / 29.5735 * 10) / 10; delete e.ml; } });
+      return arr;
+    } catch (e) { return []; }
+  }
+  function saveLog(arr) {
+    try { localStorage.setItem(todayKey(), JSON.stringify(arr)); } catch (e) {}
+  }
+  function parseTime(v) {
+    var m = /^(\d{1,2}):(\d{2})$/.exec(v || '');
+    if (!m) { return NaN; }
+    return parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+  }
+  function restricted() { return $('restrYes').checked; }
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function fmt(v) { return Math.round(v).toLocaleString('en-US'); }
+  function fmtTime(min) {
+    var h = Math.floor(min / 60) % 24, m = min % 60;
+    var ap = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12 === 0 ? 12 : h % 12;
+    return h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + ap;
+  }
+  function pronoun() { return sex.value === 'f' ? 'She' : 'He'; }
+  function calc() {
+    wakeMin = parseTime(wake.value);
+    var sleepMin = parseTime(sleep.value);
+    if (isNaN(wakeMin) || isNaN(sleepMin)) { showErr('Enter both wake-up time and bedtime.'); return; }
+    wakingMin = sleepMin - wakeMin;
+    if (wakingMin < 240) { showErr('Bedtime should be at least 4 hours after wake-up time.'); return; }
+    if (restricted()) {
+      target = parseFloat(manual.value);
+      if (isNaN(target) || target < 7 || target > 135) { showErr('Enter the prescribed daily target (7–135 fl oz).'); return; }
+    } else {
+      target = sex.value === 'f' ? 54 : 68;
+    }
+    errBox.hidden = true;
+    perHour = target / (wakingMin / 60);
+    var hrs = Math.round(wakingMin / 60 * 10) / 10;
+    $('resTarget').textContent = fmt(target);
+    $('resTargetSub').textContent = restricted()
+      ? 'Prescribed target — follow the amount your doctor prescribed. Spread evenly, that is about ' + perHour.toFixed(1) + ' fl oz per waking hour.'
+      : 'According to ESPEN, the minimum for older ' + (sex.value === 'f' ? 'women is 54 fl oz' : 'men is 68 fl oz') + ' per day — about ' + perHour.toFixed(1) + ' fl oz per hour across ' + hrs + ' waking hours.';
+    results.hidden = false;
+    update();
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function update() {
+    if (results.hidden) { return; }
+            var arr = loadLog();
+    var logged = 0;
+    arr.forEach(function (e) { logged += Number(e.oz) || 0; });
+    var now = new Date();
+    var nowMin = now.getHours() * 60 + now.getMinutes();
+    var elapsedH = Math.max(0, Math.min(nowMin - wakeMin, wakingMin)) / 60;
+    var expected = perHour * elapsedH;
+    var behind = Math.max(0, expected - logged);
+    var pct = target > 0 ? logged / target * 100 : 0;
+    /* Self-check: woman 07:00-21:00 -> 54 fl oz, 14 h, 3.9 fl oz/h.
+       37 fl oz logged at 18:00 -> 68.5%, expected 42.4, behind 5.4.
+       Man 08:00-22:00 -> 68 fl oz, 4.9 fl oz/h. */
+    $('resPace').textContent = perHour.toFixed(1) + ' fl oz/h';
+    $('resLogged').textContent = fmt(logged) + ' fl oz';
+    $('resExpected').textContent = (Math.round(expected * 10) / 10).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' fl oz';
+    $('resRemaining').textContent = fmt(Math.max(0, target - logged)) + ' fl oz';
+    var fill = $('progressFill');
+    fill.style.width = Math.min(100, pct) + '%';
+    if (pct >= 100) { fill.classList.add('complete'); } else { fill.classList.remove('complete'); }
+    $('progressText').textContent = fmt(logged) + ' of ' + fmt(target) + ' fl oz (' + pct.toFixed(1) + '%)';
+    var alert = $('paceAlert');
+    if (pct >= 100) {
+      alert.hidden = false;
+      alert.textContent = 'Target reached for today — nice work.';
+    } else if (behind >= perHour && nowMin >= wakeMin && nowMin <= wakeMin + wakingMin) {
+      alert.hidden = false;
+      alert.textContent = pronoun() + ' is a bit behind today (about ' + (Math.round(behind * 10) / 10).toFixed(1) + ' fl oz) — offer a drink.';
+    } else {
+      alert.hidden = true;
+    }
+    renderLog(arr);
+  }
+  function renderLog(arr) {
+    var list = $('logList');
+    list.innerHTML = '';
+    arr.forEach(function (e, i) {
+      var li = document.createElement('li');
+      li.className = 'log-item';
+      var span = document.createElement('span');
+      span.textContent = fmt(e.oz) + ' fl oz — ';
+      var time = document.createElement('span');
+      time.className = 'log-time';
+      time.textContent = fmtTime(e.t);
+      span.appendChild(time);
+      var del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'log-del';
+      del.textContent = 'Delete';
+      del.setAttribute('aria-label', 'Delete entry of ' + e.oz + ' fl oz');
+      del.addEventListener('click', function () {
+        var cur = loadLog();
+        cur.splice(i, 1);
+        saveLog(cur);
+        update();
+      });
+      li.appendChild(span);
+      li.appendChild(del);
+      list.appendChild(li);
+    });
+  }
+  function add(oz) {
+    if (isNaN(oz) || oz < 0.5 || oz > 68) {
+      errText.textContent = 'Enter an amount between 0.5 and 68 fl oz.';
+      errBox.hidden = false;
+      return;
+    }
+    errBox.hidden = true;
+    var now = new Date();
+    var arr = loadLog();
+    arr.push({ t: now.getHours() * 60 + now.getMinutes(), oz: oz });
+    saveLog(arr);
+    update();
+  }
+  $('calcBtn').addEventListener('click', calc);
+  $('restrNo').addEventListener('change', function () { $('restrBlock').hidden = true; });
+  $('restrYes').addEventListener('change', function () { $('restrBlock').hidden = false; manual.focus(); });
+  [wake, sleep, manual].forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.quick-add [data-oz]'), function (b) {
+    b.addEventListener('click', function () { add(parseFloat(b.getAttribute('data-oz'))); });
+  });
+    $('addCustom').addEventListener('click', function () {
+    add(parseFloat($('customOz').value));
+    $('customOz').value = '';
+    $('customOz').focus();
+  });
+  $('customOz').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); $('addCustom').click(); }
+  });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'Hydration today: ' + $('progressText').textContent + ' — pace ' + $('resPace').textContent + ', remaining ' + $('resRemaining').textContent + '.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    sex.selectedIndex = 0; wake.value = '07:00'; sleep.value = '21:00';
+    $('restrNo').checked = true; $('restrBlock').hidden = true; manual.value = '';
+    results.hidden = true; errBox.hidden = true; sex.focus();
+  });
+  setInterval(update, 60000);
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
+
