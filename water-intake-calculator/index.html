@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Intake Calculator — Weight, Activity &amp; Climate | Hydration Tools</title>
+<meta name="description" content="Calculate your daily water intake from body weight, activity level and climate. Results in fluid ounces, liters, cups and bottle counts. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Water Intake Calculator</h1>
+    <p class="lead">Your complete daily hydration target — personalized with your body weight, activity level and climate, then translated into bottles you can actually count.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Calculate your daily target</h2>
+      <p class="card-sub">Switching units converts your weight automatically.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <span class="field-label" id="unitLabel">Unit system</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="unitLabel">
+            <input type="radio" name="unit" id="unitLbs" value="lbs" checked>
+            <label for="unitLbs">Pounds (lb)</label>
+            <input type="radio" name="unit" id="unitKg" value="kg">
+            <label for="unitKg">Kilograms (kg)</label>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="weight">Body weight</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="weight" inputmode="decimal" placeholder="e.g. 154" min="1" step="any">
+            <span class="input-suffix" id="weightSuffix">lb</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="activity">Activity level</label>
+          <select class="select" id="activity">
+            <option value="1" data-label="sedentary activity">Sedentary (desk job, little exercise)</option>
+            <option value="1.1" data-label="light activity">Light (walks, 1–2 workouts/week)</option>
+            <option value="1.2" data-label="moderate activity" selected>Moderate (3–5 workouts/week)</option>
+            <option value="1.3" data-label="very active lifestyle">Very active (daily intense training)</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="climate">Climate</label>
+          <select class="select" id="climate">
+            <option value="1" data-label="mild">Mild / temperate</option>
+            <option value="1.15" data-label="warm">Warm (hot summers, heated air)</option>
+            <option value="1.3" data-label="hot">Hot or humid (tropical, heat waves)</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="bottleSize">Your bottle size</label>
+          <select class="select" id="bottleSize">
+            <option value="11">11 fl oz — small bottle</option>
+            <option value="17" selected>17 fl oz — standard bottle (16.9 oz)</option>
+            <option value="20">20 fl oz — sports bottle</option>
+            <option value="25">25 fl oz — large bottle</option>
+            <option value="34">34 fl oz — big bottle (1 L)</option>
+          </select>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate my water intake</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your daily target</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resOz">0</span>
+          <span class="primary-unit">fl oz / day</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resOzStat">0</span><span class="stat-label">Fluid ounces</span></div>
+          <div class="stat"><span class="stat-value" id="resL">0</span><span class="stat-label">Liters</span></div>
+          <div class="stat"><span class="stat-value" id="resCups">0</span><span class="stat-label">Cups (8 oz)</span></div>
+          <div class="stat"><span class="stat-value" id="resBottles">0</span><span class="stat-label" id="resBottleLabel">Bottles</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Next step: the <a href="../drinking-schedule/">Drinking Schedule</a> to spread this goal across your day, or the <a href="../water-tracker/">Daily Tracker</a> to log your progress.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the estimate is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Base formula (by weight)</h3>
+          <p class="formula">Imperial: weight (lb) × 0.50 = fl oz/day<br>Metric: weight (kg) × 1.10 = fl oz/day</p>
+        </div>
+        <div class="formula-box">
+          <h3>Adjustments</h3>
+          <p class="formula">Activity: ×1.0 / ×1.1 / ×1.2 / ×1.3<br>Climate: ×1.0 / ×1.15 / ×1.3</p>
+        </div>
+      </div>
+      <p class="section-intro">The base follows the widely used "half your body weight in ounces" guideline; activity and climate multipliers reflect common sports-medicine practice of increasing fluids with sweat losses and heat exposure. For weight-only precision, use the <a href="../water-intake-by-weight/">Water Intake by Weight</a> tool.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This calculator provides general wellness estimates only and is not medical advice. If you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var OZ_TO_L = 0.0295735;
+  var weight = $('weight'), act = $('activity'), clim = $('climate'), bottle = $('bottleSize');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  function unit() { return $('unitKg').checked ? 'kg' : 'lbs'; }
+  function syncUnit() {
+    var u = unit();
+    $('weightSuffix').textContent = u === 'kg' ? 'kg' : 'lb';
+    var v = parseFloat(weight.value);
+    if (!isNaN(v) && v > 0) { weight.value = (u === 'kg' ? v * 0.45359237 : v / 0.45359237).toFixed(1); }
+    if (!results.hidden) calc();
+  }
+  $('unitLbs').addEventListener('change', syncUnit);
+  $('unitKg').addEventListener('change', syncUnit);
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function calc() {
+    var w = parseFloat(weight.value);
+    if (!w || w <= 0) { showErr('Please enter your body weight.'); return; }
+    var min = unit() === 'kg' ? 18 : 40, max = unit() === 'kg' ? 320 : 700;
+    if (w < min || w > max) { showErr('Enter a weight between ' + min + ' and ' + max + ' ' + (unit() === 'kg' ? 'kg' : 'lb') + '.'); return; }
+    errBox.hidden = true;
+    var oz = (unit() === 'kg' ? w * 1.10 : w * 0.50) * parseFloat(act.value) * parseFloat(clim.value);
+    var size = parseFloat(bottle.value);
+    $('resOz').textContent = oz.toFixed(1);
+    $('resSub').textContent = 'Based on ' + w + ' ' + (unit() === 'kg' ? 'kg' : 'lb') + ', ' + act.options[act.selectedIndex].dataset.label + ', ' + clim.options[clim.selectedIndex].dataset.label + ' climate.';
+    $('resOzStat').textContent = oz.toFixed(1) + ' fl oz';
+    $('resL').textContent = (oz * OZ_TO_L).toFixed(2) + ' L';
+    $('resCups').textContent = (oz / 8).toFixed(1) + ' cups';
+    $('resBottles').textContent = (oz / size).toFixed(1);
+    $('resBottleLabel').textContent = 'Bottles of ' + size + ' fl oz';
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', calc);
+  [act, clim, bottle].forEach(function (el) { el.addEventListener('change', function () { if (!results.hidden) calc(); }); });
+  weight.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'My daily water intake: ' + $('resOz').textContent + ' fl oz (' + $('resL').textContent + ') — about ' + $('resBottles').textContent + ' × ' + bottle.value + ' fl oz bottles.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    weight.value = ''; act.selectedIndex = 2; clim.selectedIndex = 0; bottle.selectedIndex = 1;
+    results.hidden = true; errBox.hidden = true; weight.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
