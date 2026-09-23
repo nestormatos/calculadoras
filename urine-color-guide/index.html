@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urine Color Hydration Guide — Armstrong 8-Color Scale | Hydration Tools</title>
+<meta name="description" content="An educational lookup based on the study-validated Armstrong 8-color urine scale. Check what your urine color suggests about your hydration — plus red flags and age limits. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Guide</span>
+    <h1>Urine Color Hydration Guide</h1>
+    <p class="lead">A quick, low-tech hydration check based on the study-validated Armstrong 8-color scale — plus the situations where urine color should not be trusted at all.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Check your color</h2>
+      <p class="card-sub">Compare your urine in a clear glass held against a white background in good light — not in the toilet bowl, where the water dilutes and distorts the color. Keep in mind that first-morning urine is usually darker than the rest of the day.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <span class="field-label" id="ageLabel">First — are you 65 or older?</span>
+          <div class="segmented" role="radiogroup" aria-labelledby="ageLabel">
+            <input type="radio" name="age" id="ageUnder" value="under">
+            <label for="ageUnder">Under 65</label>
+            <input type="radio" name="age" id="ageOver" value="over">
+            <label for="ageOver">65 or older</label>
+          </div>
+        </div>
+      </div>
+      <div class="notice" id="seniorNotice" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <p>For adults aged 65 and over, urine color must <strong>not</strong> be used to assess hydration. ESPEN geriatrics guidance gives this its highest evidence grade — age-related kidney changes make color unreliable. Please use the <a href="../senior-hydration/">Senior Hydration</a> tool instead.</p>
+      </div>
+      <div id="scaleWrap" hidden>
+        <span class="field-label">Which swatch is closest to yours?</span>
+        <div class="day-grid" id="scaleGrid" role="group" aria-label="Urine color scale, levels 1 to 8">
+          <button type="button" class="swatch" data-level="1" aria-label="Urine color level 1 of 8, palest" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#FFFDE7;color:#4a4300;font-weight:800;cursor:pointer">1</button>
+          <button type="button" class="swatch" data-level="2" aria-label="Urine color level 2 of 8" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#FFF6B3;color:#4a4300;font-weight:800;cursor:pointer">2</button>
+          <button type="button" class="swatch" data-level="3" aria-label="Urine color level 3 of 8" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#FFEE80;color:#4a4300;font-weight:800;cursor:pointer">3</button>
+          <button type="button" class="swatch" data-level="4" aria-label="Urine color level 4 of 8" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#FDE047;color:#4a4300;font-weight:800;cursor:pointer">4</button>
+          <button type="button" class="swatch" data-level="5" aria-label="Urine color level 5 of 8" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#F5C518;color:#4a3a00;font-weight:800;cursor:pointer">5</button>
+          <button type="button" class="swatch" data-level="6" aria-label="Urine color level 6 of 8" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#E0A800;color:#3d2f00;font-weight:800;cursor:pointer">6</button>
+          <button type="button" class="swatch" data-level="7" aria-label="Urine color level 7 of 8" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#B8860B;color:#ffffff;font-weight:800;cursor:pointer">7</button>
+          <button type="button" class="swatch" data-level="8" aria-label="Urine color level 8 of 8, darkest" style="min-height:64px;border:1px solid var(--border);border-radius:10px;background:#8B6914;color:#ffffff;font-weight:800;cursor:pointer">8</button>
+        </div>
+        <p class="hint">These swatches are illustrative only — there is no official digital standard for the scale, and colors vary between screens. When in doubt, compare against a printed chart.</p>
+      </div>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>What your color suggests</h3><span class="results-tag">Guide</span></div>
+        <div class="primary-result" id="resPanel">
+          <span class="primary-value" id="resMain" style="font-size:clamp(1.6rem,4.5vw,2.2rem)">—</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Turn this into a habit with the <a href="../water-tracker/">Water Tracker</a>, or spread your intake across the day with the <a href="../drinking-schedule/">Drinking Schedule</a>.</p>
+      </div>
+    </section>
+    <div class="notice">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <p><strong>See a doctor</strong> if your urine is red, pink, brown or cola-colored; if it hurts or burns when you urinate; or if it stays very dark even though you drink enough water. Some foods, vitamins and medications can also change urine color.</p>
+    </div>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">About the Armstrong scale</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Where it comes from</h3>
+          <p class="formula">8-color urine chart developed by Dr. Lawrence Armstrong; validated in field and lab studies as a practical hydration marker for healthy adults.</p>
+        </div>
+        <div class="formula-box">
+          <h3>How to read it</h3>
+          <p class="formula">Levels 1–3: hydrated<br>Levels 4–6: mildly dehydrated<br>Levels 7–8: dehydrated</p>
+        </div>
+      </div>
+      <p class="section-intro">Studies show urine color tracks hydration status reasonably well in healthy younger adults, which is why sports and military medicine have used the Armstrong chart for decades. As a practical guide, it works best as a trend over several days rather than a single reading. It is not reliable in adults 65 and over — ESPEN geriatrics guidance assigns that caution its highest evidence grade — nor when foods, vitamins or medications tint the urine.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This guide is educational only and is not medical advice. Urine color is a rough screening clue, not a diagnosis. If you have symptoms that worry you, or a condition affecting your kidneys or fluid balance, consult a healthcare professional.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var results = $('results'), scaleWrap = $('scaleWrap'), seniorNotice = $('seniorNotice');
+  var swatches = $('scaleGrid').getElementsByClassName('swatch');
+  var lastCopy = '';
+  var GROUPS = [
+    { max: 3, title: 'Hydrated', msg: 'Hydrated — keep drinking at the same pace.', bg: '#e7f4ea', border: '#9ed0ab' },
+    { max: 6, title: 'Mildly dehydrated', msg: 'Mildly dehydrated — drink a glass of water now.', bg: '#fdf3d7', border: '#ecd27a' },
+    { max: 8, title: 'Dehydrated', msg: 'Dehydrated — drink 2–3 glasses of water now.', bg: '#fbe4df', border: '#e2a396' }
+  ];
+  function clearSelection() {
+    for (var i = 0; i < swatches.length; i++) { swatches[i].style.boxShadow = ''; }
+  }
+  function syncAge() {
+    if ($('ageOver').checked) {
+      seniorNotice.hidden = false;
+      scaleWrap.hidden = true;
+      results.hidden = true;
+      clearSelection();
+    } else if ($('ageUnder').checked) {
+      seniorNotice.hidden = true;
+      scaleWrap.hidden = false;
+    } else {
+      seniorNotice.hidden = true;
+      scaleWrap.hidden = true;
+      results.hidden = true;
+    }
+  }
+  $('ageUnder').addEventListener('change', syncAge);
+  $('ageOver').addEventListener('change', syncAge);
+  function pick(level) {
+    var g = null;
+    for (var i = 0; i < GROUPS.length; i++) { if (level <= GROUPS[i].max) { g = GROUPS[i]; break; } }
+    if (!g) { return; }
+    clearSelection();
+    swatches[level - 1].style.boxShadow = '0 0 0 3px var(--ring)';
+    $('resPanel').style.background = g.bg;
+    $('resPanel').style.borderColor = g.border;
+    $('resMain').textContent = g.title;
+    $('resSub').textContent = 'Level ' + level + ' of 8. ' + g.msg;
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    lastCopy = 'Urine color check: level ' + level + ' of 8 — ' + g.msg;
+  }
+  for (var i = 0; i < swatches.length; i++) {
+    (function (btn) {
+      btn.addEventListener('click', function () { pick(parseInt(btn.getAttribute('data-level'), 10)); });
+    })(swatches[i]);
+  }
+  $('copyBtn').addEventListener('click', function () {
+    var t = lastCopy;
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    $('ageUnder').checked = false; $('ageOver').checked = false;
+    clearSelection();
+    syncAge();
+    results.hidden = true;
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
