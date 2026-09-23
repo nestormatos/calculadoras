@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydrating Foods Calculator — Water in Fruits &amp; Vegetables | Hydration Tools</title>
+<meta name="description" content="Add up the water hidden in fruits, vegetables and other hydrating foods, and see how much of your daily need your diet already covers. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Food &amp; Hydration</span>
+    <h1>Hydrating Foods Calculator</h1>
+        <p class="lead">Studies show that roughly a fifth of the water you take in each day comes from food, not drinks. Add what you ate and see how many fluid ounces your meals quietly contributed.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Add the foods you ate today</h2>
+      <p class="card-sub">Enter amounts in grams or portions. Portion weights are approximations — edit them to match what you actually ate.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="goal">Daily drinks goal</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="goal" inputmode="decimal" value="68" min="1" step="any">
+                                  <span class="input-suffix">fl oz</span>
+          </div>
+          <p class="hint">What you aim to drink per day. Auto-filled from your tracker goal when available.</p>
+          <p class="hint" id="goalHint"></p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Food</th><th>Amount</th><th>Unit</th><th>Grams per portion</th><th>Water</th><th></th></tr>
+          </thead>
+          <tbody id="rowsBody"></tbody>
+        </table>
+      </div>
+      <p style="margin:12px 0 18px"><button class="btn btn-secondary" id="addRowBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg><span>Add a food</span></button></p>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate water from foods</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Water from your foods</h3><span class="results-tag">Estimate</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resFoodWater">0</span>
+                     <span class="primary-unit">fl oz of water from foods</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resShare">0</span><span class="stat-label">Share of total daily need</span></div>
+          <div class="stat"><span class="stat-value" id="resStill">0</span><span class="stat-label">Drinks still needed</span></div>
+          <div class="stat"><span class="stat-value" id="resItems">0</span><span class="stat-label">Foods counted</span></div>
+          <div class="stat"><span class="stat-value" id="resGoal">0</span><span class="stat-label">Total daily need (drinks ÷ 0.80)</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Next step: log what you drink with the <a href="../water-tracker/">Water Tracker</a>, or set your base target with the <a href="../water-intake-calculator/">Water Intake Calculator</a>.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the estimate is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>Water in each food</h3>
+          <p class="formula">Water = grams × water content % ÷ 100<br>Portions → grams = portions × g per portion</p>
+        </div>
+        <div class="formula-box">
+          <h3>Putting it against your day</h3>
+          <p class="formula">Total daily need ≈ drinks goal ÷ 0.80<br>Share = food water ÷ total need × 100</p>
+        </div>
+      </div>
+      <p class="section-intro">EFSA's dietary reference values note that foods supply roughly 20% of total water intake, with drinks covering the other 80% — so a drinks goal of 68 fl oz implies a total daily need of about 217 fl oz. The water-content percentages are study-based averages and vary by ±1–2 percentage points between sources; for canonical values we recommend the USDA FoodData Central database. Portion weights (a cup of diced watermelon ≈ 152 g, a medium apple ≈ 182 g) are approximations and fully editable.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>This calculator provides general wellness estimates only and is not medical advice. If you are pregnant, nursing, or manage a condition affecting fluid balance (kidney, heart or liver disease), consult a healthcare professional.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+      var FOODS = [
+    ['Cucumber', 96, '1 cup, sliced', 119], ['Lettuce', 96, '1 cup, shredded', 47],
+    ['Celery', 95, '1 medium stalk', 40], ['Tomato', 95, '1 medium', 123],
+    ['Zucchini', 94, '1 medium', 196], ['Watermelon', 91, '1 cup, diced', 152],
+    ['Strawberry', 91, '1 cup, halves', 152], ['Grapefruit', 91, '½ medium', 123],
+    ['Bell pepper', 91, '1 medium', 119], ['Cantaloupe', 90, '1 cup, cubes', 160],
+    ['Broccoli', 89, '1 cup, chopped', 91], ['Peach', 89, '1 medium', 150],
+    ['Carrot', 88, '1 medium', 61], ['Orange', 87, '1 medium', 131],
+    ['Pineapple', 86, '1 cup, chunks', 165], ['Apple', 85, '1 medium', 182],
+    ['Banana', 75, '1 medium', 118], ['Papaya', 88, '1 cup, cubes', 145],
+    ['Mango', 83, '1 cup, pieces,', 165], ['Coconut water', 95, '1 cup (8 fl oz)', 8],
+    ['Chayote', 94, '1 cup, cooked', 160]
+  ];
+  var body = $('rowsBody'), goal = $('goal');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+      try { var g = localStorage.getItem('ph-tracker-goal'); if (g && parseFloat(g) > 0) { goal.value = Math.round(parseFloat(g)); } } catch (e) {}
+  var goalHint = $('goalHint');
+  try {
+    var units = localStorage.getItem('ph-units');
+    if (units !== 'oz' && goal.value) {
+      var oz = Math.round(parseFloat(goal.value) / 29.5735);
+      if (!isNaN(oz) && oz >= 1 && oz <= 338) { goal.value = oz; }
+    }
+    if (goalHint) { goalHint.textContent = goal.value ? 'Pre-filled from your Water Tracker goal (US fl oz).' : ''; }
+  } catch (e) {}
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function addRow() {
+    var tr = document.createElement('tr');
+    var opts = '';
+    for (var i = 0; i < FOODS.length; i++) { opts += '<option value="' + i + '">' + FOODS[i][0] + ' (' + FOODS[i][1] + '%)</option>'; }
+    tr.innerHTML = '<td><select class="select food-sel">' + opts + '</select></td>' +
+      '<td><input class="input amount" type="number" inputmode="decimal" min="0" step="any" placeholder="0"></td>' +
+      '<td><select class="select unit-sel"><option value="g">Grams</option><option value="p">Portions</option></select></td>' +
+      '<td><span class="portion-wrap" hidden><input class="input portion-g" type="number" inputmode="decimal" min="0" step="any"> <span class="hint portion-label"></span></span><span class="hint dash">—</span></td>' +
+      '<td><span class="stat-value row-sub">—</span></td>' +
+      '<td><button class="btn btn-ghost row-del" type="button">Remove</button></td>';
+    body.appendChild(tr);
+    syncRow(tr);
+    tr.querySelector('.food-sel').addEventListener('change', function () { syncRow(tr); live(); });
+    tr.querySelector('.unit-sel').addEventListener('change', function () { syncRow(tr); live(); });
+    tr.querySelector('.row-del').addEventListener('click', function () { body.removeChild(tr); live(); });
+    var inputs = tr.querySelectorAll('.input');
+    for (var j = 0; j < inputs.length; j++) {
+      inputs[j].addEventListener('input', live);
+      inputs[j].addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(false); } });
+    }
+  }
+  function syncRow(tr) {
+    var f = FOODS[parseInt(tr.querySelector('.food-sel').value, 10)];
+    var portions = tr.querySelector('.unit-sel').value === 'p';
+    tr.querySelector('.portion-wrap').hidden = !portions;
+    tr.querySelector('.dash').hidden = portions;
+    tr.querySelector('.portion-g').value = f[3];
+    tr.querySelector('.portion-label').textContent = 'per ' + f[2] + ' (approx.)';
+  }
+
+  function live() { if (!results.hidden) { calc(true); } }
+  function calc(quiet) {
+    var goalVal = parseFloat(goal.value);
+        if (!goalVal || goalVal <= 0 || goalVal > 338) { if (!quiet) { showErr('Enter a daily drinks goal between 1 and 338 fl oz.'); } return; }
+    var rows = body.querySelectorAll('tr'), water = 0, items = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var tr = rows[i];
+      var f = FOODS[parseInt(tr.querySelector('.food-sel').value, 10)];
+      var amtRaw = tr.querySelector('.amount').value;
+      var sub = tr.querySelector('.row-sub');
+      if (amtRaw === '') { sub.textContent = '—'; continue; }
+      var amt = parseFloat(amtRaw);
+      if (isNaN(amt) || amt <= 0 || amt > 20000) { if (!quiet) { showErr('Each amount must be a number between 0 and 20000.'); } return; }
+      var grams = amt;
+      if (tr.querySelector('.unit-sel').value === 'p') {
+        var pg = parseFloat(tr.querySelector('.portion-g').value);
+        if (isNaN(pg) || pg <= 0 || pg > 5000) { if (!quiet) { showErr('Grams per portion must be between 0 and 5000.'); } return; }
+        grams = amt * pg;
+      }
+      var w = grams * f[1] / 100;
+      water += w; items++;
+            sub.textContent = (Math.round(w * 10) / 10).toFixed(1) + ' fl oz';
+    }
+    if (items === 0) { if (!quiet) { showErr('Add at least one food with an amount.'); } return; }
+    errBox.hidden = true;
+    var totalGoal = goalVal / 0.80;
+    var share = water / totalGoal * 100;
+    var still = Math.max(0, totalGoal - water);
+        $('resFoodWater').textContent = (Math.round(water * 10) / 10).toFixed(1);
+    $('resSub').textContent = 'From ' + items + ' food' + (items === 1 ? '' : 's') + ', against a drinks goal of ' + goalVal.toLocaleString('en-US') + ' fl oz.';
+    $('resShare').textContent = share.toFixed(1) + '%';
+    $('resStill').textContent = (Math.round(still * 10) / 10).toFixed(1) + ' fl oz';
+    $('resItems').textContent = items;
+    $('resGoal').textContent = (Math.round(totalGoal * 10) / 10).toFixed(1) + ' fl oz';
+    results.hidden = false;
+    if (!quiet) { results.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  }
+  $('calcBtn').addEventListener('click', function () { calc(false); });
+  $('addRowBtn').addEventListener('click', function () { addRow(); });
+  goal.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(false); } });
+  goal.addEventListener('input', live);
+  $('copyBtn').addEventListener('click', function () {
+        var t = 'Water from foods today: ' + $('resFoodWater').textContent + ' fl oz — ' + $('resShare').textContent +
+      ' of my total daily need. Drinks still needed: ' + $('resStill').textContent + '. Estimate based on average food water content.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+        body.innerHTML = ''; addRow(); goal.value = '68';
+    results.hidden = true; errBox.hidden = true; goal.focus();
+  });
+  addRow();
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
