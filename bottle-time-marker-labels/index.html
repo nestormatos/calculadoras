@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A7389">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z' fill='%230A7389'/%3E%3C/svg%3E">
+<title>Water Bottle Time-Marker Label Generator (Printable) | Hydration Tools</title>
+<meta name="description" content="Make printable time-marker labels for your own water bottle. Enter your bottle size, daily goal and hours to get a strip showing how far down to drink by each hour.">
+<script>(function(){try{var t=localStorage.getItem("ph-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
+<style>
+:root{
+  --ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;
+  --current:#0A7389;--current-ink:#FFFFFF;
+  --ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA;
+  --radius-lg:18px;--radius:10px;
+  --font-display:ui-rounded,"SF Pro Rounded","Nunito","Varela Round","Segoe UI",system-ui,sans-serif;
+  --font-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;
+    --current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--font-body);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:20px;padding-right:20px}
+a{color:var(--current)}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center}
+.brand svg{color:var(--current)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{border:0;background:none;color:var(--ink-2);font:600 13px var(--font-body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.hero{padding:24px 0 28px;max-width:700px}
+.hero h1{font-family:var(--font-display);font-size:clamp(2rem,5.2vw,3.2rem);line-height:1.06;margin:0 0 14px;letter-spacing:-.015em;font-weight:800}
+.hero p{font-size:1.12rem;color:var(--ink-2);margin:0;max-width:60ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:start;padding-bottom:28px}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:24px}
+@media (max-width:520px){.panel{padding:18px}}
+.result{position:sticky;top:16px}
+@media (max-width:880px){.result{position:static}}
+fieldset{border:0;padding:0;margin:0 0 26px;min-width:0}
+fieldset:last-child{margin-bottom:0}
+legend,.panel h2{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin:0 0 14px;padding:0}
+.panel h3{font-family:var(--font-display);font-size:1.02rem;margin:22px 0 8px}
+label,.label{display:block;font-weight:600;font-size:.94rem;margin:0 0 6px}
+.hint{font-size:.86rem;color:var(--ink-2);margin:6px 0 0;max-width:62ch}
+.muted{color:var(--ink-2)}
+.field{margin-bottom:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row .field{margin-bottom:0}
+.row + .hint,.row + .field{margin-top:12px}
+@media (max-width:420px){.row{grid-template-columns:1fr}}
+input[type=number],input[type=time],select{width:100%;font:inherit;font-size:1rem;padding:11px 12px;border:1px solid var(--line);
+  border-radius:var(--radius);background:var(--paper);color:var(--ink);font-variant-numeric:tabular-nums;min-height:46px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--current);outline-offset:2px}
+.with-unit{position:relative}
+.with-unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--ink-2);font-size:.9rem;pointer-events:none}
+.with-unit input{padding-right:52px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:var(--surface);color:var(--ink-2);font:600 14px var(--font-body);padding:10px 14px;cursor:pointer;min-height:42px}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--current);color:var(--current-ink)}
+.stepper{display:flex}
+.stepper input{text-align:center;border-radius:0;border-left:0;border-right:0;-moz-appearance:textfield}
+.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
+.stepper button{width:46px;flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 20px var(--font-body);cursor:pointer}
+.stepper button:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.stepper button:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--current);margin:2px 0 0;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:var(--radius);padding:12px 18px;
+  font:600 15px var(--font-body);cursor:pointer;background:var(--current);color:var(--current-ink);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.k{font-weight:600;color:var(--ink-2);margin:0 0 4px}
+.big{font-family:var(--font-display);font-size:clamp(2.8rem,8vw,4rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.big small{font-size:.38em;font-weight:700;margin-left:8px;color:var(--ink-2);letter-spacing:0}
+.note{border-radius:var(--radius);padding:12px 14px;font-size:.94rem;margin-top:14px}
+.note.ok{background:var(--ok-soft)}.note.warn{background:var(--warn-soft)}.note.bad{background:var(--bad-soft)}.note.info{background:var(--mist)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px;margin-top:20px}
+.stat{border-top:2px solid var(--line);padding-top:8px}
+.stat span{display:block;font-size:.86rem;color:var(--ink-2)}
+.stat b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums;margin-top:2px}
+.scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th,.tbl td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl th{font-weight:600;color:var(--ink-2)}
+.tbl .n{text-align:right;font-variant-numeric:tabular-nums}
+.prose{max-width:70ch}
+.prose p{margin:0 0 12px}
+.section{margin-bottom:24px}
+.more{border-top:1px solid var(--line);padding-top:26px;padding-bottom:44px;font-size:.92rem;color:var(--ink-2)}
+.more nav{display:flex;gap:10px 22px;flex-wrap:wrap;margin-bottom:14px}
+.more p{margin:0 0 8px;max-width:75ch}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:600}
+.toast.show{opacity:1}
+.print-only{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  header.top,.more,.no-print,.lang{display:none!important}
+  .print-only{display:block}
+  body{background:#fff;color:#000}
+  .panel{border:0;padding:0;background:none}
+  .result{position:static}
+}
+.prose h2{font-family:var(--font-display);font-size:1.3rem;margin:0 0 10px}
+@media (max-width:420px){.seg button{padding:10px 10px;font-size:13px}}
+
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.swatches button{width:36px;height:36px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.swatches button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
+.sheet{display:flex;flex-wrap:nowrap;gap:14px;align-items:flex-start;padding:16px;background:var(--mist);border-radius:var(--radius);margin:16px 0 0;overflow-x:auto}
+.sheet svg{height:560px;width:auto;background:#fff;border-radius:3px;flex:none}
+.calib{display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--ink-2);margin-top:14px}
+.calib-bar{width:50mm;height:0;border-top:3mm solid var(--ink);flex:none}
+.summary{font-weight:700;font-size:1.1rem;margin:0}
+@media print{
+  @page{margin:10mm}
+  .hero,form,.summary,.section,#notes{display:none!important}
+  .grid{display:block}
+  .sheet{background:none;padding:0;gap:4mm;margin:0;overflow:visible;flex-wrap:wrap}
+  .sheet svg{height:auto;width:auto;border-radius:0;break-inside:avoid}
+  .calib-bar{border-top-color:#000}
+  .calib{justify-content:flex-start;color:#000;margin-top:4mm}
+  .printTip{font-size:9pt;color:#000;margin:0 0 4mm}
+}
+html[data-theme="light"]{--ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;--current:#0A7389;--current-ink:#FFFFFF;--ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA}
+html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;--current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;width:38px;height:38px;font-size:16px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="../index.html">
+    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
+    <span data-i18n="brand">Hydration Tools</span>
+  </a>
+  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+    <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
+  </div>
+</div></header>
+<main class="wrap">
+  <section class="hero">
+    <h1 data-i18n="h1">Bottle time-marker labels</h1>
+    <p data-i18n="lead"></p>
+  </section>
+
+  <div class="grid">
+    <form class="panel" id="form" novalidate onsubmit="return false">
+      <div class="field">
+        <span class="label" data-i18n="units">Units</span>
+        <div class="seg" id="units" role="group">
+          <button type="button" data-v="imperial">oz / in</button>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend data-i18n="bottle">Your bottle</legend>
+        <div class="row">
+          <div class="field">
+            <label for="size" data-i18n="size">Bottle size</label>
+            <div class="with-unit"><input id="size" type="number" inputmode="decimal" min="1" step="0.5" value="25"><span class="u-v">oz</span></div>
+          </div>
+          <div class="field">
+            <label for="goal" data-i18n="goal">Daily water goal</label>
+            <div class="with-unit"><input id="goal" type="number" inputmode="decimal" min="1" step="1" value="85"><span class="u-v">oz</span></div>
+          </div>
+        </div>
+        <p class="hint"><span data-i18n="goalHint">Not sure of your goal?</span> <a href="../water-intake-calculator/" data-i18n="goalLink">Work it out with the daily water intake calculator.</a></p>
+      </fieldset>
+
+      <fieldset>
+        <legend data-i18n="day">Your day</legend>
+        <div class="row">
+          <div class="field"><label for="start" data-i18n="start">First drink</label><input id="start" type="time" value="07:00"></div>
+          <div class="field"><label for="end" data-i18n="end">Last drink</label><input id="end" type="time" value="21:00"></div>
+        </div>
+        <div class="row" style="margin-top:16px">
+          <div class="field">
+            <label for="every" data-i18n="every">Mark every</label>
+            <select id="every">
+              <option value="30" data-i18n="m30">30 minutes</option>
+              <option value="60" data-i18n="m60" selected>1 hour</option>
+              <option value="120" data-i18n="m120">2 hours</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="label" data-i18n="fmt">Time format</span>
+            <div class="seg" id="fmt" role="group"><button type="button" data-v="12">12 h</button><button type="button" data-v="24">24 h</button></div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend data-i18n="labelT">Label</legend>
+        <div class="field">
+          <label for="len" data-i18n="length">Label length</label>
+          <div class="with-unit" style="max-width:220px"><input id="len" type="number" inputmode="decimal" min="1" step="0.25" value="7.1"><span class="u-l">in</span></div>
+          <p class="hint" data-i18n="lengthHint"></p>
+        </div>
+        <div class="field">
+          <span class="label" data-i18n="width">Label width</span>
+          <div class="seg" id="width" role="group"><button type="button" data-v="25" data-i18n="wNarrow">Narrow</button><button type="button" data-v="35" data-i18n="wWide">Wide</button></div>
+        </div>
+        <div class="field">
+          <span class="label" data-i18n="color">Color</span>
+          <div class="swatches" id="colors" role="group"></div>
+        </div>
+      </fieldset>
+    </form>
+
+    <section class="panel result" id="result">
+      <p class="summary" id="summary" aria-live="polite"></p>
+      <div id="notes"></div>
+      <div class="printTip print-only"></div>
+      <div class="sheet" id="sheet"></div>
+      <div class="calib"><div class="calib-bar"></div><span data-i18n="calib">This bar measures 5 cm when printed at the right size.</span></div>
+      <div class="actions no-print">
+        <button type="button" class="btn" id="print" data-i18n="print">Print labels</button>
+        <button type="button" class="btn ghost" id="dl" data-i18n="svg">Download SVG</button>
+      </div>
+      <p class="hint no-print" data-i18n="printTip"></p>
+    </section>
+  </div>
+
+  <section class="section prose">
+    <h2 data-i18n="howTitle">How to use your labels</h2>
+    <p data-i18n="how1"></p>
+    <p data-i18n="how2"></p>
+  </section>
+</main>
+<footer class="more wrap">
+  <nav data-i18n-aria="moreNav" aria-label="More hydration tools">
+    <a href="../sweat-rate-calculator/" data-i18n="toolSweat">Sweat rate calculator</a>
+    <a href="../emergency-water-storage/" data-i18n="toolEmergency">Emergency water storage calculator</a>
+    <a href="../bottle-time-marker-labels/" data-i18n="toolLabels">Bottle time-marker labels</a>
+    <a href="../index.html#all-tools" data-i18n="toolAll">All hydration tools</a>
+  </nav>
+  <p data-i18n="disclaimer"></p>
+  <p data-i18n="privacy">Everything runs in your browser. Nothing you enter is sent anywhere.</p>
+</footer>
+<script>
+const Common = (() => {
+  const BASE = {
+    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator',
+      toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language',
+      privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.', dec: 'Decrease', inc: 'Increase' },
+    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias',
+      toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma',
+      privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.', dec: 'Restar', inc: 'Sumar' }
+  };
+  let dict = BASE, lang = 'en', onChange = () => {};
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  function t(k, vars) {
+    const src = dict[lang] || {};
+    let s = src[k] != null ? src[k] : (dict.en[k] != null ? dict.en[k] : k);
+    if (vars) for (const v in vars) s = s.split('{' + v + '}').join(vars[v]);
+    return s;
+  }
+  function apply() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    document.title = t('title');
+    const md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', t('metaDesc'));
+    document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    onChange();
+  }
+  function init(pageDict, cb) {
+    dict = { en: Object.assign({}, BASE.en, pageDict.en), es: Object.assign({}, BASE.es, pageDict.es) };
+    onChange = cb || onChange;
+    const q = new URLSearchParams(location.search).get('lang');
+    const saved = store.get('ht-lang');
+    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    lang = (q === 'es' || q === 'en') ? q : (saved === 'es' || saved === 'en' ? saved : (nav === 'es' ? 'es' : 'en'));
+    document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+      lang = b.dataset.lang; store.set('ht-lang', lang); apply();
+    }));
+    document.addEventListener('click', e => {
+      const b = e.target.closest('[data-step]');
+      if (!b) return;
+      const inp = b.parentElement.querySelector('input');
+      const min = inp.min !== '' ? +inp.min : -Infinity, max = inp.max !== '' ? +inp.max : Infinity;
+      let v = parseFloat(inp.value); if (!isFinite(v)) v = 0;
+      inp.value = Math.min(max, Math.max(min, v + (+b.dataset.step)));
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    apply();
+  }
+  const locale = () => (lang === 'es' ? 'es-DO' : 'en-US');
+  function num(n, d = 0) {
+    return new Intl.NumberFormat(locale(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
+  }
+  function seg(el, cur, cb) {
+    const bs = el.querySelectorAll('button');
+    const set = v => bs.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(v))));
+    set(cur);
+    bs.forEach(b => b.addEventListener('click', () => {
+      if (b.getAttribute('aria-pressed') === 'true') return;
+      set(b.dataset.v); cb(b.dataset.v);
+    }));
+    return set;
+  }
+  function val(id) { const v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : NaN; }
+  function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  let tt;
+  function toast(m) {
+    let el = document.getElementById('toast');
+    if (!el) { el = document.createElement('div'); el.id = 'toast'; el.className = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+    el.textContent = m; el.classList.add('show');
+    clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+  return { t, init, num, seg, val, esc, toast, store, locale, get lang() { return lang; } };
+})();
+
+(() => {
+const D = {
+en: {
+  title: 'Water Bottle Time-Marker Label Generator (Printable) | Hydration Tools',
+  metaDesc: 'Make printable time-marker labels for your own water bottle. Enter your bottle size, daily goal and hours to get a strip showing how far down to drink by each hour.',
+  h1: 'Bottle time-marker labels',
+  lead: 'Print a strip for your own bottle that shows how far down you should be by each hour of the day.',
+  units: 'Units', bottle: 'Your bottle', size: 'Bottle size', goal: 'Daily water goal',
+  goalHint: 'Not sure of your goal?', goalLink: 'Work it out with the daily water intake calculator.',
+  day: 'Your day', start: 'First drink', end: 'Last drink', every: 'Mark every',
+  m30: '30 minutes', m60: '1 hour', m120: '2 hours', fmt: 'Time format',
+  labelT: 'Label', length: 'Label length',
+  lengthHint: 'Measure the straight side of your bottle, from the fill line down to where the bottom starts to curve.',
+  width: 'Label width', wNarrow: 'Narrow (2.5 cm)', wWide: 'Wide (3.5 cm)', color: 'Color',
+  cTeal: 'Teal', cBlue: 'Blue', cGreen: 'Green', cPink: 'Pink', cOrange: 'Orange',
+  sumN: '{n} bottles reach your goal', sum1: 'One bottle reaches your goal',
+  partial: 'You only need part of the last bottle. Stop at the goal line.',
+  errSize: 'Enter your bottle size and daily goal.',
+  errTime: 'Your last drink has to be later than your first drink.',
+  errMany: 'That needs more than 12 bottles. Try a bigger bottle or check your goal.',
+  errLen: 'Make the label at least 5 cm (2 in) long.',
+  startW: 'Start', refillW: 'Refill', goalW: 'Goal', labelOf: 'Bottle {i} of {n}',
+  calib: 'This bar measures 5 cm when printed at the right size.',
+  print: 'Print labels', svg: 'Download SVG',
+  printTip: 'Print at 100% or "Actual size", not "Fit to page". Check the 5 cm bar with a ruler before cutting.',
+  howTitle: 'How to use your labels',
+  how1: 'Print the labels, cut along the dashed lines and stick one on your bottle so the top line sits at the fill line. Cover it with clear tape, or print on waterproof sticker paper, so it survives washing.',
+  how2: 'Each time you refill, move to the next label or keep the same strip and follow the times for the next bottle. If you fall behind, just drink down to the next mark rather than catching up all at once.',
+  disclaimer: 'General guidance for healthy adults, not medical advice. Some health conditions require limiting fluids; follow your doctor\'s advice if that applies to you.'
+},
+es: {
+  title: 'Generador de etiquetas horarias para botella de agua (imprimible)',
+  metaDesc: 'Crea etiquetas horarias imprimibles para tu propia botella de agua. Escribe el tamaño de la botella, tu meta diaria y tu horario para saber hasta dónde beber a cada hora.',
+  h1: 'Etiquetas horarias para botella',
+  lead: 'Imprime una tira para tu propia botella que te muestra hasta dónde deberías haber bebido a cada hora del día.',
+  units: 'Unidades', bottle: 'Tu botella', size: 'Tamaño de la botella', goal: 'Meta diaria de agua',
+  goalHint: '¿No sabes cuál es tu meta?', goalLink: 'Calcúlala con la calculadora de agua diaria.',
+  day: 'Tu día', start: 'Primer trago', end: 'Último trago', every: 'Marcar cada',
+  m30: '30 minutos', m60: '1 hora', m120: '2 horas', fmt: 'Formato de hora',
+  labelT: 'Etiqueta', length: 'Largo de la etiqueta',
+  lengthHint: 'Mide el lado recto de tu botella, desde la línea de llenado hasta donde empieza a curvarse el fondo.',
+  width: 'Ancho de la etiqueta', wNarrow: 'Angosta (2.5 cm)', wWide: 'Ancha (3.5 cm)', color: 'Color',
+  cTeal: 'Turquesa', cBlue: 'Azul', cGreen: 'Verde', cPink: 'Rosado', cOrange: 'Naranja',
+  sumN: '{n} botellas completan tu meta', sum1: 'Una botella completa tu meta',
+  partial: 'De la última botella solo necesitas una parte. Detente en la línea de meta.',
+  errSize: 'Escribe el tamaño de tu botella y tu meta diaria.',
+  errTime: 'Tu último trago tiene que ser después del primero.',
+  errMany: 'Eso requiere más de 12 botellas. Prueba una botella más grande o revisa tu meta.',
+  errLen: 'La etiqueta debe medir al menos 5 cm (2 in) de largo.',
+  startW: 'Inicio', refillW: 'Rellenar', goalW: 'Meta', labelOf: 'Botella {i} de {n}',
+  calib: 'Esta barra mide 5 cm si se imprime al tamaño correcto.',
+  print: 'Imprimir etiquetas', svg: 'Descargar SVG',
+  printTip: 'Imprime al 100% o "Tamaño real", no "Ajustar a la página". Mide la barra de 5 cm con una regla antes de recortar.',
+  howTitle: 'Cómo usar tus etiquetas',
+  how1: 'Imprime las etiquetas, recórtalas por las líneas punteadas y pega una en tu botella de modo que la línea superior quede en la línea de llenado. Cúbrela con cinta adhesiva transparente, o imprime en papel adhesivo resistente al agua, para que aguante el lavado.',
+  how2: 'Cada vez que rellenes, pasa a la siguiente etiqueta o usa la misma tira y sigue las horas de la siguiente botella. Si te atrasas, bebe solo hasta la próxima marca en lugar de recuperar todo de golpe.',
+  disclaimer: 'Orientación general para adultos sanos, no es consejo médico. Algunas condiciones de salud requieren limitar los líquidos; si es tu caso, sigue las indicaciones de tu médico.'
+}};
+
+const L_TO_OZ = 33.8140, IN = 2.54;
+const COLORS = [['#0A7389', 'cTeal'], ['#2F5DA8', 'cBlue'], ['#2E7D4F', 'cGreen'], ['#B8407A', 'cPink'], ['#C06A0A', 'cOrange']];
+const $ = id => document.getElementById(id);
+const t = (k, v) => Common.t(k, v), num = Common.num, esc = Common.esc;
+let S = {};
+try { S = JSON.parse(Common.store.get('ht-labels') || '{}') || {}; } catch (e) { S = {}; }
+let units = 'imperial';
+/* one-time migration: legacy metric values (litres-equivalent / cm) -> oz / in */
+if (S.units !== 'imperial') {
+  const mig = (id, f) => { const v = parseFloat(S[id]); if (isFinite(v) && v > 0) S[id] = f(v); };
+  mig('size', v => +(v / 1000 * L_TO_OZ).toFixed(1));
+  mig('goal', v => +(v / 1000 * L_TO_OZ).toFixed(0));
+  mig('len', v => +(v / IN).toFixed(1));
+}
+let fmt = S.fmt === '24' ? '24' : '12';
+let width = S.width === '25' ? '25' : '35';
+let color = COLORS.some(c => c[0] === S.color) ? S.color : COLORS[0][0];
+['size', 'goal', 'start', 'end', 'every', 'len'].forEach(id => { if (S[id] != null && S[id] !== '') $(id).value = S[id]; });
+let svgAll = '';
+
+function persist() {
+  const o = { units, fmt, width, color };
+  ['size', 'goal', 'start', 'end', 'every', 'len'].forEach(id => o[id] = $(id).value);
+  Common.store.set('ht-labels', JSON.stringify(o));
+}
+const toMm = v => v * IN * 10;
+function parseT(s) { const m = /^(\d{1,2}):(\d{2})/.exec(s || ''); return m ? (+m[1]) * 60 + (+m[2]) : NaN; }
+function fmtT(mins) {
+  const m = Math.round(mins), h = Math.floor(m / 60) % 24, mm = String(m % 60).padStart(2, '0');
+  return fmt === '24' ? `${String(h).padStart(2, '0')}:${mm}` : `${((h + 11) % 12) + 1}:${mm} ${h < 12 ? 'AM' : 'PM'}`;
+}
+const txt = (x, y, s, size, weight, fill) =>
+  `<text x="${x.toFixed(2)}" y="${y.toFixed(2)}" font-size="${size}" font-weight="${weight}" fill="${fill || '#0E2A3B'}" font-family="Arial, Helvetica, sans-serif">${esc(s)}</text>`;
+const ln = (x1, y1, x2, y2, stroke, w) =>
+  `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${stroke}" stroke-width="${w}"/>`;
+
+function makeLabel(o) {
+  const W = o.W, L = o.L, y0 = 4, F = 15, H = y0 + L + F, narrow = W < 30;
+  const fs = narrow ? 2.7 : 3.1, fsS = narrow ? 2.4 : 2.7;
+  const endY = y0 + o.frac * L, span = o.te - o.ts;
+  const pos = m => y0 + (m - o.ts) / span * (endY - y0);
+  let s = `<rect x="0.25" y="0.25" width="${W - 0.5}" height="${H - 0.5}" rx="2" fill="${o.accent}" fill-opacity="0.07" stroke="#8A9AA3" stroke-width="0.3" stroke-dasharray="1.5 1"/>`;
+  if (o.frac < 1) s += `<rect x="0.25" y="${endY.toFixed(2)}" width="${W - 0.5}" height="${(y0 + L - endY).toFixed(2)}" fill="#8A9AA3" fill-opacity="0.12"/>`;
+  s += ln(0, y0, W, y0, o.accent, 0.7) + txt(1.5, y0 + fs + 1, `${t('startW')} ${fmtT(o.ts)}`, fsS, 700, o.accent);
+  let lastY = y0 + 0.8;
+  const gap = fs + 2;
+  const first = Math.floor(o.ts / o.every) * o.every + o.every;
+  for (let m = first; m < o.te - 0.5; m += o.every) {
+    const y = pos(m);
+    if (y - lastY < gap || endY - y < gap) continue;
+    const hour = m % 60 === 0, tl = hour ? (narrow ? 6 : 8) : (narrow ? 3.5 : 4.5);
+    s += ln(0, y, tl, y, '#0E2A3B', hour ? 0.5 : 0.35) + txt(tl + 1.2, y + fs * 0.36, fmtT(m), hour ? fs : fsS, hour ? 700 : 500);
+    lastY = y;
+  }
+  s += ln(0, endY, W, endY, o.accent, 0.7) +
+       txt(1.5, endY + fs + 1, `${t(o.isLast ? 'goalW' : 'refillW')} ${fmtT(o.te)}`, fsS, 700, o.accent);
+  const fy = y0 + L;
+  s += txt(1.5, fy + 9, t('labelOf', { i: o.i + 1, n: o.n }), fsS, 600, '#46616F') +
+       txt(1.5, fy + 12.6, o.sizeTxt, fsS, 400, '#46616F');
+  return { inner: s, W, H };
+}
+const wrapSvg = (inner, W, H) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${W.toFixed(2)}mm" height="${H.toFixed(2)}mm" viewBox="0 0 ${W.toFixed(2)} ${H.toFixed(2)}">${inner}</svg>`;
+
+function render() {
+  persist();
+  const notes = $('notes'), sheet = $('sheet'), sum = $('summary');
+  const size = Common.val('size'), goal = Common.val('goal');
+  const s = parseT($('start').value), e = parseT($('end').value), L = toMm(Common.val('len'));
+  const err = m => { sum.textContent = ''; notes.innerHTML = `<div class="note bad">${m}</div>`; sheet.innerHTML = ''; svgAll = ''; };
+  if (!(size > 0 && goal > 0)) return err(t('errSize'));
+  if (!(e > s)) return err(t('errTime'));
+  if (!(L >= 50)) return err(t('errLen'));
+  const n = Math.ceil(goal / size - 1e-9);
+  if (n > 12) return err(t('errMany'));
+  const mpm = (e - s) / goal, W = +width, every = +$('every').value;
+  const sizeTxt = `${num(Common.val('size'), 1)} oz`;
+  const labels = [];
+  for (let i = 0; i < n; i++) {
+    const v0 = i * size, v1 = Math.min(goal, (i + 1) * size);
+    labels.push(makeLabel({ i, n, ts: s + v0 * mpm, te: s + v1 * mpm, frac: (v1 - v0) / size, isLast: i === n - 1,
+      L, W, accent: color, every, sizeTxt }));
+  }
+  sum.textContent = n === 1 ? t('sum1') : t('sumN', { n: num(n) });
+  const partial = (goal / size) % 1 > 0.02;
+  notes.innerHTML = partial ? `<div class="note info">${t('partial')}</div>` : '';
+  sheet.innerHTML = labels.map(l => wrapSvg(l.inner, l.W, l.H)).join('');
+  let x = 0; const gapMm = 4, Hmax = Math.max(...labels.map(l => l.H));
+  const inner = labels.map(l => { const g = `<g transform="translate(${x.toFixed(2)} 0)">${l.inner}</g>`; x += l.W + gapMm; return g; }).join('');
+  svgAll = `<?xml version="1.0" encoding="UTF-8"?>\n` + wrapSvg(inner, x - gapMm, Hmax);
+}
+
+function download() {
+  if (!svgAll) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([svgAll], { type: 'image/svg+xml' }));
+  a.download = 'bottle-time-marker-labels.svg';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+
+function renderColors() {
+  $('colors').innerHTML = COLORS.map(([hex, k]) =>
+    `<button type="button" style="background:${hex}" data-c="${hex}" aria-pressed="${hex === color}" aria-label="${t(k)}" title="${t(k)}"></button>`).join('');
+}
+function setUnits(u) {
+  units = u; setUnitLabels(); render();
+}
+function setUnitLabels() {
+  document.querySelectorAll('.u-v').forEach(el => el.textContent = 'oz');
+  document.querySelectorAll('.u-l').forEach(el => el.textContent = 'in');
+  $('size').step = '0.5';
+  $('goal').step = '1';
+  $('len').step = '0.25';
+}
+
+$('colors').addEventListener('click', e => {
+  const b = e.target.closest('[data-c]'); if (!b) return;
+  color = b.dataset.c; renderColors(); render();
+});
+Common.seg($('units'), units, setUnits);
+Common.seg($('fmt'), fmt, v => { fmt = v; render(); });
+Common.seg($('width'), width, v => { width = v; render(); });
+$('form').addEventListener('input', render);
+$('form').addEventListener('change', render);
+$('print').addEventListener('click', () => window.print());
+$('dl').addEventListener('click', download);
+Common.init(D, () => {
+  setUnitLabels(); renderColors(); render();
+  document.querySelector('.printTip').textContent = t('printTip');
+});
+})();
+</script>
+<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});paint();})();</script></body>
+</html>
