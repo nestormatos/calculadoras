@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregnancy &amp; Breastfeeding Water Calculator — EFSA &amp; IOM | Hydration Tools</title>
+<meta name="description" content="Daily water targets for pregnancy and breastfeeding from the official EFSA (Europe) and IOM (US) guidelines, split into drinks, food moisture and 8 fl oz glasses. Free and private.">
+<script>(function(){try{var t=localStorage.getItem('ph-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/site.js" defer></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b7285' d='M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="../index.html"><span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2c3.5 4.1 7 7.9 7 12a7 7 0 0 1-14 0c0-4.1 3.5-7.9 7-12z"/></svg></span><span>Hydration Tools<small>Free Calculators &amp; Trackers</small></span></a>
+<div class="header-actions">
+<a class="back-link" href="../index.html#all-tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>All tools</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch color theme"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+</div></div></header>
+<main id="main">
+  <section class="hero"><div class="container">
+    <span class="eyebrow">Calculator</span>
+    <h1>Pregnancy &amp; Breastfeeding Water Calculator</h1>
+    <p class="lead">Official daily water targets for pregnancy and breastfeeding — from EFSA (Europe) or the IOM (United States), your choice.</p>
+  </div></section>
+  <div class="container">
+    <section class="card" aria-labelledby="tool-title">
+      <h2 id="tool-title">Your daily water target</h2>
+      <p class="card-sub">Pick one guideline standard. They use different methods, so they are never mixed or averaged.</p>
+      <div class="field-grid cols-2">
+        <div>
+          <label class="field-label" for="stage">Your stage</label>
+          <select class="select" id="stage">
+            <option value="ref" data-label="not pregnant (reference)">Not pregnant (reference)</option>
+            <option value="preg" data-label="pregnancy" selected>Pregnant</option>
+            <option value="bf" data-label="breastfeeding">Breastfeeding</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="standard">Guideline standard</label>
+          <select class="select" id="standard">
+            <option value="efsa" data-label="EFSA (Europe)" selected>EFSA — Europe</option>
+            <option value="iom" data-label="IOM (United States)">IOM — United States</option>
+          </select>
+          <p class="hint">Both are official; pick the one your region or doctor follows.</p>
+        </div>
+        <div>
+          <label class="field-label" for="age">Age</label>
+          <div class="input-wrap">
+            <input class="input" type="number" id="age" inputmode="numeric" placeholder="e.g. 31" min="14" max="50" step="1">
+            <span class="input-suffix">years</span>
+          </div>
+          <p class="hint">Used for validation only — the guideline values already apply to adults and teens.</p>
+        </div>
+      </div>
+      <p class="form-error" id="calcError" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg><span id="calcErrorText"></span></p>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate my water target</button>
+      <p class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Runs entirely in your browser — nothing is stored or sent.</p>
+      <div class="results" id="results" hidden>
+        <div class="results-head"><h3>Your daily target</h3><span class="results-tag" id="resTag">EFSA</span></div>
+        <div class="primary-result">
+          <span class="primary-value" id="resDrinks">0</span>
+                    <span class="primary-unit">fl oz from drinks / day</span>
+          <p class="primary-sub" id="resSub"></p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value" id="resTotal">0</span><span class="stat-label">Total water (drinks + food)</span></div>
+          <div class="stat"><span class="stat-value" id="resFromDrinks">0</span><span class="stat-label">From drinks</span></div>
+          <div class="stat"><span class="stat-value" id="resFromFood">0</span><span class="stat-label">From food</span></div>
+          <div class="stat"><span class="stat-value" id="resGlasses">0</span><span class="stat-label">Glasses of 8 fl oz</span></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn btn-secondary" id="copyBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyLabel">Copy result</span></button>
+          <button class="btn btn-ghost" id="resetBtn">Reset</button>
+        </div>
+        <p class="results-note">Exercising or in hot weather? Add that separately with the <a href="../hot-weather-water-calculator/">Hot Weather Water Calculator</a> or <a href="../workout-hydration/">Workout Hydration</a> — don't just inflate this number.</p>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="m-title">
+      <h2 id="m-title">How the target is built</h2>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <h3>EFSA (Europe)</h3>
+          <p class="formula">total water: 68 fl oz baseline<br>pregnancy: +10 fl oz · breastfeeding: +24 fl oz<br>drinks = total × 0.80 · food = total × 0.20<br>glasses = drinks ÷ 8 fl oz</p>
+        </div>
+        <div class="formula-box">
+          <h3>IOM (United States) — table values</h3>
+          <p class="formula">reference: 91 total / 74 drinks<br>pregnancy: 101 total / 78 drinks<br>breastfeeding: 128 total / 105 drinks<br>(fl oz/day; food = total − drinks)</p>
+        </div>
+      </div>
+      <p class="section-intro">According to EFSA, adequate total water intake for women is 68 fl oz/day, rising by 10 fl oz in pregnancy and by 24 fl oz while breastfeeding; as a practical guide, about 80% comes from drinks and 20% from food, and one glass is taken as 8 fl oz. The IOM (US National Academies) publishes its own adequate-intake values, shown above. During pregnancy, keep caffeine under 200 mg per day — the <a href="../alcohol-caffeine/">Alcohol &amp; Caffeine guide</a> shows what that means in cups. Heat and exercise raise needs on their own — use the <a href="../hot-weather-water-calculator/">Hot Weather</a> and <a href="../workout-hydration/">Workout Hydration</a> tools for that instead of inflating this target.</p>
+    </section>
+    <section class="disclaimer" aria-label="Medical disclaimer">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Disclaimer</h2>
+      <p>General guidance for healthy people — not medical advice. If you have kidney, heart or liver disease, or you have been told to restrict fluids or sodium, follow your doctor's instructions. If you have severe nausea or vomiting in pregnancy (hyperemesis gravidarum) or preeclampsia, your fluid needs are individual — follow your doctor's instructions.</p>
+    </section>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $('stage'), std = $('standard'), age = $('age');
+  var errBox = $('calcError'), errText = $('calcErrorText'), results = $('results');
+  var IOM = { ref: [91, 74], preg: [101, 78], bf: [128, 105] };
+  function showErr(msg) { errText.textContent = msg; errBox.hidden = false; results.hidden = true; }
+  function fmt(v) { return (Math.round(v * 10) / 10).toLocaleString('en-US'); }
+  function calc() {
+    var a = parseFloat(age.value);
+    if (isNaN(a) || a < 14 || a > 50) { showErr('Enter an age between 14 and 50.'); return; }
+    errBox.hidden = true;
+    var total, drinks, food, src;
+    if (std.value === 'efsa') {
+      total = 68 + (stage.value === 'preg' ? 10 : stage.value === 'bf' ? 24 : 0);
+      drinks = total * 0.80;
+      food = total * 0.20;
+      src = 'According to EFSA (Europe)';
+    } else {
+      var row = IOM[stage.value];
+      total = row[0];
+      drinks = row[1];
+      food = total - drinks;
+      src = 'According to the IOM (United States)';
+    }
+    var glasses = drinks / 8;
+    /* Self-check (fl oz): EFSA pregnant -> 78 / 62.4 / 15.6, 7.8 glasses; EFSA breastfeeding -> 92 / 73.6.
+       IOM pregnant -> 101 / 78; IOM breastfeeding -> 128 / 105. */
+    $('resDrinks').textContent = fmt(drinks);
+    $('resSub').textContent = 'About ' + glasses.toFixed(1) + ' glasses of 8 fl oz — plus ' + fmt(food) + ' fl oz from food. ' + src + ' for ' + stage.options[stage.selectedIndex].dataset.label + '.';
+    $('resTag').textContent = std.value === 'efsa' ? 'EFSA' : 'IOM';
+    $('resTotal').textContent = fmt(total) + ' fl oz';
+    $('resFromDrinks').textContent = fmt(drinks) + ' fl oz';
+    $('resFromFood').textContent = fmt(food) + ' fl oz';
+    $('resGlasses').textContent = glasses.toFixed(1);
+    results.hidden = false;
+    results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('calcBtn').addEventListener('click', calc);
+  [stage, std].forEach(function (el) { el.addEventListener('change', function () { if (!results.hidden) calc(); }); });
+  age.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); calc(); } });
+  $('copyBtn').addEventListener('click', function () {
+    var t = 'Daily water target (' + std.options[std.selectedIndex].dataset.label + ', ' + stage.options[stage.selectedIndex].dataset.label + '): ' + $('resFromDrinks').textContent + ' from drinks (about ' + $('resGlasses').textContent + ' glasses of 8 fl oz) + ' + $('resFromFood').textContent + ' from food — ' + $('resTotal').textContent + ' total.';
+    function done() { $('copyLabel').textContent = 'Copied'; setTimeout(function () { $('copyLabel').textContent = 'Copy result'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+    else { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+  });
+  $('resetBtn').addEventListener('click', function () {
+    stage.selectedIndex = 1; std.selectedIndex = 0; age.value = '';
+    results.hidden = true; errBox.hidden = true; age.focus();
+  });
+})();
+</script>
+<footer class="site-footer"><div class="container">
+  <div class="footer-bottom" style="border-top:none"><span>&copy; <span id="year">2026</span> Hydration Tools — free &amp; private.</span><span>Educational estimates only — not medical advice.</span></div>
+</div></footer>
+  </div>
+</main>
+</body>
+</html>
+
