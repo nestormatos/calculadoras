@@ -1,0 +1,10 @@
+# Generated archives and local reports
+*.zip
+_ozreport.txt
+_*.report.*
+*.log
+
+# Editor/dependency caches
+node_modules/
+.DS_Store
+Thumbs.db
