@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0A7389">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z' fill='%230A7389'/%3E%3C/svg%3E">
-<title>Sweat Rate Calculator: How Much Fluid You Lose Per Hour | Hydration Tools</title>
+<title data-i18n="title">Sweat Rate Calculator: How Much Fluid You Lose Per Hour | Hydration Tools</title>
 <meta name="description" content="Free sweat rate calculator. Weigh yourself before and after exercise to see how much fluid you lose per hour and how much to drink next time.">
 <script>(function(){try{var t=localStorage.getItem("ph-theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>
 <style>
@@ -130,8 +130,15 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
     <span data-i18n="brand">Hydration Tools</span>
   </a>
-  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
-    <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
+  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" data-i18n-aria="toggleTheme" aria-label="Toggle dark mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+    <button type="button" data-lang="en" data-i18n-aria="langEn" aria-label="English">EN</button>
+    <button type="button" data-lang="es" data-i18n-aria="langEs" aria-label="Español">ES</button>
+    <button type="button" data-lang="hi" data-i18n-aria="langHi" aria-label="हिन्दी">हि</button>
+    <button type="button" data-lang="ar" data-i18n-aria="langAr" aria-label="العربية">ع</button>
+    <button type="button" data-lang="fr" data-i18n-aria="langFr" aria-label="Français">FR</button>
+    <button type="button" data-lang="de" data-i18n-aria="langDe" aria-label="Deutsch">DE</button>
+    <button type="button" data-lang="pt-PT" data-i18n-aria="langPtPt" aria-label="Português (Portugal)">PT</button>
+    <button type="button" data-lang="pt-BR" data-i18n-aria="langPtBr" aria-label="Português (Brasil)">BR</button>
   </div>
 </div></header>
 <main class="wrap">
@@ -144,7 +151,7 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
     <form class="panel" id="form" novalidate onsubmit="return false">
       <div class="field">
         <span class="label" data-i18n="units">Units</span>
-        <div class="seg" id="units" role="group">
+        <div class="seg" id="units" role="group" data-i18n-aria="units" aria-label="Units">
           <button type="button" data-v="imperial">lb / oz</button>
         </div>
       </div>
@@ -169,17 +176,17 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
         <div class="row">
           <div class="field">
             <label for="drank" data-i18n="drank">Fluid you drank</label>
-            <div class="with-unit"><input id="drank" type="number" inputmode="decimal" step="1" min="0" placeholder="0"><span class="u-v">oz</span></div>
+            <div class="with-unit"><input id="drank" type="number" inputmode="decimal" step="1" min="0" data-i18n-ph="zero" placeholder="0" aria-describedby="urineHint"><span class="u-v">oz</span></div>
           </div>
           <div class="field">
             <label for="urine" data-i18n="urine">Urine passed</label>
-            <div class="with-unit"><input id="urine" type="number" inputmode="decimal" step="1" min="0" placeholder="0"><span class="u-v">oz</span></div>
+            <div class="with-unit"><input id="urine" type="number" inputmode="decimal" step="1" min="0" data-i18n-ph="zero" placeholder="0" aria-describedby="urineHint"><span class="u-v">oz</span></div>
           </div>
         </div>
-        <p class="hint" data-i18n="urineHint"></p>
+        <p class="hint" id="urineHint" data-i18n="urineHint"></p>
         <div class="field" style="margin-top:16px">
           <label for="mins" data-i18n="duration">Session length</label>
-          <div class="with-unit"><input id="mins" type="number" inputmode="numeric" step="5" min="1" max="1440"><span>min</span></div>
+          <div class="with-unit"><input id="mins" type="number" inputmode="numeric" step="5" min="1" max="1440"><span data-i18n="minutesShort">min</span></div>
         </div>
         <div class="row">
           <div class="field">
@@ -205,7 +212,7 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
       </fieldset>
     </form>
 
-    <section class="panel result" id="result" aria-live="polite"></section>
+    <section class="panel result" id="result" aria-live="polite" data-i18n-aria="resultRegion" aria-label="Sweat rate result"></section>
   </div>
 
   <section class="panel section">
@@ -232,18 +239,29 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
 <script>
 const Common = (() => {
   const BASE = {
-    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator',
-      toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language',
-      privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.', dec: 'Decrease', inc: 'Increase' },
-    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias',
-      toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma',
-      privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.', dec: 'Restar', inc: 'Sumar' }
+    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator', toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language', langEn: 'English', langEs: 'Spanish', langHi: 'Hindi', langAr: 'Arabic', langFr: 'French', langDe: 'German', langPtPt: 'Portuguese (Portugal)', langPtBr: 'Portuguese (Brazil)', privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.', dec: 'Decrease', inc: 'Increase' },
+    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias', toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma', langEn: 'Inglés', langEs: 'Español', langHi: 'Hindi', langAr: 'Árabe', langFr: 'Francés', langDe: 'Alemán', langPtPt: 'Portugués (Portugal)', langPtBr: 'Portugués (Brasil)', privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.', dec: 'Restar', inc: 'Sumar' },
+    hi: { brand: 'हाइड्रेशन टूल्स', toolSweat: 'पसीना दर कैलकुलेटर', toolEmergency: 'आपातकालीन जल भंडारण कैलकुलेटर', toolLabels: 'बोतल समय-मार्कर लेबल', toolAll: 'सभी हाइड्रेशन टूल्स', moreNav: 'अन्य हाइड्रेशन टूल्स', langLabel: 'भाषा', langEn: 'अंग्रेज़ी', langEs: 'स्पेनिश', langHi: 'हिन्दी', langAr: 'अरबी', langFr: 'फ़्रेंच', langDe: 'जर्मन', langPtPt: 'पुर्तगाली (पुर्तगाल)', langPtBr: 'पुर्तगाली (ब्राज़ील)', privacy: 'सब कुछ आपके ब्राउज़र में चलता है। आपकी कोई जानकारी कहीं नहीं भेजी जाती।', dec: 'घटाएँ', inc: 'बढ़ाएँ' },
+    ar: { brand: 'أدوات الترطيب', toolSweat: 'حاسبة معدل التعرّق', toolEmergency: 'حاسبة مياه الطوارئ', toolLabels: 'ملصقات وقتية للزجاجة', toolAll: 'جميع أدوات الترطيب', moreNav: 'أدوات ترطيب أخرى', langLabel: 'اللغة', langEn: 'الإنجليزية', langEs: 'الإسبانية', langHi: 'الهندية', langAr: 'العربية', langFr: 'الفرنسية', langDe: 'الألمانية', langPtPt: 'البرتغالية (البرتغال)', langPtBr: 'البرتغالية (البرازيل)', privacy: 'كل شيء يعمل داخل متصفحك. لا يُرسل أي شيء تكتبه إلى أي مكان.', dec: 'إنقاص', inc: 'زيادة' },
+    fr: { brand: 'Outils d’hydratation', toolSweat: 'Calculateur de taux de transpiration', toolEmergency: 'Calculateur de réserve d’eau d’urgence', toolLabels: 'Étiquettes horaires pour bouteille', toolAll: 'Tous les outils d’hydratation', moreNav: 'Autres outils d’hydratation', langLabel: 'Langue', langEn: 'Anglais', langEs: 'Espagnol', langHi: 'Hindi', langAr: 'Arabe', langFr: 'Français', langDe: 'Allemand', langPtPt: 'Portugais (Portugal)', langPtBr: 'Portugais (Brésil)', privacy: 'Tout fonctionne dans votre navigateur. Aucune donnée saisie n’est envoyée ailleurs.', dec: 'Diminuer', inc: 'Augmenter' },
+    de: { brand: 'Hydrationswerkzeuge', toolSweat: 'Schwitzratenrechner', toolEmergency: 'Rechner für Notfall-Wasservorrat', toolLabels: 'Zeitmarken für Trinkflaschen', toolAll: 'Alle Hydrationswerkzeuge', moreNav: 'Weitere Hydrationswerkzeuge', langLabel: 'Sprache', langEn: 'Englisch', langEs: 'Spanisch', langHi: 'Hindi', langAr: 'Arabisch', langFr: 'Französisch', langDe: 'Deutsch', langPtPt: 'Portugiesisch (Portugal)', langPtBr: 'Portugiesisch (Brasilien)', privacy: 'Alles läuft in Ihrem Browser. Nichts, was Sie eingeben, wird übertragen.', dec: 'Verringern', inc: 'Erhöhen' },
+    'pt-PT': { brand: 'Ferramentas de hidratação', toolSweat: 'Calculadora da taxa de sudação', toolEmergency: 'Calculadora de água de emergência', toolLabels: 'Etiquetas de hora para garrafa', toolAll: 'Todas as ferramentas de hidratação', moreNav: 'Mais ferramentas de hidratação', langLabel: 'Idioma', langEn: 'Inglês', langEs: 'Espanhol', langHi: 'Hindi', langAr: 'Árabe', langFr: 'Francês', langDe: 'Alemão', langPtPt: 'Português (Portugal)', langPtBr: 'Português (Brasil)', privacy: 'Tudo funciona no seu navegador. Nada do que introduz é enviado para lado algum.', dec: 'Diminuir', inc: 'Aumentar' },
+    'pt-BR': { brand: 'Ferramentas de hidratação', toolSweat: 'Calculadora de taxa de sudorese', toolEmergency: 'Calculadora de água para emergências', toolLabels: 'Etiquetas de tempo para garrafa', toolAll: 'Todas as ferramentas de hidratação', moreNav: 'Mais ferramentas de hidratação', langLabel: 'Idioma', langEn: 'Inglês', langEs: 'Espanhol', langHi: 'Hindi', langAr: 'Árabe', langFr: 'Francês', langDe: 'Alemão', langPtPt: 'Português (Portugal)', langPtBr: 'Português (Brasil)', privacy: 'Tudo funciona no seu navegador. Nada do que você digita é enviado para lugar algum.', dec: 'Diminuir', inc: 'Aumentar' }
   };
   let dict = BASE, lang = 'en', onChange = () => {};
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
+  const SUPPORTED = ['en', 'es', 'hi', 'ar', 'fr', 'de', 'pt-PT', 'pt-BR'];
+  const INTL_LOCALES = { en: 'en-US', es: 'es-ES', hi: 'hi-IN', ar: 'ar', fr: 'fr-FR', de: 'de-DE', 'pt-PT': 'pt-PT', 'pt-BR': 'pt-BR' };
+  function normalize(raw) {
+    const value = String(raw || '').trim().replace('_', '-');
+    const lower = value.toLowerCase();
+    if (lower === 'pt' || lower === 'pt-pt') return 'pt-PT';
+    if (lower === 'pt-br') return 'pt-BR';
+    return SUPPORTED.find(code => code.toLowerCase() === lower) || '';
+  }
   function t(k, vars) {
     const src = dict[lang] || {};
     let s = src[k] != null ? src[k] : (dict.en[k] != null ? dict.en[k] : k);
@@ -252,9 +270,12 @@ const Common = (() => {
   }
   function apply() {
     document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
-    document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    document.querySelectorAll('[data-i18n-ph], [data-i18n-placeholder]').forEach(el => {
+      el.setAttribute('placeholder', t(el.dataset.i18nPh || el.dataset.i18nPlaceholder));
+    });
     document.title = t('title');
     const md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute('content', t('metaDesc'));
@@ -262,14 +283,16 @@ const Common = (() => {
     onChange();
   }
   function init(pageDict, cb) {
-    dict = { en: Object.assign({}, BASE.en, pageDict.en), es: Object.assign({}, BASE.es, pageDict.es) };
+    dict = {};
+    SUPPORTED.forEach(code => { dict[code] = Object.assign({}, BASE[code], pageDict[code] || {}); });
     onChange = cb || onChange;
-    const q = new URLSearchParams(location.search).get('lang');
-    const saved = store.get('ht-lang');
-    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    lang = (q === 'es' || q === 'en') ? q : (saved === 'es' || saved === 'en' ? saved : (nav === 'es' ? 'es' : 'en'));
+    const queryLang = normalize(new URLSearchParams(location.search).get('lang'));
+    const savedLang = normalize(store.get('ht-lang'));
+    const navLang = (navigator.languages || [navigator.language || 'en']).map(normalize).find(Boolean) || '';
+    lang = queryLang || savedLang || navLang || 'en';
+    store.set('ht-lang', lang);
     document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
-      lang = b.dataset.lang; store.set('ht-lang', lang); apply();
+      lang = normalize(b.dataset.lang) || 'en'; store.set('ht-lang', lang); apply();
     }));
     document.addEventListener('click', e => {
       const b = e.target.closest('[data-step]');
@@ -282,7 +305,7 @@ const Common = (() => {
     });
     apply();
   }
-  const locale = () => (lang === 'es' ? 'es-DO' : 'en-US');
+  const locale = () => INTL_LOCALES[lang] || 'en-US';
   function num(n, d = 0) {
     return new Intl.NumberFormat(locale(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
   }
@@ -315,7 +338,7 @@ en: {
   metaDesc: 'Free sweat rate calculator. Weigh yourself before and after exercise to see how much fluid you lose per hour and how much to drink next time.',
   h1: 'Sweat rate calculator',
   lead: 'Weigh yourself before and after a workout to find out how much fluid you lose each hour, and how much to drink next time.',
-  units: 'Units', weighIn: 'Weigh-in', pre: 'Weight before', post: 'Weight after',
+  units: 'Units', zero: '0', minutesShort: 'min', toggleTheme: 'Toggle dark mode', resultRegion: 'Sweat rate result', weighIn: 'Weigh-in', pre: 'Weight before', post: 'Weight after',
   weighHint: 'Use the same scale and minimal clothing both times. Go to the toilet before the first weigh-in and towel off sweat before the second.',
   during: 'During the session', drank: 'Fluid you drank', urine: 'Urine passed',
   urineHint: 'Only if you went to the toilet during the session. Most people leave this at 0.',
@@ -349,7 +372,7 @@ es: {
   metaDesc: 'Calculadora gratis de tasa de sudoración. Pésate antes y después de entrenar para saber cuánto líquido pierdes por hora y cuánto beber la próxima vez.',
   h1: 'Calculadora de tasa de sudoración',
   lead: 'Pésate antes y después de entrenar para saber cuánto líquido pierdes cada hora y cuánto beber la próxima vez.',
-  units: 'Unidades', weighIn: 'Pesaje', pre: 'Peso antes', post: 'Peso después',
+  units: 'Unidades', zero: '0', minutesShort: 'min', toggleTheme: 'Alternar modo oscuro', resultRegion: 'Resultado de la tasa de sudoración', weighIn: 'Pesaje', pre: 'Peso antes', post: 'Peso después',
   weighHint: 'Usa la misma báscula y poca ropa las dos veces. Ve al baño antes del primer pesaje y sécate el sudor antes del segundo.',
   during: 'Durante la sesión', drank: 'Líquido que bebiste', urine: 'Orina expulsada',
   urineHint: 'Solo si fuiste al baño durante la sesión. La mayoría lo deja en 0.',
@@ -377,7 +400,82 @@ es: {
   how1: 'El sudor perdido es tu peso antes, menos tu peso después, más lo que bebiste, menos la orina. Cada libra perdida equivale a cerca de 15.3 fl oz de líquido. Al dividirlo entre la duración obtienes tu tasa por hora.',
   how2: 'La tasa de sudoración cambia con el calor, la humedad, la intensidad y tu condición física, así que repite la prueba en distintas condiciones. Después del ejercicio, beber entre 1.25 y 1.5 veces el peso perdido te ayuda a rehidratarte por completo.',
   disclaimer: 'Orientación general para adultos sanos, no es consejo médico. Si tienes una condición cardíaca o renal, o tomas medicamentos que afectan los líquidos, consulta a tu médico.'
-}};
+},
+hi: {
+  title: 'पसीना दर कैलकुलेटर: प्रति घंटा कितना द्रव आप खोते हैं | हाइड्रेशन टूल्स',
+  metaDesc: 'मुफ़्त पसीना दर कैलकुलेटर। व्यायाम से पहले और बाद में वजन नापकर जानें कि आप प्रति घंटा कितना द्रव खोते हैं और अगली बार कितना पीना चाहिए।',
+  h1: 'पसीना दर कैलकुलेटर', lead: 'व्यायाम से पहले और बाद में वजन नापकर जानें कि आप हर घंटे कितना द्रव खोते हैं और अगली बार कितना पीना चाहिए।',
+  units: 'इकाइयाँ', zero: '0', minutesShort: 'मिनट', toggleTheme: 'डार्क मोड बदलें', resultRegion: 'पसीना दर परिणाम', weighIn: 'वजन नापना', pre: 'पहले का वजन', post: 'बाद का वजन',
+  weighHint: 'दोनों बार एक ही तराजू और कम कपड़े इस्तेमाल करें। पहली बार वजन नापने से पहले शौचालय जाएँ और दूसरी बार नापने से पहले पसीना पोंछ लें।',
+  during: 'सत्र के दौरान', drank: 'पीने वाला द्रव', urine: 'छोड़ा गया मूत्र', urineHint: 'यदि सत्र के दौरान शौचालय गए हों तभी भरें। अधिकतर लोग इसे 0 छोड़ते हैं।', duration: 'सत्र की अवधि', sport: 'गतिविधि', run: 'दौड़ना', bike: 'साइकिलिंग', gym: 'जिम या ताकत', team: 'टीम खेल', other: 'अन्य',
+  cond: 'परिस्थितियाँ', cool: 'ठंडा', mild: 'हल्का गर्म', hot: 'गर्म', humid: 'गर्म और आर्द्र',
+  emptyTitle: 'आपकी पसीना दर यहाँ दिखाई देगी', emptyBody: 'दोनों वजन और सत्र की अवधि भरें। सटीक परिणाम के लिए पीने वाला द्रव भी जोड़ें।',
+  rateLabel: 'आपकी पसीना दर', replaced: 'आपने {a} पीया और पसीने में लगभग {b} खोया।', replacedPct: 'यह आपकी पसीना हानि का {p}% पूरा किया।',
+  stLoss: 'कुल पसीना हानि', stMass: 'शारीरिक वजन में बदलाव', stDrink: 'अगली बार प्रति घंटा पिएँ', stRehyd: 'इस सत्र के बाद पिएँ', drinkRange: '{a} से {b}', drinkThirst: 'प्यास के अनुसार, {b} तक', rehydNone: 'अतिरिक्त पानी की ज़रूरत नहीं',
+  nOk: 'आपने शारीरिक वजन का 1% से भी कम खोया, इसलिए आपका पानी पीना पर्याप्त रहा।', nWarn: 'आपने शारीरिक वजन का {p}% खोया। यह सामान्य है, लेकिन लंबे या गर्म सत्र में थोड़ा अधिक पीने की कोशिश करें।', nBad: 'आपने शारीरिक वजन का {p}% खोया। 2% से अधिक हानि प्रदर्शन घटा सकती है और गर्मी सहन करना कठिन बना सकती है, इसलिए ऐसे सत्रों में अधिक पिएँ।',
+  nGain: 'सत्र के बाद आपका वजन पहले से अधिक था, यानी आपने पसीने से अधिक पिया। लंबे व्यायाम में अधिक पीने से रक्त सोडियम पतला हो सकता है (हाइपोनेट्रेमिया), जो खतरनाक है। अगली बार कम पिएँ और प्यास का अनुसरण करें।',
+  nCheck: 'यह परिणाम जाँचे जा सकने वाली सीमा (5 से 118 fl oz प्रति घंटा) से बाहर है। वजन और इकाइयाँ जाँचें।', nBadInput: 'पसीने की हानि शून्य या उससे कम आई। बाद का वजन, पीने वाला द्रव और मूत्र जाँचें।',
+  save: 'यह सत्र सहेजें', saved: 'सत्र सहेजा गया', histTitle: 'आपके सहेजे गए सत्र', histEmpty: 'गतिविधियों और मौसम के अनुसार पसीना दर की तुलना के लिए सत्र सहेजें। वे इसी डिवाइस पर रहते हैं।',
+  avg: 'औसत पसीना दर: {r}', clear: 'सभी सत्र हटाएँ', confirmClear: 'इस डिवाइस से सहेजे गए सभी सत्र हटाएँ?', colDate: 'तिथि', colAct: 'गतिविधि', colCond: 'परिस्थितियाँ', colTime: 'अवधि', colRate: 'पसीना दर', colLoss: 'वजन बदलाव',
+  howTitle: 'यह कैसे काम करता है', how1: 'पसीने की हानि = पहले का वजन − बाद का वजन + पीने वाला द्रव − छोड़ा गया मूत्र। हर खोए पाउंड द्रव के लगभग 15.3 fl oz के बराबर है। इसे सत्र की अवधि से भाग देने पर प्रति घंटा की दर मिलती है।',
+  how2: 'पसीना दर गर्मी, नमी, तीव्रता और शारीरिक सक्षमता के अनुसार बदलती है, इसलिए अलग परिस्थितियों में परीक्षण दोहराएँ। व्यायाम के बाद खोए गए वजन का 1.25 से 1.5 गुना पानी पूरी तरह बदलने में मदद करता है।',
+  disclaimer: 'स्वस्थ वयस्कों के लिए सामान्य जानकारी, चिकित्सा सलाह नहीं। हृदय या गुर्दे की बीमारी हो, या ऐसी दवाएँ लें जो द्रव पर असर डालें, तो अपने डॉक्टर से पूछें।'
+},
+ar: {
+  title: 'حاسبة معدل التعرق: كم السائل تفقد في الساعة | أدوات الترطيب', metaDesc: 'حاسبة مجانية لمعدل التعرق. قس وزنك قبل التمرين وبعده لمعرفة كمية السائل التي تفقدها في الساعة وكم تشرب في المرة القادمة.',
+  h1: 'حاسبة معدل التعرق', lead: 'قِس وزنك قبل التمرين وبعده لمعرفة كمية السائل التي تفقدها في الساعة وكم تشرب في المرة القادمة.', zero: '0', units: 'الوحدات', minutesShort: 'د', toggleTheme: 'تبديل الوضع الداكن', resultRegion: 'نتيجة معدل التعرق', weighIn: 'قياس الوزن', pre: 'الوزن قبل', post: 'الوزن بعد',
+  weighHint: 'استخدم الميزان نفسه والملابس الخفيفة في المرتين. اذهب إلى الحمام قبل القياس الأول وجفف العرق قبل القياس الثاني.', during: 'أثناء التمرين', drank: 'السائل الذي شربته', urine: 'البول الذي أخرجته', urineHint: 'املأ هذا الحقل فقط إذا ذهبت إلى الحمام أثناء التمرين. يتركه معظم الناس عند 0.', duration: 'مدة التمرين', sport: 'النشاط', run: 'الجري', bike: 'ركوب الدراجات', gym: 'النادي أو تمارين المقاومة', team: 'رياضة جماعية', other: 'أخرى', cond: 'الظروف', cool: 'معتدل البرودة', mild: 'معتدل', hot: 'حار', humid: 'حار ورطب',
+  emptyTitle: 'سيظهر معدل التعرق هنا', emptyBody: 'أدخل الرقمين ومدة التمرين. أضف ما شربته للحصول على نتيجة دقيقة.', rateLabel: 'معدل التعرق', replaced: 'شربت {a} وخسرت نحو {b} من العرق.', replacedPct: 'عوّض ذلك {p}% من فقد العرق.',
+  stLoss: 'إجمالي العرق المفقود', stMass: 'التغير في وزن الجسم', stDrink: 'الشراب في الساعة في المرة القادمة', stRehyd: 'الشراب بعد هذا التمرين', drinkRange: '{a} إلى {b}', drinkThirst: 'حسب العطش، حتى {b}', rehydNone: 'لا حاجة للمزيد',
+  nOk: 'فقدت أقل من 1% من وزن جسمك، لذلك كان شرابك كافياً.', nWarn: 'فقدت {p}% من وزن جسمك. هذا مقبول، لكن في التمارين الأطول أو الأكثر حرارة حاول شرب المزيد قليلاً.', nBad: 'فقدت {p}% من وزن جسمك. قد ساء أداء التمارين عند تجاوز الخسارة 2% وتزيد صعوبة تحمل الحرارة، لذا اشرب أكثر في تمارين مماثلة.', nGain: 'كان وزنك بعد التمرين أكبر مما كان عليه، أي أنك شربت أكثر مما تعرقت. الإفراط في الشرب أثناء التمارين الطويلة قد يخفف صوديوم الدم (نقص الصوديوم في الدم)، وهو خطر. اشرب أقل في المرة واتبع العطش.', nCheck: 'هذه النتيجة خارج النطاق الذي يمكننا التحقق منه (5 إلى 118 fl oz في الساعة). تحقق من الأوزان والوحدات.', nBadInput: 'أصبح فقد العرق صفراً أو أقل. تحقق من وزن ما بعد التمرين والسائل الذي شربته وقيمة البول.',
+  save: 'احفظ هذا التمرين', saved: 'تم حفظ التمرين', histTitle: 'تمارينك المحفوظة', histEmpty: 'احفظ التمارين لمقارنة معدل التعرق بين الأنشطة والطقس. تبقى على هذا الجهاز.', avg: 'متوسط معدل التعرق: {r}', clear: 'حذف كل التمارين', confirmClear: 'هل تريد حذف كل التمارين المحفوظة من هذا الجهاز؟', colDate: 'التاريخ', colAct: 'النشاط', colCond: 'الظروف', colTime: 'المدة', colRate: 'معدل التعرق', colLoss: 'تغير الوزن',
+  howTitle: 'كيف تعمل', how1: 'فقد العرق = وزن البداية − وزن النهاية + ما شربته − البول. كل رطل مفقود يعادل نحو 15.3 fl oz من السائل. القسمة على مدة التمرين تعطي المعدل في الساعة.', how2: 'يتغير معدل التعرق مع الحرارة والرطوبة والشدة واللياقة، لذا كرر الاختبار في ظروف مختلفة. بعد التمرين، يساعد شرب 1.25 إلى 1.5 مرة من الوزن المفقود على استعادة الترطيب الكامل.', disclaimer: 'إرشادات عامة للبالغين الأصحاء وليست نصيحة طبية. إذا كان لديك مرض في القلب أو الكلى أو تتناول أدوية تؤثر على السوائل، فاسر طبيبك عن احتياجاتك.'
+},
+fr: {
+  title: 'Calculateur de taux de transpiration : quantité de fluide perdue par heure | Outils d’hydratation', metaDesc: 'Calculateur gratuit du taux de transpiration. pesez-vous avant et après l’effort pour savoir combien de fluide vous perdez par heure et combien boire la prochaine fois.',
+  h1: 'Calculateur de taux de transpiration', lead: 'Pesez-vous avant et après une séance pour savoir combien de fluide vous perdez chaque heure et combien boire la prochaine fois.', units: 'Unités', zero: '0', minutesShort: 'min', toggleTheme: 'Activer/désactiver le mode sombre', resultRegion: 'Résultat du taux de transpiration', weighIn: 'Pesée', pre: 'Poids avant', post: 'Poids après',
+  weighHint: 'Utilisez la même balance et des vêtements légers les deux fois. Allez aux toilettes avant la première pesée et séchez la transpiration avant la seconde.', during: 'Pendant la séance', drank: 'Fluide consommé', urine: 'Urine éliminée', urineHint: 'À remplir seulement si vous êtes allé aux toilettes pendant la séance. La plupart des personnes le laissent à 0.', duration: 'Durée de la séance', sport: 'Activité', run: 'Course à pied', bike: 'Cyclisme', gym: 'Salle de sport ou musculation', team: 'Sport collectif', other: 'Autre', cond: 'Conditions', cool: 'Frais', mild: 'Doux', hot: 'Chaud', humid: 'Chaud et humide',
+  emptyTitle: 'Votre taux de transpiration apparaîtra ici', emptyBody: 'Saisissez les deux poids et la durée. Ajoutez ce que vous avez bu pour obtenir un résultat précis.', rateLabel: 'Votre taux de transpiration', replaced: 'Vous avez bu {a} et perdu environ {b} de transpiration.', replacedPct: 'Cela a compensé {p}% de votre perte de transpiration.',
+  stLoss: 'Perte totale de transpiration', stMass: 'Variation du poids corporel', stDrink: 'À boire par heure la prochaine fois', stRehyd: 'À boire après cette séance', drinkRange: '{a} à {b}', drinkThirst: 'Selon la soif, jusqu’à {b}', rehydNone: 'Aucun supplément nécessaire',
+  nOk: 'Vous avez perdu moins de 1% de votre masse corporelle : vos apports en liquide ont bien suivi.', nWarn: 'Vous avez perdu {p}% de votre masse corporelle. C’est gérable, mais lors des séances plus longues ou plus chaudes, essayez de boire un peu plus.', nBad: 'Vous avez perdu {p}% de votre masse corporelle. Une perte supérieure à 2% peut réduire les performances et rendre la chaleur plus difficile à supporter ; buvez davantage lors de séances similaires.', nGain: 'Vous pesiez plus après qu’avant, ce qui signifie que vous avez bu plus que vous n’avez transpiré. Trop boire pendant un effort long peut diluer le sodium sanguin (hyponatrémie), ce qui est dangereux. Buvez moins la prochaine fois et suivez votre soif.', nCheck: 'Ce résultat est hors de la plage vérifiable (5 à 118 fl oz par heure). Vérifiez les poids et les unités.', nBadInput: 'La perte de transpiration est nulle ou négative. Vérifiez le poids après, le fluide consommé et l’urine.',
+  save: 'Enregistrer cette séance', saved: 'Séance enregistrée', histTitle: 'Vos séances enregistrées', histEmpty: 'Enregistrez des séances pour comparer votre taux selon les activités et la météo. Elles restent sur cet appareil.', avg: 'Taux de transpiration moyen : {r}', clear: 'Supprimer toutes les séances', confirmClear: 'Supprimer toutes les séances enregistrées sur cet appareil ?', colDate: 'Date', colAct: 'Activité', colCond: 'Conditions', colTime: 'Durée', colRate: 'Taux', colLoss: 'Variation de poids',
+  howTitle: 'Fonctionnement', how1: 'La perte de transpiration correspond au poids avant, moins le poids après, plus le liquide consommé, moins l’urine. Chaque livre perdue représente environ 15,3 fl oz de fluide. En divisant par la durée de la séance, on obtient le taux horaire.', how2: 'Le taux de transpiration varie avec la chaleur, l’humidité, l’intensité et la condition physique. Refaites donc le test dans différentes conditions. Après l’effort, boire 1,25 à 1,5 fois le poids perdu aide à se réhydrater complètement.', disclaimer: 'Conseils généraux pour adultes en bonne santé, pas un avis médical. En cas de maladie cardiaque ou rénale, ou si vous prenez des médicaments agissant sur les liquides, demandez conseil à votre médecin.'
+},
+de: {
+  title: 'Schwitzratenrechner: Flüssigkeitsverlust pro Stunde | Hydrationswerkzeuge', metaDesc: 'Kostenloser Schweißratenrechner. Wiegen Sie sich vor und nach dem Training, um den Flüssigkeitsverlust pro Stunde und die Trinkmenge beim nächsten Mal zu ermitteln.',
+  h1: 'Schwitzratenrechner', lead: 'Wiegen Sie sich vor und nach einem Training, um zu ermitteln, wie viel Flüssigkeit Sie pro Stunde verlieren und wie viel Sie beim nächsten Mal trinken sollten.', units: 'Einheiten', zero: '0', minutesShort: 'Min.', toggleTheme: 'Dunkelmodus umschalten', resultRegion: 'Ergebnis der Schweißrate', weighIn: 'Wiegen', pre: 'Gewicht vorher', post: 'Gewicht nachher',
+  weighHint: 'Verwenden Sie beide Mal dieselbe Waage und leichte Kleidung. Gehen Sie vor dem ersten Wiegen zur Toilette und tupfen Sie vor dem zweiten Wiegen den Schweiß ab.', during: 'Während der Einheit', drank: 'Getrunkene Flüssigkeit', urine: 'Ausgeschiedener Urin', urineHint: 'Nur ausfüllen, wenn Sie während der Einheit zur Toilette gegangen sind. Die meisten lassen diesen Wert bei 0.', duration: 'Dauer der Einheit', sport: 'Aktivität', run: 'Laufen', bike: 'Radsport', gym: 'Fitnessstudio oder Krafttraining', team: 'Mannschaftssport', other: 'Sonstiges', cond: 'Bedingungen', cool: 'Kühl', mild: 'Mild', hot: 'Heiß', humid: 'Heiß und feucht',
+  emptyTitle: 'Ihre Schweißrate erscheint hier', emptyBody: 'Geben Sie beide Gewichte und die Dauer ein. Ergänzen Sie die getrunkene Flüssigkeit für ein genaueres Ergebnis.', rateLabel: 'Ihre Schweißrate', replaced: 'Sie haben {a} getrunken und etwa {b} durch Schweiß verloren.', replacedPct: 'Damit wurde {p}% Ihres Schweißverlusts ausgeglichen.',
+  stLoss: 'Gesamter Schweißverlust', stMass: 'Änderung des Körpergewichts', stDrink: 'Nächstes Mal pro Stunde trinken', stRehyd: 'Nach dieser Einheit trinken', drinkRange: '{a} bis {b}', drinkThirst: 'Nach Durst, bis zu {b}', rehydNone: 'Keine zusätzliche Flüssigkeit nötig',
+  nOk: 'Sie haben weniger als 1% Ihrer Körpermasse verloren, Ihre Flüssigkeitszufuhr hat also gut ausgereicht.', nWarn: 'Sie haben {p}% Ihrer Körpermasse verloren. Das ist vertretbar, aber trinken Sie bei längeren oder heißeren Einheiten etwas mehr.', nBad: 'Sie haben {p}% Ihrer Körpermasse verloren. Verluste über 2% können die Leistung beeinträchtigen und Hitze schwerer ertragen lassen; trinken Sie bei ähnlichen Einheiten mehr.', nGain: 'Sie wogen nachher mehr als vorher, das heißt, Sie haben mehr getrunken als geschwitzt. Übermäßiges Trinken bei langem Training kann den Natriumgehalt im Blut verdünnen (Hyponatriämie), was gefährlich ist. Trinken Sie beim nächsten Mal weniger und folgen Sie Ihrem Durst.', nCheck: 'Dieses Ergebnis liegt außerhalb des überprüfbaren Bereichs (5 bis 118 fl oz pro Stunde). Prüfen Sie Gewichte und Einheiten.', nBadInput: 'Der Schweißverlust ist null oder negativ. Prüfen Sie das Gewicht nachher, die getrunkene Flüssigkeit und den Urinwert.',
+  save: 'Diese Einheit speichern', saved: 'Einheit gespeichert', histTitle: 'Ihre gespeicherten Einheiten', histEmpty: 'Speichern Sie Einheiten, um Ihre Schweißrate bei verschiedenen Aktivitäten und Wetter zu vergleichen. Sie bleiben auf diesem Gerät.', avg: 'Durchschnittliche Schweißrate: {r}', clear: 'Alle Einheiten löschen', confirmClear: 'Alle auf diesem Gerät gespeicherten Einheiten löschen?', colDate: 'Datum', colAct: 'Aktivität', colCond: 'Bedingungen', colTime: 'Dauer', colRate: 'Schweißrate', colLoss: 'Gewichtsänderung',
+  howTitle: 'So funktioniert es', how1: 'Schweißverlust = Gewicht vorher − Gewicht nachher + getrunkene Flüssigkeit − Urin. Jedes verlorene Pfund entspricht etwa 15,3 fl oz Flüssigkeit. Division durch die Einheitsdauer ergibt die stündliche Rate.', how2: 'Die Schweißrate hängt von Hitze, Feuchtigkeit, Intensität und Fitness ab. Wiederholen Sie den Test daher unter verschiedenen Bedingungen. Nach dem Training helfen 1,25 bis 1,5-mal die verlorene Masse, um vollständig zu rehydrieren.', disclaimer: 'Allgemeine Hinweise für gesunde Erwachsene, keine medizinische Beratung. Bei Herz- oder Nierenerkrankungen oder Medikamenten, die Flüssigkeiten beeinflussen, fragen Sie Ihren Arzt nach Ihrem Flüssigkeitsbedarf.'
+},
+
+'pt-PT': {
+  title: 'Calculadora da taxa de sudação: quanto líquido perde por hora | Ferramentas de hidratação', metaDesc: 'Calculadora gratuita da taxa de sudação. Pese-se antes e depois do exercício para saber quanto líquido perde por hora e quanto deve beber da próxima vez.',
+  h1: 'Calculadora da taxa de sudação', lead: 'Pese-se antes e depois do treino para saber quanto líquido perde a cada hora e quanto deve beber da próxima vez.', units: 'Unidades', zero: '0', minutesShort: 'min', toggleTheme: 'Alternar modo escuro', resultRegion: 'Resultado da taxa de sudação', weighIn: 'Pesagem', pre: 'Peso antes', post: 'Peso depois',
+  weighHint: 'Use a mesma balança e roupa leve nas duas vezes. Vá à casa de banho antes da primeira pesagem e seque o suor antes da segunda.', during: 'Durante a sessão', drank: 'Líquido que bebeu', urine: 'Urina expelida', urineHint: 'Preencha apenas se foi à casa de banho durante a sessão. A maioria deixa este valor a 0.', duration: 'Duração da sessão', sport: 'Atividade', run: 'Corrida', bike: 'Ciclismo', gym: 'Ginásio ou musculação', team: 'Desporto de equipa', other: 'Outra', cond: 'Condições', cool: 'Fresco', mild: 'Moderado', hot: 'Quente', humid: 'Quente e húmido',
+  emptyTitle: 'A sua taxa de sudação aparecerá aqui', emptyBody: 'Introduza os dois pesos e a duração da sessão. Adicione o que bebeu para obter um resultado preciso.', rateLabel: 'A sua taxa de sudação', replaced: 'Bebeu {a} e perdeu cerca de {b} em suor.', replacedPct: 'Isso repôs {p}% da perda de suor.',
+  stLoss: 'Perda total de suor', stMass: 'Alteração do peso corporal', stDrink: 'Beber por hora da próxima vez', stRehyd: 'Beber após esta sessão', drinkRange: '{a} a {b}', drinkThirst: ' conforme a sede, até {b}', rehydNone: 'Não precisa de beber mais',
+  nOk: 'Perdeu menos de 1% da sua massa corporal, pelo que a sua hidratação acompanhou bem.', nWarn: 'Perdeu {p}% da sua massa corporal. É gerível, mas em sessões mais longas ou quentes tente beber um pouco mais.', nBad: 'Perdeu {p}% da sua massa corporal. Perdas superiores a 2% podem reduzir o desempenho e dificultar a tolerância ao calor; beba mais em sessões semelhantes.', nGain: 'Pesava mais depois do que antes, o que significa que bebeu mais do que suou. Beber demasiado durante exercícios longos pode diluir o sódio no sangue (hiponatremia), o que é perigoso. Beba menos da próxima vez e siga a sede.', nCheck: 'Este resultado está fora do intervalo verificável (5 a 118 fl oz por hora). Verifique os pesos e as unidades.', nBadInput: 'A perda de suor deu zero ou menos. Verifique o peso depois, o líquido bebido e o valor da urina.',
+  save: 'Guardar esta sessão', saved: 'Sessão guardada', histTitle: 'As suas sessões guardadas', histEmpty: 'Guarde sessões para comparar a taxa de sudação entre atividades e estados do tempo. Permanecem neste dispositivo.', avg: 'Taxa de sudação média: {r}', clear: 'Apagar todas as sessões', confirmClear: 'Apagar todas as sessões guardadas neste dispositivo?', colDate: 'Data', colAct: 'Atividade', colCond: 'Condições', colTime: 'Duração', colRate: 'Taxa', colLoss: 'Variação de peso',
+  howTitle: 'Como funciona', how1: 'A perda de suor corresponde ao peso inicial menos o peso final, mais o líquido bebido, menos a urina. Cada libra perdida corresponde a cerca de 15,3 fl oz de líquido. Dividir pela duração da sessão dá a taxa por hora.', how2: 'A taxa de sudação muda com o calor, a humidade, a intensidade e a condição física, por isso repita o teste em diferentes condições. Após o exercício, beber 1,25 a 1,5 vezes o peso perdido ajuda a reidratar totalmente.', disclaimer: 'Orientação geral para adultos saudáveis, não é aconselhamento médico. Se tiver uma doença cardíaca ou renal, ou tomar medicamentos que afetam os líquidos, consulte o seu médico.'
+},
+
+'pt-BR': {
+  title: 'Calculadora de taxa de sudorese: quanto líquido você perde por hora | Ferramentas de hidratação', metaDesc: 'Calculadora gratuita de taxa de sudorese. pese-se antes e depois do exercício para saber quanto líquido você perde por hora e quanto beber da próxima vez.',
+  h1: 'Calculadora de taxa de sudorese', lead: ' pese-se antes e depois do treino para saber quanto líquido você perde a cada hora e quanto beber da próxima vez.', units: 'Unidades', zero: '0', minutesShort: 'min', toggleTheme: 'Alternar modo escuro', resultRegion: 'Resultado da taxa de sudorese', weighIn: 'Pesagem', pre: 'Peso antes', post: 'Peso depois',
+  weighHint: 'Use a mesma balança e roupas leves nas duas vezes. Vá ao banheiro antes da primeira pesagem e seque o suor antes da segunda.', during: 'Durante o treino', drank: 'Líquido que você bebeu', urine: 'Urina eliminada', urineHint: 'Preencha somente se você foi ao banheiro durante o treino. A maioria deixa este valor em 0.', duration: 'Duração do treino', sport: 'Atividade', run: 'Corrida', bike: 'Ciclismo', gym: 'Academia ou musculação', team: 'Esporte de equipe', other: 'Outra', cond: 'Condições', cool: 'Frio', mild: 'Moderado', hot: 'Quente', humid: 'Quente e úmido',
+  emptyTitle: 'Sua taxa de sudorese aparecerá aqui', emptyBody: 'Informe os dois pesos e a duração do treino. Adicione o que você bebeu para obter um resultado preciso.', rateLabel: 'Sua taxa de sudorese', replaced: 'Você bebeu {a} e perdeu cerca de {b} em suor.', replacedPct: 'Isso repôs {p}% da perda de suor.',
+  stLoss: 'Perda total de suor', stMass: 'Variação do peso corporal', stDrink: 'Beber por hora na próxima vez', stRehyd: 'Beber após este treino', drinkRange: '{a} a {b}', drinkThirst: ' conforme a sede, até {b}', rehydNone: 'Não é preciso beber mais',
+  nOk: 'Você perdeu menos de 1% da sua massa corporal, então sua hidratação acompanhou bem.', nWarn: 'Você perdeu {p}% da sua massa corporal. Isso é administrável, mas em treinos mais longos ou quentes tente beber um pouco mais.', nBad: 'Você perdeu {p}% da sua massa corporal. Perdas acima de 2% podem reduzir o desempenho e dificultar a tolerância ao calor; beba mais em treinos semelhantes.', nGain: 'Você pesou mais depois do que antes, o que significa que bebeu mais do que suou. Beber demais durante exercícios longos pode diluir o sódio no sangue (hiponatremia), o que é perigoso. Beba menos na próxima vez e siga a sede.', nCheck: 'Este resultado está fora da faixa que podemos verificar (5 a 118 fl oz por hora). Confira os pesos e as unidades.', nBadInput: 'A perda de suor deu zero ou menos. Verifique o peso depois, o líquido bebido e o valor da urina.',
+  save: 'Salvar este treino', saved: 'Treino salvo', histTitle: 'Seus treinos salvos', histEmpty: 'Salve treinos para comparar sua taxa de sudorese entre atividades e climas. Eles ficam neste dispositivo.', avg: 'Taxa de sudorese média: {r}', clear: 'Excluir todos os treinos', confirmClear: 'Excluir todos os treinos salvos neste dispositivo?', colDate: 'Data', colAct: 'Atividade', colCond: 'Condições', colTime: 'Duração', colRate: 'Taxa', colLoss: 'Variação de peso',
+  howTitle: 'Como funciona', how1: 'A perda de suor é igual ao peso antes, menos o peso depois, mais o que você bebeu, menos a urina. Cada libra perdida equivale a cerca de 15,3 fl oz de líquido. Dividir pela duração do treino fornece a taxa por hora.', how2: 'A taxa de sudorese muda com calor, umidade, intensidade e condicionamento físico, então repita o teste em condições diferentes. Após o exercício, beber de 1,25 a 1,5 vezes o peso perdido ajuda a reidratar totalmente.', disclaimer: 'Orientação geral para adultos saudáveis, não é aconselhamento médico. Se você tiver doença cardíaca ou renal, ou tomar medicamentos que afetam os líquidos, consulte seu médico.'
+}
+};
+
+
 
 const L_TO_OZ = 33.8140, OZ_PER_LB = 15.3378, KEY = 'ht-sweat-sessions';
 const $ = id => document.getElementById(id);
@@ -492,7 +590,7 @@ function renderHist() {
   const rows = s.map(x => `<tr>
       <td>${esc(new Date(x.d).toLocaleDateString(Common.locale(), { month: 'short', day: 'numeric' }))}</td>
       <td>${esc(t(x.sport))}</td><td>${esc(t(x.cond))}</td>
-      <td class="n">${num(+x.mins || 0, 0)} min</td><td class="n">${rateTxt(+x.rate || 0)}</td>
+      <td class="n">${num(+x.mins || 0, 0)} ${t('minutesShort')}</td><td class="n">${rateTxt(+x.rate || 0)}</td>
       <td class="n">${num(-(+x.loss || 0), 1)}%</td></tr>`).join('');
   el.innerHTML = `<p class="strong">${t('avg', { r: rateTxt(avg) })}</p>
     <div class="scroll"><table class="tbl"><thead><tr>
@@ -511,5 +609,5 @@ Common.seg($('units'), units, switchUnits);
 Common.init(D, () => { setUnitLabels(); render(); renderHist(); });
 })();
 </script>
-<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});paint();})();</script></body>
+<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";b.setAttribute("aria-label",Common.t('toggleTheme'));}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});paint();})();</script></body>
 </html>
