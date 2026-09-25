@@ -28,10 +28,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--font
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .wrap{max-width:1100px;margin:0 auto;padding-left:20px;padding-right:20px}
 a{color:var(--current)}
-header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap}
 .brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;display:flex;gap:8px;align-items:center}
 .brand svg{color:var(--current)}
-.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface);flex-wrap:wrap}
 .lang button{border:0;background:none;color:var(--ink-2);font:600 13px var(--font-body);padding:6px 12px;border-radius:999px;cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .hero{padding:24px 0 28px;max-width:700px}
@@ -61,6 +61,9 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
 .with-unit{position:relative}
 .with-unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--ink-2);font-size:.9rem;pointer-events:none}
 .with-unit input{padding-right:52px}
+html[dir="rtl"] .with-unit span{right:auto;left:12px}
+html[dir="rtl"] .with-unit input{padding-right:12px;padding-left:52px}
+
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;flex-wrap:wrap}
 .seg button{border:0;background:var(--surface);color:var(--ink-2);font:600 14px var(--font-body);padding:10px 14px;cursor:pointer;min-height:42px}
 .seg button + button{border-left:1px solid var(--line)}
@@ -132,7 +135,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{ou
 }
 html[data-theme="light"]{--ink:#0E2A3B;--ink-2:#46616F;--paper:#F5F9FA;--surface:#FFFFFF;--mist:#E4EFF2;--line:#C9D9DF;--current:#0A7389;--current-ink:#FFFFFF;--ok-soft:#DDEFE4;--warn-soft:#FBEBD2;--bad-soft:#F8DEDA}
 html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:#11242E;--mist:#18313D;--line:#2B4756;--current:#52C1D6;--current-ink:#05212A;--ok-soft:#14352A;--warn-soft:#3B2C14;--bad-soft:#3E1B17}
-.hdr-right{display:flex;gap:10px;align-items:center}
+.hdr-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 .theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;width:38px;height:38px;font-size:16px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}</style>
 </head>
 <body>
@@ -141,8 +144,8 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
     <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c3.5 4.6 7 8.6 7 12.3A7 7 0 0 1 5 14.8c0-3.7 3.5-7.7 7-12.3z" fill="currentColor"/></svg>
     <span data-i18n="brand">Hydration Tools</span>
   </a>
-  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
-    <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button>
+  <div class="hdr-right"><button type="button" class="theme-btn" id="themeBtn" data-i18n-aria="themeLight" data-i18n-title="themeLight" title="Switch to light mode" aria-label="Switch to light mode">&#9790;</button><div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+    <button type="button" data-lang="en">EN</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="hi">HI</button><button type="button" data-lang="ar">AR</button><button type="button" data-lang="fr">FR</button><button type="button" data-lang="de">DE</button><button type="button" data-lang="pt-PT">PT-PT</button><button type="button" data-lang="pt-BR">PT-BR</button>
   </div>
 </div></header>
 <main class="wrap">
@@ -155,8 +158,8 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
     <form class="panel" id="form" novalidate onsubmit="return false">
       <div class="field">
         <span class="label" data-i18n="units">Units</span>
-        <div class="seg" id="units" role="group">
-          <button type="button" data-v="imperial">oz / in</button>
+        <div class="seg" id="units" role="group" data-i18n-aria="unitsAria" aria-label="Volume units">
+          <button type="button" data-v="imperial" data-i18n="imperialUnits">oz / in</button>
         </div>
       </div>
 
@@ -165,21 +168,21 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
         <div class="row">
           <div class="field">
             <label for="size" data-i18n="size">Bottle size</label>
-            <div class="with-unit"><input id="size" type="number" inputmode="decimal" min="1" step="0.5" value="25"><span class="u-v">oz</span></div>
+            <div class="with-unit"><input id="size" type="number" inputmode="decimal" min="1" step="0.5" value="25" data-i18n-ph="phSize" placeholder="25"><span class="u-v">oz</span></div>
           </div>
           <div class="field">
             <label for="goal" data-i18n="goal">Daily water goal</label>
-            <div class="with-unit"><input id="goal" type="number" inputmode="decimal" min="1" step="1" value="85"><span class="u-v">oz</span></div>
+            <div class="with-unit"><input id="goal" type="number" inputmode="decimal" min="1" step="1" value="85" data-i18n-ph="phGoal" placeholder="85" aria-describedby="goalHintText"><span class="u-v">oz</span></div>
           </div>
         </div>
-        <p class="hint"><span data-i18n="goalHint">Not sure of your goal?</span> <a href="../water-intake-calculator/" data-i18n="goalLink">Work it out with the daily water intake calculator.</a></p>
+        <p class="hint" id="goalHintText"><span data-i18n="goalHint">Not sure of your goal?</span> <a href="../water-intake-calculator/" data-i18n="goalLink">Work it out with the daily water intake calculator.</a></p>
       </fieldset>
 
       <fieldset>
         <legend data-i18n="day">Your day</legend>
         <div class="row">
-          <div class="field"><label for="start" data-i18n="start">First drink</label><input id="start" type="time" value="07:00"></div>
-          <div class="field"><label for="end" data-i18n="end">Last drink</label><input id="end" type="time" value="21:00"></div>
+          <div class="field"><label for="start" data-i18n="start">First drink</label><input id="start" type="time" value="07:00" data-i18n-ph="phStart" placeholder="07:00"></div>
+          <div class="field"><label for="end" data-i18n="end">Last drink</label><input id="end" type="time" value="21:00" data-i18n-ph="phEnd" placeholder="21:00"></div>
         </div>
         <div class="row" style="margin-top:16px">
           <div class="field">
@@ -192,7 +195,7 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
           </div>
           <div class="field">
             <span class="label" data-i18n="fmt">Time format</span>
-            <div class="seg" id="fmt" role="group"><button type="button" data-v="12">12 h</button><button type="button" data-v="24">24 h</button></div>
+            <div class="seg" id="fmt" role="group" data-i18n-aria="fmtAria" aria-label="Time format"><button type="button" data-v="12" data-i18n="h12">12 h</button><button type="button" data-v="24" data-i18n="h24">24 h</button></div>
           </div>
         </div>
       </fieldset>
@@ -201,21 +204,21 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
         <legend data-i18n="labelT">Label</legend>
         <div class="field">
           <label for="len" data-i18n="length">Label length</label>
-          <div class="with-unit" style="max-width:220px"><input id="len" type="number" inputmode="decimal" min="1" step="0.25" value="7.1"><span class="u-l">in</span></div>
-          <p class="hint" data-i18n="lengthHint"></p>
+          <div class="with-unit" style="max-width:220px"><input id="len" type="number" inputmode="decimal" min="1" step="0.25" value="7.1" data-i18n-ph="phLen" placeholder="7.1" aria-describedby="lengthHint"><span class="u-l">in</span></div>
+          <p class="hint" id="lengthHint" data-i18n="lengthHint"></p>
         </div>
         <div class="field">
           <span class="label" data-i18n="width">Label width</span>
-          <div class="seg" id="width" role="group"><button type="button" data-v="25" data-i18n="wNarrow">Narrow</button><button type="button" data-v="35" data-i18n="wWide">Wide</button></div>
+          <div class="seg" id="width" role="group" data-i18n-aria="widthAria" aria-label="Label width"><button type="button" data-v="25" data-i18n="wNarrow">Narrow</button><button type="button" data-v="35" data-i18n="wWide">Wide</button></div>
         </div>
         <div class="field">
           <span class="label" data-i18n="color">Color</span>
-          <div class="swatches" id="colors" role="group"></div>
+          <div class="swatches" id="colors" role="group" data-i18n-aria="colorAria" aria-label="Label color"></div>
         </div>
       </fieldset>
     </form>
 
-    <section class="panel result" id="result">
+    <section class="panel result" id="result" data-i18n-aria="resultAria" aria-label="Generated bottle labels">
       <p class="summary" id="summary" aria-live="polite"></p>
       <div id="notes"></div>
       <div class="printTip print-only"></div>
@@ -248,14 +251,29 @@ html[data-theme="dark"]{--ink:#E2EEF2;--ink-2:#A5BEC8;--paper:#0B1A22;--surface:
 <script>
 const Common = (() => {
   const BASE = {
-    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator',
-      toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language',
-      privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.', dec: 'Decrease', inc: 'Increase' },
-    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias',
-      toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma',
-      privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.', dec: 'Restar', inc: 'Sumar' }
+    en: { brand: 'Hydration Tools', toolSweat: 'Sweat rate calculator', toolEmergency: 'Emergency water storage calculator', toolLabels: 'Bottle time-marker labels', toolAll: 'All hydration tools', moreNav: 'More hydration tools', langLabel: 'Language', privacy: 'Everything runs in your browser. Nothing you enter is sent anywhere.' },
+    es: { brand: 'Herramientas de hidratación', toolSweat: 'Calculadora de tasa de sudoración', toolEmergency: 'Calculadora de agua para emergencias', toolLabels: 'Etiquetas horarias para botella', toolAll: 'Todas las herramientas de hidratación', moreNav: 'Más herramientas de hidratación', langLabel: 'Idioma', privacy: 'Todo funciona en tu navegador. Nada de lo que escribes se envía a ningún lado.' },
+    hi: { brand: 'हाइड्रेशन टूल्स', toolSweat: 'पसीना दर कैलकुलेटर', toolEmergency: 'आपातकालीन जल भंडारण कैलकुलेटर', toolLabels: 'बोतल समय-मार्कर लेबल', toolAll: 'सभी हाइड्रेशन टूल्स', moreNav: 'अधिक हाइड्रेशन टूल्स', langLabel: 'भाषा', privacy: 'सब कुछ आपके ब्राउज़र में चलता है। आपकी कोई जानकारी कहीं नहीं भेजी जाती।' },
+    ar: { brand: 'أدوات الترطيب', toolSweat: 'حاسبة معدل العرق', toolEmergency: 'حاسبة تخزين الماء في الطوارئ', toolLabels: 'ملصقات وقت الزجاجة', toolAll: 'كل أدوات الترطيب', moreNav: 'المزيد من أدوات الترطيب', langLabel: 'اللغة', privacy: 'كل شيء يعمل في متصفحك. لا يُرسل ما تكتبه إلى أي مكان.' },
+    fr: { brand: 'Outils d’hydratation', toolSweat: 'Calculateur de transpiration', toolEmergency: 'Calculateur de réserve d’eau d’urgence', toolLabels: 'Étiquettes horaires pour bouteille', toolAll: 'Tous les outils d’hydratation', moreNav: 'Plus d’outils d’hydratation', langLabel: 'Langue', privacy: 'Tout fonctionne dans votre navigateur. Aucune donnée saisie n’est envoyée.' },
+    de: { brand: 'Trinktools', toolSweat: 'Schwitzratenrechner', toolEmergency: 'Rechner für Notfall-Wasservorrat', toolLabels: 'Zeitmarken für Wasserflaschen', toolAll: 'Alle Trinktools', moreNav: 'Weitere Trinktools', langLabel: 'Sprache', privacy: 'Alles läuft in Ihrem Browser. Ihre Eingaben werden nirgendwohin gesendet.' },
+    'pt-PT': { brand: 'Ferramentas de hidratação', toolSweat: 'Calculadora da taxa de sudoração', toolEmergency: 'Calculadora de água para emergências', toolLabels: 'Etiquetas horárias para garrafa', toolAll: 'Todas as ferramentas de hidratação', moreNav: 'Mais ferramentas de hidratação', langLabel: 'Idioma', privacy: 'Tudo funciona no seu navegador. Nada do que escreve é enviado.' },
+    'pt-BR': { brand: 'Ferramentas de hidratação', toolSweat: 'Calculadora de taxa de sudoração', toolEmergency: 'Calculadora de água para emergências', toolLabels: 'Etiquetas de horário para garrafa', toolAll: 'Todas as ferramentas de hidratação', moreNav: 'Mais ferramentas de hidratação', langLabel: 'Idioma', privacy: 'Tudo funciona no seu navegador. Nada do que você digita é enviado.' }
   };
+  const CODES = ['en', 'es', 'hi', 'ar', 'fr', 'de', 'pt-PT', 'pt-BR'];
+  const LOCALES = { en: 'en-US', es: 'es-ES', hi: 'hi-IN', ar: 'ar', fr: 'fr-FR', de: 'de-DE', 'pt-PT': 'pt-PT', 'pt-BR': 'pt-BR' };
   let dict = BASE, lang = 'en', onChange = () => {};
+  function normalize(v) {
+    const s = String(v || '').trim().toLowerCase().replace('_', '-');
+    if (s === 'pt' || s === 'pt-pt') return 'pt-PT';
+    if (s === 'pt-br') return 'pt-BR';
+    return CODES.find(c => c.toLowerCase() === s) || '';
+  }
+  function browserLang() {
+    const nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    for (const v of nav) { const n = normalize(v); if (n) return n; }
+    return 'en';
+  }
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -268,24 +286,28 @@ const Common = (() => {
   }
   function apply() {
     document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
-    document.querySelectorAll('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    document.querySelectorAll('[data-i18n-ph],[data-i18n-placeholder]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh || el.dataset.i18nPlaceholder)));
+    document.querySelectorAll('[data-i18n-title]').forEach(el => el.setAttribute('title', t(el.dataset.i18nTitle)));
     document.title = t('title');
     const md = document.querySelector('meta[name="description"]');
     if (md) md.setAttribute('content', t('metaDesc'));
     document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+    document.dispatchEvent(new CustomEvent('i18nchange', { detail: { lang } }));
     onChange();
   }
   function init(pageDict, cb) {
-    dict = { en: Object.assign({}, BASE.en, pageDict.en), es: Object.assign({}, BASE.es, pageDict.es) };
+    dict = {};
+    CODES.forEach(c => { dict[c] = Object.assign({}, BASE[c], pageDict[c] || {}); });
     onChange = cb || onChange;
-    const q = new URLSearchParams(location.search).get('lang');
-    const saved = store.get('ht-lang');
-    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    lang = (q === 'es' || q === 'en') ? q : (saved === 'es' || saved === 'en' ? saved : (nav === 'es' ? 'es' : 'en'));
+    const q = normalize(new URLSearchParams(location.search).get('lang'));
+    const saved = normalize(store.get('ht-lang'));
+    lang = q || saved || browserLang();
+    if (q) store.set('ht-lang', q);
     document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
-      lang = b.dataset.lang; store.set('ht-lang', lang); apply();
+      lang = normalize(b.dataset.lang) || lang; store.set('ht-lang', lang); apply();
     }));
     document.addEventListener('click', e => {
       const b = e.target.closest('[data-step]');
@@ -298,7 +320,7 @@ const Common = (() => {
     });
     apply();
   }
-  const locale = () => (lang === 'es' ? 'es-DO' : 'en-US');
+  const locale = () => LOCALES[lang] || 'en-US';
   function num(n, d = 0) {
     return new Intl.NumberFormat(locale(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
   }
@@ -327,61 +349,83 @@ const Common = (() => {
 (() => {
 const D = {
 en: {
-  title: 'Water Bottle Time-Marker Label Generator (Printable) | Hydration Tools',
-  metaDesc: 'Make printable time-marker labels for your own water bottle. Enter your bottle size, daily goal and hours to get a strip showing how far down to drink by each hour.',
-  h1: 'Bottle time-marker labels',
-  lead: 'Print a strip for your own bottle that shows how far down you should be by each hour of the day.',
-  units: 'Units', bottle: 'Your bottle', size: 'Bottle size', goal: 'Daily water goal',
-  goalHint: 'Not sure of your goal?', goalLink: 'Work it out with the daily water intake calculator.',
-  day: 'Your day', start: 'First drink', end: 'Last drink', every: 'Mark every',
-  m30: '30 minutes', m60: '1 hour', m120: '2 hours', fmt: 'Time format',
-  labelT: 'Label', length: 'Label length',
-  lengthHint: 'Measure the straight side of your bottle, from the fill line down to where the bottom starts to curve.',
-  width: 'Label width', wNarrow: 'Narrow (2.5 cm)', wWide: 'Wide (3.5 cm)', color: 'Color',
-  cTeal: 'Teal', cBlue: 'Blue', cGreen: 'Green', cPink: 'Pink', cOrange: 'Orange',
-  sumN: '{n} bottles reach your goal', sum1: 'One bottle reaches your goal',
-  partial: 'You only need part of the last bottle. Stop at the goal line.',
-  errSize: 'Enter your bottle size and daily goal.',
-  errTime: 'Your last drink has to be later than your first drink.',
-  errMany: 'That needs more than 12 bottles. Try a bigger bottle or check your goal.',
-  errLen: 'Make the label at least 5 cm (2 in) long.',
-  startW: 'Start', refillW: 'Refill', goalW: 'Goal', labelOf: 'Bottle {i} of {n}',
-  calib: 'This bar measures 5 cm when printed at the right size.',
-  print: 'Print labels', svg: 'Download SVG',
-  printTip: 'Print at 100% or "Actual size", not "Fit to page". Check the 5 cm bar with a ruler before cutting.',
-  howTitle: 'How to use your labels',
-  how1: 'Print the labels, cut along the dashed lines and stick one on your bottle so the top line sits at the fill line. Cover it with clear tape, or print on waterproof sticker paper, so it survives washing.',
-  how2: 'Each time you refill, move to the next label or keep the same strip and follow the times for the next bottle. If you fall behind, just drink down to the next mark rather than catching up all at once.',
+  title: 'Water Bottle Time-Marker Label Generator (Printable) | Hydration Tools', metaDesc: 'Make printable time-marker labels for your own water bottle. Enter bottle size, daily goal and hours to see how far down to drink by each hour.',
+  h1: 'Bottle time-marker labels', lead: 'Print a strip for your own bottle showing how far down you should be by each hour of the day.',
+  units: 'Units', imperialUnits: 'oz / in', unitsAria: 'Volume units', bottle: 'Your bottle', size: 'Bottle size', goal: 'Daily water goal', phSize: 'Bottle size in ounces', phGoal: 'Daily goal in ounces',
+  goalHint: 'Not sure of your goal?', goalLink: 'Work it out with the daily water intake calculator.', day: 'Your day', start: 'First drink', end: 'Last drink', phStart: 'Start time, for example 07:00', phEnd: 'End time, for example 21:00', every: 'Mark every',
+  m30: '30 minutes', m60: '1 hour', m120: '2 hours', fmt: 'Time format', fmtAria: 'Time format', h12: '12 h', h24: '24 h', labelT: 'Label', length: 'Label length', phLen: 'Length in inches', lengthHint: 'Measure the straight side of your bottle, from the fill line down to where the bottom starts to curve.',
+  width: 'Label width', widthAria: 'Label width', wNarrow: 'Narrow (2.5 cm)', wWide: 'Wide (3.5 cm)', color: 'Color', colorAria: 'Label color', resultAria: 'Generated bottle labels',
+  cTeal: 'Teal', cBlue: 'Blue', cGreen: 'Green', cPink: 'Pink', cOrange: 'Orange', sumN: '{n} bottles reach your goal', sum1: 'One bottle reaches your goal', partial: 'You only need part of the last bottle. Stop at the goal line.',
+  errSize: 'Enter your bottle size and daily goal.', errTime: 'Your last drink has to be later than your first drink.', errMany: 'That needs more than 12 bottles. Try a bigger bottle or check your goal.', errLen: 'Make the label at least 5 cm (2 in) long.',
+  startW: 'Start', refillW: 'Refill', goalW: 'Goal', labelOf: 'Bottle {i} of {n}', calib: 'This bar measures 5 cm when printed at the right size.', print: 'Print labels', svg: 'Download SVG',
+  printTip: 'Print at 100% or "Actual size", not "Fit to page". Check the 5 cm bar with a ruler before cutting.', themeLight: 'Switch to light mode', themeDark: 'Switch to dark mode',
+  howTitle: 'How to use your labels', how1: 'Print the labels, cut along the dashed lines and stick one on your bottle so the top line sits at the fill line. Cover it with clear tape, or print on waterproof sticker paper, so it survives washing.', how2: 'Each time you refill, move to the next label or keep the same strip and follow the times for the next bottle. If you fall behind, drink down to the next mark rather than catching up all at once.',
   disclaimer: 'General guidance for healthy adults, not medical advice. Some health conditions require limiting fluids; follow your doctor\'s advice if that applies to you.'
 },
 es: {
-  title: 'Generador de etiquetas horarias para botella de agua (imprimible)',
-  metaDesc: 'Crea etiquetas horarias imprimibles para tu propia botella de agua. Escribe el tamaño de la botella, tu meta diaria y tu horario para saber hasta dónde beber a cada hora.',
-  h1: 'Etiquetas horarias para botella',
-  lead: 'Imprime una tira para tu propia botella que te muestra hasta dónde deberías haber bebido a cada hora del día.',
-  units: 'Unidades', bottle: 'Tu botella', size: 'Tamaño de la botella', goal: 'Meta diaria de agua',
-  goalHint: '¿No sabes cuál es tu meta?', goalLink: 'Calcúlala con la calculadora de agua diaria.',
-  day: 'Tu día', start: 'Primer trago', end: 'Último trago', every: 'Marcar cada',
-  m30: '30 minutos', m60: '1 hora', m120: '2 horas', fmt: 'Formato de hora',
-  labelT: 'Etiqueta', length: 'Largo de la etiqueta',
-  lengthHint: 'Mide el lado recto de tu botella, desde la línea de llenado hasta donde empieza a curvarse el fondo.',
-  width: 'Ancho de la etiqueta', wNarrow: 'Angosta (2.5 cm)', wWide: 'Ancha (3.5 cm)', color: 'Color',
-  cTeal: 'Turquesa', cBlue: 'Azul', cGreen: 'Verde', cPink: 'Rosado', cOrange: 'Naranja',
-  sumN: '{n} botellas completan tu meta', sum1: 'Una botella completa tu meta',
-  partial: 'De la última botella solo necesitas una parte. Detente en la línea de meta.',
-  errSize: 'Escribe el tamaño de tu botella y tu meta diaria.',
-  errTime: 'Tu último trago tiene que ser después del primero.',
-  errMany: 'Eso requiere más de 12 botellas. Prueba una botella más grande o revisa tu meta.',
-  errLen: 'La etiqueta debe medir al menos 5 cm (2 in) de largo.',
-  startW: 'Inicio', refillW: 'Rellenar', goalW: 'Meta', labelOf: 'Botella {i} de {n}',
-  calib: 'Esta barra mide 5 cm si se imprime al tamaño correcto.',
-  print: 'Imprimir etiquetas', svg: 'Descargar SVG',
-  printTip: 'Imprime al 100% o "Tamaño real", no "Ajustar a la página". Mide la barra de 5 cm con una regla antes de recortar.',
-  howTitle: 'Cómo usar tus etiquetas',
-  how1: 'Imprime las etiquetas, recórtalas por las líneas punteadas y pega una en tu botella de modo que la línea superior quede en la línea de llenado. Cúbrela con cinta adhesiva transparente, o imprime en papel adhesivo resistente al agua, para que aguante el lavado.',
-  how2: 'Cada vez que rellenes, pasa a la siguiente etiqueta o usa la misma tira y sigue las horas de la siguiente botella. Si te atrasas, bebe solo hasta la próxima marca en lugar de recuperar todo de golpe.',
-  disclaimer: 'Orientación general para adultos sanos, no es consejo médico. Algunas condiciones de salud requieren limitar los líquidos; si es tu caso, sigue las indicaciones de tu médico.'
-}};
+  title: 'Generador de etiquetas horarias para botella de agua (imprimible) | Hidratación', metaDesc: 'Crea etiquetas horarias imprimibles para tu botella. Indica tamaño, meta diaria y horario para saber hasta dónde beber a cada hora.',
+  h1: 'Etiquetas horarias para botella', lead: 'Imprime una tira para tu botella que muestra hasta dónde deberías haber bebido a cada hora del día.',
+  units: 'Unidades', imperialUnits: 'oz / in', unitsAria: 'Unidades de volumen', bottle: 'Tu botella', size: 'Tamaño de la botella', goal: 'Meta diaria de agua', phSize: 'Tamaño en onzas', phGoal: 'Meta diaria en onzas', goalHint: '¿No sabes cuál es tu meta?', goalLink: 'Calcúlala con la calculadora de agua diaria.',
+  day: 'Tu día', start: 'Primer trago', end: 'Último trago', phStart: 'Hora de inicio, por ejemplo 07:00', phEnd: 'Hora final, por ejemplo 21:00', every: 'Marcar cada', m30: '30 minutos', m60: '1 hora', m120: '2 horas', fmt: 'Formato de hora', fmtAria: 'Formato de hora', h12: '12 h', h24: '24 h', labelT: 'Etiqueta', length: 'Largo de la etiqueta', phLen: 'Largo en pulgadas', lengthHint: 'Mide el lado recto de tu botella, desde la línea de llenado hasta donde empieza a curvarse el fondo.',
+  width: 'Ancho de la etiqueta', widthAria: 'Ancho de la etiqueta', wNarrow: 'Angosta (2.5 cm)', wWide: 'Ancha (3.5 cm)', color: 'Color', colorAria: 'Color de la etiqueta', resultAria: 'Etiquetas de botella generadas', cTeal: 'Turquesa', cBlue: 'Azul', cGreen: 'Verde', cPink: 'Rosado', cOrange: 'Naranja', sumN: '{n} botellas completan tu meta', sum1: 'Una botella completa tu meta', partial: 'De la última botella solo necesitas una parte. Detente en la línea de meta.',
+  errSize: 'Escribe el tamaño de tu botella y tu meta diaria.', errTime: 'El último trago debe ser posterior al primero.', errMany: 'Se necesitan más de 12 botellas. Prueba una botella mayor o revisa tu meta.', errLen: 'La etiqueta debe medir al menos 5 cm (2 in) de largo.', startW: 'Inicio', refillW: 'Rellenar', goalW: 'Meta', labelOf: 'Botella {i} de {n}', calib: 'Esta barra mide 5 cm si se imprime al tamaño correcto.', print: 'Imprimir etiquetas', svg: 'Descargar SVG', printTip: 'Imprime al 100 % o "Tamaño real", no "Ajustar a la página". Mide la barra de 5 cm antes de recortar.', themeLight: 'Cambiar al modo claro', themeDark: 'Cambiar al modo oscuro',
+  howTitle: 'Cómo usar tus etiquetas', how1: 'Imprime, recorta por las líneas punteadas y pega una etiqueta con la línea superior en la línea de llenado. Protégela con cinta transparente o papel adhesivo resistente al agua.', how2: 'Cada vez que rellenes, pasa a la siguiente etiqueta o sigue las horas de la siguiente botella. Si te atrasas, bebe solo hasta la próxima marca.', disclaimer: 'Orientación general para adultos sanos; no es consejo médico. Algunas condiciones requieren limitar líquidos: sigue las indicaciones de tu médico.'
+},
+hi: {
+  title: 'वाटर बोतल समय-मार्कर लेबल जनरेटर (प्रिंट योग्य) | हाइड्रेशन टूल्स', metaDesc: 'अपनी पानी की बोतल के लिए प्रिंट योग्य समय-मार्कर लेबल बनाएँ। बोतल का आकार, दैनिक लक्ष्य और समय दर्ज करें।',
+  h1: 'बोतल समय-मार्कर लेबल', lead: 'अपनी बोतल के लिए ऐसी पट्टी प्रिंट करें जो दिन के हर घंटे तक आपको कितना पीना है, यह दिखाए।',
+  units: 'इकाइयाँ', imperialUnits: 'oz / in', unitsAria: 'आयतन की इकाइयाँ', bottle: 'आपकी बोतल', size: 'बोतल का आकार', goal: 'दैनिक पानी का लक्ष्य', phSize: 'ऑयज़ में बोतल का आकार', phGoal: 'ऑयज़ में दैनिक लक्ष्य', goalHint: 'अपना लक्ष्य नहीं जानते?', goalLink: 'दैनिक पानी की गणना वाले टूल से निकालें।',
+  day: 'आपका दिन', start: 'पहला पानी', end: 'अंतिम पानी', phStart: 'आरंभ समय, जैसे 07:00', phEnd: 'समाप्ति समय, जैसे 21:00', every: 'हर इतने समय पर निशान', m30: '30 मिनट', m60: '1 घंटा', m120: '2 घंटे', fmt: 'समय प्रारूप', fmtAria: 'समय प्रारूप', h12: '12 घं.', h24: '24 घं.', labelT: 'लेबल', length: 'लेबल की लंबाई', phLen: 'इंच में लंबाई', lengthHint: 'बोतल का सीधा हिस्सा मापें, भरने की रेखा से लेकर उस स्थान तक जहाँ तला मुड़ना शुरू होता है।',
+  width: 'लेबल की चौड़ाई', widthAria: 'लेबल की चौड़ाई', wNarrow: 'संकीर्ण (2.5 सेमी)', wWide: 'चौड़ा (3.5 सेमी)', color: 'रंग', colorAria: 'लेबल का रंग', resultAria: 'बनाए गए बोतल लेबल', cTeal: 'पीतल-हरा', cBlue: 'नीला', cGreen: 'हरा', cPink: 'गुलाबी', cOrange: 'नारंगी', sumN: '{n} बोतलें आपके लक्ष्य तक पहुँचती हैं', sum1: 'एक बोतल आपके लक्ष्य तक पहुँचती है', partial: 'अंतिम बोतल का केवल एक भाग चाहिए। लक्ष्य रेखा पर रुकें।',
+  errSize: 'बोतल का आकार और दैनिक लक्ष्य दर्ज करें।', errTime: 'अंतिम पानी का समय पहले पानी के बाद होना चाहिए।', errMany: 'इसके लिए 12 से अधिक बोतलें चाहिए। बड़ी बोतल आज़माएँ या लक्ष्य जाँचें।', errLen: 'लेबल कम से कम 5 सेमी (2 इंच) लंबा हो।', startW: 'शुरुआत', refillW: 'फिर से भरें', goalW: 'लक्ष्य', labelOf: 'बोतल {i} / {n}', calib: 'सही आकार में छपने पर यह पट्टी 5 सेमी लंबी है।', print: 'लेबल प्रिंट करें', svg: 'SVG डाउनलोड करें', printTip: '100% या "वास्तविक आकार" पर प्रिंट करें, "पेज में फिट" पर नहीं। काटने से पहले 5 सेमी पट्टी मापें।', themeLight: 'हल्के रंग पर जाएँ', themeDark: 'गहरे रंग पर जाएँ',
+  howTitle: 'अपने लेबल कैसे इस्तेमाल करें', how1: 'लेबल छापें, बिंदुदार रेखाओं से काटें और ऊपरी रेखा भरने की रेखा पर रहते हुए बोतल पर लगाएँ। पानी से बचाने के लिए पारदर्शी टेप या वॉटरप्रूफ स्टिकर लगाएँ।', how2: 'हर बार पानी भरने पर अगला लेबल लगाएँ या उसी पट्टी पर अगली बोतल के समय देखें। पीछे रहे हों तो एक बार में सब न भरें; अगले निशान तक पिएँ।', disclaimer: 'स्वस्थ वयस्कों के लिए सामान्य मार्गदर्शन, चिकित्सा सलाह नहीं। कुछ स्थितियों में तरल सीमित करें; ऐसी स्थिति में डॉक्टर की सलाह मानें।'
+},
+ar: {
+  title: 'منشئ ملصقات الوقت لزجاجة الماء (قابل للطباعة) | أدوات الترطيب', metaDesc: 'أنشئ ملصقات وقت قابلة للطباعة لزجاجة الماء. أدخل حجم الزجاجة والهدف اليومي وساعات اليوم لمعرفة مقدار الشرب في كل ساعة.',
+  h1: 'ملصقات وقت الزجاجة', lead: 'اطبع شريطاً لزجاجتك يوضح مقدار ما ينبغي أن تكون قد شربته في كل ساعة من اليوم.',
+  units: 'الوحدات', imperialUnits: 'أونصة / بوصة', unitsAria: 'وحدات الحجم', bottle: 'زجاجتك', size: 'حجم الزجاجة', goal: 'هدف الماء اليومي', phSize: 'حجم الزجاجة بالأونصة', phGoal: 'الهدف اليومي بالأونصة', goalHint: 'لست متأكداً من هدفك؟', goalLink: 'احسبه بحاسبة استهلاك الماء اليومي.',
+  day: 'يومك', start: 'أول شرب', end: 'آخر شرب', phStart: 'وقت البداية، مثل 07:00', phEnd: 'وقت النهاية، مثل 21:00', every: 'ضع علامة كل', m30: '30 دقيقة', m60: 'ساعة', m120: 'ساعتان', fmt: 'تنسيق الوقت', fmtAria: 'تنسيق الوقت', h12: '12 س', h24: '24 س', labelT: 'الملصق', length: 'طول الملصق', phLen: 'الطول بالبوصة', lengthHint: 'قِس الجزء المستقيم من الزجاجة من خط الامتلاء حتى النقطة التي يبدأ فيها القاع بالانحناء.',
+  width: 'عرض الملصق', widthAria: 'عرض الملصق', wNarrow: 'ضيق (2.5 سم)', wWide: 'عريض (3.5 سم)', color: 'اللون', colorAria: 'لون الملصق', resultAria: 'ملصقات الزجاجات المنشأة', cTeal: 'أزرق مخضر', cBlue: 'أزرق', cGreen: 'أخضر', cPink: 'وردي', cOrange: 'برتقالي', sumN: '{n} زجاجات تبلغ هدفك', sum1: 'زجاجة واحدة تبلغ هدفك', partial: 'تحتاج فقط إلى جزء من الزجاجة الأخيرة. توقف عند خط الهدف.',
+  errSize: 'أدخل حجم الزجاجة والهدف اليومي.', errTime: 'يجب أن يكون وقت آخر شرب بعد وقت أول شرب.', errMany: 'هذا يحتاج إلى أكثر من 12 زجاجة. جرّب زجاجة أكبر أو راجع هدفك.', errLen: 'اجعل الملصق طوله 5 سم (2 بوصة) على الأقل.', startW: 'البداية', refillW: 'إعادة تعبئة', goalW: 'الهدف', labelOf: 'زجاجة {i} من {n}', calib: 'يبلغ طول هذا الشريط 5 سم عند الطباعة بالحجم الصحيح.', print: 'طباعة الملصقات', svg: 'تنزيل SVG', printTip: 'اطبع بحجم 100% أو "الحجم الفعلي"، لا "ملاءمة الصفحة". تحقق من شريط 5 سم بالمسطرة قبل القص.', themeLight: 'التبديل إلى الوضع الفاتح', themeDark: 'التبديل إلى الوضع الداكن',
+  howTitle: 'كيف تستخدم ملصقاتك', how1: 'اطبع الملصقات وقطعها على الخطوط المتقطعة والصق واحدة على الزجاجة بحيث يستقر الخط العلوي عند خط الامتلاء. غطها بشريط شفاف أو اطبعها على ورق ملصقات مقاوم للماء.', how2: 'عند كل إعادة تعبئة، انتقل إلى الملصق التالي أو اتبع أوقات الزجاجة التالية على الشريط نفسه. إذا تأخرت، اشرب حتى العلامة التالية ولا تحاول اللحاق دفعة واحدة.', disclaimer: 'إرشادات عامة للبالغين الأصحاء وليست نصيحة طبية. قد تتطلب بعض الحالات الصحية الحد من السوائل؛ اتبع نصيحة طبيبك عندئذ.'
+},
+fr: {
+  title: 'Générateur d’étiquettes horaires pour bouteille (imprimable) | Hydratation', metaDesc: 'Créez des étiquettes horaires imprimables pour votre bouteille. Indiquez la contenance, l’objectif quotidien et les heures pour savoir jusqu’où boire.',
+  h1: 'Étiquettes horaires pour bouteille', lead: 'Imprimez une bande pour votre bouteille indiquant jusqu’où vous devez avoir bu à chaque heure de la journée.',
+  units: 'Unités', imperialUnits: 'oz / in', unitsAria: 'Unités de volume', bottle: 'Votre bouteille', size: 'Contenance de la bouteille', goal: 'Objectif quotidien d’eau', phSize: 'Contenance en onces', phGoal: 'Objectif quotidien en onces', goalHint: 'Vous ne connaissez pas votre objectif ?', goalLink: 'Calculez-le avec le calculateur d’apport quotidien.',
+  day: 'Votre journée', start: 'Première boisson', end: 'Dernière boisson', phStart: 'Heure de début, par exemple 07:00', phEnd: 'Heure de fin, par exemple 21:00', every: 'Marquer toutes les', m30: '30 minutes', m60: '1 heure', m120: '2 heures', fmt: 'Format de l’heure', fmtAria: 'Format de l’heure', h12: '12 h', h24: '24 h', labelT: 'Étiquette', length: 'Longueur de l’étiquette', phLen: 'Longueur en pouces', lengthHint: 'Mesurez la partie droite de la bouteille, depuis la ligne de remplissage jusqu’où le fond commence à s’arrondir.',
+  width: 'Largeur de l’étiquette', widthAria: 'Largeur de l’étiquette', wNarrow: 'Étroite (2,5 cm)', wWide: 'Large (3,5 cm)', color: 'Couleur', colorAria: 'Couleur de l’étiquette', resultAria: 'Étiquettes de bouteille générées', cTeal: 'Turquoise', cBlue: 'Bleu', cGreen: 'Vert', cPink: 'Rose', cOrange: 'Orange', sumN: '{n} bouteilles permettent d’atteindre votre objectif', sum1: 'Une bouteille permet d’atteindre votre objectif', partial: 'Vous n’avez besoin que d’une partie de la dernière bouteille. Arrêtez-vous à la ligne d’objectif.',
+  errSize: 'Saisissez la contenance de la bouteille et votre objectif quotidien.', errTime: 'La dernière boisson doit être postérieure à la première.', errMany: 'Il faudrait plus de 12 bouteilles. Essayez une plus grande bouteille ou vérifiez votre objectif.', errLen: 'L’étiquette doit mesurer au moins 5 cm (2 po).', startW: 'Début', refillW: 'Remplir', goalW: 'Objectif', labelOf: 'Bouteille {i} sur {n}', calib: 'Cette barre mesure 5 cm lorsqu’elle est imprimée à la bonne taille.', print: 'Imprimer les étiquettes', svg: 'Télécharger le SVG', printTip: 'Imprimez à 100 % ou en « taille réelle », pas à « ajuster à la page ». Vérifiez la barre de 5 cm avec une règle avant de découper.', themeLight: 'Passer au mode clair', themeDark: 'Passer au mode sombre',
+  howTitle: 'Mode d’emploi des étiquettes', how1: 'Imprimez, découpez suivant les pointillés et collez une étiquette avec sa ligne supérieure au niveau du remplissage. Protégez-la avec du ruban transparent ou imprimez-la sur du papier autocollant résistant à l’eau.', how2: 'À chaque remplissage, passez à l’étiquette suivante ou suivez les heures de la bouteille suivante. Si vous êtes en retard, buvez jusqu’au repère suivant sans tout rattraper d’un coup.', disclaimer: 'Conseils généraux pour les adultes en bonne santé, sans valeur de conseil médical. Certaines pathologies nécessitent de limiter les liquides : suivez alors les conseils de votre médecin.'
+},
+de: {
+  title: 'Zeitmarken-Etiketten für Wasserflaschen (druckbar) | Trinktools', metaDesc: 'Erstellen Sie druckbare Zeitmarken-Etiketten für Ihre Wasserflasche. Geben Sie Flaschengröße, Tagesziel und Stunden ein, um den Fortschritt zu planen.',
+  h1: 'Zeitmarken für Wasserflaschen', lead: 'Drucken Sie einen Streifen für Ihre Flasche, der zeigt, wie weit Sie zu jeder Tageszeit trinken sollten.',
+  units: 'Einheiten', imperialUnits: 'oz / in', unitsAria: 'Volumeneinheiten', bottle: 'Ihre Flasche', size: 'Flaschengröße', goal: 'Tägliches Wasserziel', phSize: 'Flaschengröße in Unzen', phGoal: 'Tagesziel in Unzen', goalHint: 'Ihr Ziel ist unklar?', goalLink: 'Berechnen Sie es mit dem Rechner für die tägliche Wasseraufnahme.',
+  day: 'Ihr Tag', start: 'Erstes Getränk', end: 'Letztes Getränk', phStart: 'Startzeit, zum Beispiel 07:00', phEnd: 'Endzeit, zum Beispiel 21:00', every: 'Markierung alle', m30: '30 Minuten', m60: '1 Stunde', m120: '2 Stunden', fmt: 'Zeitformat', fmtAria: 'Zeitformat', h12: '12 Std.', h24: '24 Std.', labelT: 'Etikett', length: 'Etikettenlänge', phLen: 'Länge in Zoll', lengthHint: 'Messen Sie die gerade Flaschenseite von der Fülllinie bis zum Beginn des gebogenen Bodens.',
+  width: 'Etikettenbreite', widthAria: 'Etikettenbreite', wNarrow: 'Schmal (2,5 cm)', wWide: 'Breit (3,5 cm)', color: 'Farbe', colorAria: 'Etikettenfarbe', resultAria: 'Erzeugte Flaschenetiketten', cTeal: 'Petrol', cBlue: 'Blau', cGreen: 'Grün', cPink: 'Rosa', cOrange: 'Orange', sumN: '{n} Flaschen erreichen Ihr Ziel', sum1: 'Eine Flasche erreicht Ihr Ziel', partial: 'Sie benötigen nur einen Teil der letzten Flasche. Stoppen Sie an der Ziellinie.',
+  errSize: 'Geben Sie Flaschengröße und Tagesziel ein.', errTime: 'Das letzte Getränk muss nach dem ersten liegen.', errMany: 'Dafür wären mehr als 12 Flaschen nötig. Verwenden Sie eine größere Flasche oder prüfen Sie Ihr Ziel.', errLen: 'Das Etikett muss mindestens 5 cm (2 Zoll) lang sein.', startW: 'Start', refillW: 'Auffüllen', goalW: 'Ziel', labelOf: 'Flasche {i} von {n}', calib: 'Dieser Balken ist bei richtiger Druckgröße 5 cm lang.', print: 'Etiketten drucken', svg: 'SVG herunterladen', printTip: 'Mit 100 % oder „Tatsächliche Größe“ drucken, nicht „An Seite anpassen“. Prüfen Sie den 5-cm-Balken vor dem Ausschneiden mit einem Lineal.', themeLight: 'Zum hellen Modus wechseln', themeDark: 'Zum dunklen Modus wechseln',
+  howTitle: 'Etiketten verwenden', how1: 'Drucken Sie die Etiketten, schneiden Sie an den gestrichelten Linien und bringen Sie eines so an, dass die obere Linie auf der Fülllinie liegt. Schützen Sie es mit klarem Klebeband oder wasserfestem Etikettenpapier.', how2: 'Gehen Sie nach jedem Auffüllen zum nächsten Etikett oder folgen Sie auf demselben Streifen den Zeiten der nächsten Flasche. Wenn Sie zurückliegen, trinken Sie bis zur nächsten Markierung, statt alles auf einmal nachzuholen.', disclaimer: 'Allgemeine Orientierung für gesunde Erwachsene, keine medizinische Beratung. Bei einigen Erkrankungen muss die Flüssigkeitszufuhr begrenzt werden; folgen Sie dann dem Rat Ihres Arztes.'
+},
+'pt-PT': {
+  title: 'Gerador de etiquetas horárias para garrafa (imprimível) | Hidratação', metaDesc: 'Crie etiquetas horárias imprimíveis para a sua garrafa. Indique a capacidade, a meta diária e as horas para saber até onde beber.',
+  h1: 'Etiquetas horárias para garrafa', lead: 'Imprima uma faixa para a sua garrafa que mostra até onde deve ter bebido a cada hora do dia.',
+  units: 'Unidades', imperialUnits: 'oz / in', unitsAria: 'Unidades de volume', bottle: 'A sua garrafa', size: 'Capacidade da garrafa', goal: 'Meta diária de água', phSize: 'Capacidade em onças', phGoal: 'Meta diária em onças', goalHint: 'Não sabe a sua meta?', goalLink: 'Calcule-a com a calculadora de ingestão diária de água.',
+  day: 'O seu dia', start: 'Primeira bebida', end: 'Última bebida', phStart: 'Hora de início, por exemplo 07:00', phEnd: 'Hora de fim, por exemplo 21:00', every: 'Marcar a cada', m30: '30 minutos', m60: '1 hora', m120: '2 horas', fmt: 'Formato da hora', fmtAria: 'Formato da hora', h12: '12 h', h24: '24 h', labelT: 'Etiqueta', length: 'Comprimento da etiqueta', phLen: 'Comprimento em polegadas', lengthHint: 'Meça o lado reto da garrafa, desde a linha de enchimento até onde o fundo começa a curvar.',
+  width: 'Largura da etiqueta', widthAria: 'Largura da etiqueta', wNarrow: 'Estreita (2,5 cm)', wWide: 'Larga (3,5 cm)', color: 'Cor', colorAria: 'Cor da etiqueta', resultAria: 'Etiquetas de garrafa geradas', cTeal: 'Turquesa', cBlue: 'Azul', cGreen: 'Verde', cPink: 'Rosa', cOrange: 'Laranja', sumN: '{n} garrafas atingem a sua meta', sum1: 'Uma garrafa atinge a sua meta', partial: 'Só precisa de parte da última garrafa. Pare na linha da meta.',
+  errSize: 'Introduza a capacidade da garrafa e a meta diária.', errTime: 'A última bebida tem de ser posterior à primeira.', errMany: 'Seria necessário mais de 12 garrafas. Experimente uma garrafa maior ou reveja a meta.', errLen: 'A etiqueta deve ter pelo menos 5 cm (2 pol.) de comprimento.', startW: 'Início', refillW: 'Reencher', goalW: 'Meta', labelOf: 'Garrafa {i} de {n}', calib: 'Esta barra mede 5 cm quando impressa ao tamanho correto.', print: 'Imprimir etiquetas', svg: 'Transferir SVG', printTip: 'Imprima a 100 % ou em "Tamanho real", não "Ajustar à página". Verifique a barra de 5 cm com uma régua antes de cortar.', themeLight: 'Mudar para o modo claro', themeDark: 'Mudar para o modo escuro',
+  howTitle: 'Como usar as etiquetas', how1: 'Imprima, corte pelas linhas tracejadas e cole uma etiqueta com a linha superior no nível do enchimento. Proteja-a com fita transparente ou papel autocolante resistente à água.', how2: 'De cada vez que reabastecer, passe à etiqueta seguinte ou siga os horários da próxima garrafa no mesmo separador. Se ficar atrasado, beba até à marca seguinte em vez de recuperar tudo de uma vez.', disclaimer: 'Orientação geral para adultos saudáveis; não é aconselhamento médico. Algumas doenças exigem limitar líquidos: nesse caso, siga o conselho do seu médico.'
+},
+'pt-BR': {
+  title: 'Gerador de etiquetas de horário para garrafa (impressível) | Hidratação', metaDesc: 'Crie etiquetas de horário imprimíveis para sua garrafa. Informe o tamanho, a meta diária e os horários para saber até onde beber.',
+  h1: 'Etiquetas de horário para garrafa', lead: 'Imprima uma faixa para sua garrafa mostrando até onde você deve ter bebido a cada hora do dia.',
+  units: 'Unidades', imperialUnits: 'oz / in', unitsAria: 'Unidades de volume', bottle: 'Sua garrafa', size: 'Tamanho da garrafa', goal: 'Meta diária de água', phSize: 'Tamanho em onças', phGoal: 'Meta diária em onças', goalHint: 'Não sabe sua meta?', goalLink: 'Calcule com a calculadora de ingestão diária de água.',
+  day: 'Seu dia', start: 'Primeira bebida', end: 'Última bebida', phStart: 'Horário inicial, por exemplo 07:00', phEnd: 'Horário final, por exemplo 21:00', every: 'Marcar a cada', m30: '30 minutos', m60: '1 hora', m120: '2 horas', fmt: 'Formato de hora', fmtAria: 'Formato de hora', h12: '12 h', h24: '24 h', labelT: 'Etiqueta', length: 'Comprimento da etiqueta', phLen: 'Comprimento em polegadas', lengthHint: 'Meça a parte reta da garrafa, da linha de enchimento até onde o fundo começa a curvar.',
+  width: 'Largura da etiqueta', widthAria: 'Largura da etiqueta', wNarrow: 'Estreita (2,5 cm)', wWide: 'Larga (3,5 cm)', color: 'Cor', colorAria: 'Cor da etiqueta', resultAria: 'Etiquetas de garrafa geradas', cTeal: 'Turquesa', cBlue: 'Azul', cGreen: 'Verde', cPink: 'Rosa', cOrange: 'Laranja', sumN: '{n} garrafas alcançam sua meta', sum1: 'Uma garrafa alcança sua meta', partial: 'Você só precisa de parte da última garrafa. Pare na linha da meta.',
+  errSize: 'Informe o tamanho da garrafa e a meta diária.', errTime: 'A última bebida precisa ser depois da primeira.', errMany: 'Isso exigiria mais de 12 garrafas. Experimente uma garrafa maior ou revise sua meta.', errLen: 'A etiqueta precisa ter pelo menos 5 cm (2 pol.) de comprimento.', startW: 'Início', refillW: 'Reencher', goalW: 'Meta', labelOf: 'Garrafa {i} de {n}', calib: 'Esta barra mede 5 cm quando impressa no tamanho correto.', print: 'Imprimir etiquetas', svg: 'Baixar SVG', printTip: 'Imprima em 100% ou "Tamanho real", não "Ajustar à página". Confira a barra de 5 cm com uma régua antes de cortar.', themeLight: 'Mudar para o modo claro', themeDark: 'Mudar para o modo escuro',
+  howTitle: 'Como usar suas etiquetas', how1: 'Imprima, corte nas linhas tracejadas e cole uma etiqueta com a linha superior no nível do enchimento. Proteja com fita transparente ou papel adesivo resistente à água.', how2: 'A cada reabastecimento, passe para a próxima etiqueta ou siga os horários da próxima garrafa na mesma faixa. Se ficar atrás, beba até a marca seguinte em vez de recuperar tudo de uma vez.', disclaimer: 'Orientação geral para adultos saudáveis; não é aconselhamento médico. Algumas condições exigem limitar líquidos; nesse caso, siga a orientação do seu médico.'
+}
+};
 
 const L_TO_OZ = 33.8140, IN = 2.54;
 const COLORS = [['#0A7389', 'cTeal'], ['#2F5DA8', 'cBlue'], ['#2E7D4F', 'cGreen'], ['#B8407A', 'cPink'], ['#C06A0A', 'cOrange']];
@@ -516,5 +560,5 @@ Common.init(D, () => {
 });
 })();
 </script>
-<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});paint();})();</script></body>
+<script>(function(){var b=document.getElementById("themeBtn");if(!b)return;function cur(){var t=document.documentElement.getAttribute("data-theme");return t||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}function paint(){var d=cur()==="dark";b.innerHTML=d?"&#9728;":"&#9790;";var k=d?"themeLight":"themeDark",v=Common.t(k);b.setAttribute("aria-label",v);b.setAttribute("title",v);}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("ph-theme",n);}catch(e){}paint();});document.addEventListener("i18nchange",paint);paint();})();</script></body>
 </html>
